@@ -98,23 +98,42 @@ export const GET_EMPLOYEES = gql`
         totalItems
         totalPages
       }
-      data {
+      employee{
         id
         firstName
-        lastName
-        currentContract
-        damId
+    		lastName
         address
+        email
+        gender
+        joinedDate
+        dateOfBirth
         phoneNumber
+        currentContract
+        profileBio
+        facebookLink
+        twitterLink
+        linkedinLink
+        instagramLink
         department {
           id
           departmentName
         }
-        email
-        position {
+        position{
+          id
           positionName
         }
+        jobLevel{
+          jobLevelName
+        }
         status
+        leftDate
+      }
+      imageUrl
+      emergencyContacts {
+        id
+        firstName
+        lastName
+        phoneNumber
       }
     }
   }

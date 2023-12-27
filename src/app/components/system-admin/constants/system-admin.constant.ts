@@ -37,7 +37,6 @@ export const GET_USERS = gql`
     users(search: $search, roles: $roles, pageNo: $pageNo, status: $status) {
       data {
         userId
-        name
         userName
         createdAt
         status
