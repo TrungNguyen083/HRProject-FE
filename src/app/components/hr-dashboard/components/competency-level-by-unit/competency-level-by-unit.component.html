@@ -1,0 +1,44 @@
+<div class="card-container by-unit-container h-full">
+    <div class="flex justify-between">
+        <div>
+            <p class="card-title">Competency Level (AVG)</p>
+            <p class="text-sm">by Unit</p>
+        </div>
+
+        <div>
+            <p-button icon="pi pi-filter" iconPos="right" (click)="op.toggle($event)" label="Filter"></p-button>
+            <p-overlayPanel #op>
+                <ng-template pTemplate="content">
+                    <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="flex flex-col gap-2">
+                        <h4>Filter Options</h4>
+
+                        <div class="mt-2">
+                            <p>Unit</p>
+                            <div class="flex flex-col gap-2 mt-2">
+                                <div *ngFor="let department of departmentOptions" class="flex items-center">
+                                    <p-radioButton name="departmentId" [value]="department.value"
+                                        [inputId]="department.label" formControlName="departmentId"></p-radioButton>
+                                    <label [for]="department.label" class="ml-2">{{department.label}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <p>Period</p>
+                            <p-multiSelect formControlName="competencyCyclesId" [options]="cycleOptions"
+                                [showHeader]="false" styleClass="w-full" [maxSelectedLabels]="2"></p-multiSelect>
+
+                        </div>
+                        <div class="w-full flex justify-end">
+                            <p-button styleClass="p-button-link" label="Cancel" (onClick)="op.hide()"></p-button>
+                            <p-button label="Save" type="submit" (onClick)="onFilter()"></p-button>
+                        </div>
+                    </form>
+                </ng-template>
+            </p-overlayPanel>
+        </div>
+    </div>
+    <div>
+        <hrms-chart type="radar" [data]="data" [options]="options"></hrms-chart>
+    </div>
+</div>

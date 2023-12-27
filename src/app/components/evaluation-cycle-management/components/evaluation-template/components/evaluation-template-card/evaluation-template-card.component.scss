@@ -1,0 +1,17 @@
+:host ::ng-deep {
+    .p-button.p-button-text {
+        @apply text-primary hover:text-primary;
+        background-color: #f4fafaff;
+        &.delete-icon {
+            @apply text-danger;
+            background-color: #fdf1f1ff;
+        }
+    }
+    .p-button.p-button-text:enabled:active{
+        @apply text-primary bg-primaryLight;
+    }
+    .p-button.p-button-text.delete-icon:enabled:active {
+        @apply text-danger;
+        background-color: #fdf1f1ff;
+    }
+}

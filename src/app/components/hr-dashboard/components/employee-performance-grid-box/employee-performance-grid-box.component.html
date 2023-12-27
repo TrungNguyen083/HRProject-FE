@@ -1,0 +1,17 @@
+<div class="card-container employee-performance-container">
+    <div class="flex justify-between">
+        <div>
+            <p class="card-title">Employee Performance and Potential</p>
+        </div>
+        <dashboard-department-filter [filterType]="'dropdown'"
+            (handleSelectItem)="onSelectDepartment($event)"
+        ></dashboard-department-filter>
+    </div>
+    <div class="chart-container md:w-full lg:w-11/12">
+        <hrms-chart type="scatter" 
+            [data]="basicData" 
+            [options]="basicOptions"
+            [plugins]="plugins"
+        ></hrms-chart>
+    </div>
+</div>

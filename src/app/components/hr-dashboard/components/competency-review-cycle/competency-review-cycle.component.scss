@@ -1,0 +1,12 @@
+:host ::ng-deep {
+    .completion-percentage {
+        @apply absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+        top: 56%;
+    }
+
+    .completion-status {
+        @apply absolute left-1/2 transform -translate-x-1/2;
+        width: 10rem;
+        top: -1.5rem;
+    }
+}

@@ -1,0 +1,58 @@
+<div class="md:flex md:flex-col md:mb-0 lg:grid lg:grid-cols-12 gap-2">
+    <div class="card-container col-span-2 h-full">
+        <div class="font-bold text-xl pb-4">
+            View
+        </div>
+        <div class="flex flex-col gap-4 pt-4">
+            <ng-container *ngFor="let col of cols">
+                <div *ngIf="col.togglable" class="flex align-items-center gap-1">
+                    <p-checkbox [name]="col.field" [value]="col" [(ngModel)]="selectedColumns"
+                        [inputId]="col.field"></p-checkbox>
+                    <label [for]="col.field">{{col.toggleText}}</label>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="card-container col-span-10 flex flex-col gap-2">
+        <p class="font-bold text-primary text-xl">Skills Matrix</p>
+        <div class="flex gap-2 mt-2">
+            <span class="font-bold">Manager:</span>
+            <span>Jacob Martinex</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="font-bold">Status:</span>
+            <span>Agreed</span>
+        </div>
+        <div>
+            <p-treeTable [value]="competencies" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}"
+                styleClass="p-treetable-sm" [columns]="selectedColumns" columnResizeMode="expand">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width: 300px;">
+                            <div class="flex gap-1">
+                                <p-button (onClick)="expandAllNodes()" icon="pi pi-folder-open" label="Open all"
+                                    styleClass="p-button-outlined"></p-button>
+                                <p-button (onClick)="collapseAllNodes()" icon="pi pi-folder" label="Close all"
+                                    styleClass="p-button-outlined"></p-button>
+                            </div>
+                        </th>
+                        <th *ngFor="let col of columns">
+                            {{ col.header }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-columns="columns" let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+                        <td style="width: 300px;">
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            {{ rowData.name }}
+                        </td>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field] | number: '1.0-1'}}{{col.suffix}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+        </div>
+    </div>
+</div>

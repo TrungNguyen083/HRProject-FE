@@ -1,0 +1,39 @@
+<div class="card-container flex flex-col gap-2">
+    <div class="flex justify-between items-start">
+        <p class="card-title">Career path</p>
+        <p-button icon="pi pi-cog" label="Set up your career path" styleClass="p-button-outlined"></p-button>
+    </div>
+    <div class="flex items-center md:flex-col lg:flex-row">
+        <div *ngFor="let event of events; let i=index" class="w-96 flex items-center career-path-item md:flex-col lg:flex-row"
+            [class.flex-1]="i !== events.length-1">
+            <div class="flex career-path-card">
+                <div class="w-4 bg-primary rounded-tl-xl rounded-bl-xl" [class.current-role-tag]="event.isMatched">
+                    <div *ngIf="event.isMatched">
+                        <i class="pi pi-verified font-bold text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-3 rounded-tr-xl rounded-br-xl border-2 border-l-0 w-full">
+                    <div class="w-full font-bold">
+                        {{event.title}}
+                    </div>
+                    <div *ngIf="!event.isMatched" class="text-sm font-bold {{event.match > 50 ? 'match-close' : 'text-danger'}}">
+                        {{event.match}}% match
+                    </div>
+                    <div *ngIf="event.isMatched" class="text-sm text-gray-400 font-bold">
+                        Current Role
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="i !== events.length-1" class="separator relative">
+                <div class="career-path-arrow">
+                    <i class="pi pi-angle-right"></i>
+                </div>
+            </div>
+            <div *ngIf="i !== events.length-1" class="vertical-separator relative hidden">
+                <div class="career-path-arrow">
+                    <i class="pi pi-angle-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

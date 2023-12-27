@@ -1,0 +1,23 @@
+<ng-container [ngSwitch]="type">
+    <ng-container
+      *ngSwitchCase="'heatmap'"
+      [ngTemplateOutlet]="heatmap"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="defaultChart"></ng-container>
+</ng-container>
+
+<ng-template #defaultChart>
+    <p-chart #chartJS class="flex-1" [type]="type" [data]="data" [options]="options" [plugins]="plugins"
+        (onDataSelect)="onDataSelect($event)" [width]="width" [height]="height">
+    </p-chart>
+</ng-template>
+
+<ng-template #heatmap>
+  <apx-chart 
+    [series]="apexOptions.series" 
+    [chart]="apexOptions.chart" 
+    [dataLabels]="apexOptions.dataLabels"
+    [colors]="apexOptions.colors" 
+    [plotOptions]="apexOptions.plotOptions" 
+    [grid]="apexOptions.grid"></apx-chart>
+</ng-template>

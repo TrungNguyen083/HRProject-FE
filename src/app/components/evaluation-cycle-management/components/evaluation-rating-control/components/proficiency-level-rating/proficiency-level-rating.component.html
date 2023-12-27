@@ -1,0 +1,21 @@
+<div>
+    <p class="font-bold text-lg">Proficiency Level</p>
+    <div class="mt-4">
+        <hrms-table
+            [table]="table"
+            [contentRef]="contentRef"
+            >
+            <ng-template #contentRef let-rowData>
+                <tr>
+                    <td>{{rowData.rating}}</td>
+                    <td>{{rowData.label}}</td>
+                    <td>{{rowData.description}}</td>
+                    <td class="flex gap-2">
+                        <p-button styleClass="p-button-text" icon="pi pi-pencil"></p-button>
+                        <p-button styleClass="p-button-text" icon="pi pi-trash"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </hrms-table>
+    </div>
+</div>

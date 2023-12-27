@@ -1,0 +1,286 @@
+<form *ngIf="employeeDetail$ | async as employee" [formGroup]="profileForm" (ngSubmit)="onUpdateEmployee()">
+    <div class="flex gap-2 lg:p-4 md:p-0">
+        <div class="left lg:w-3/12 md:w-5/12">
+            <div class="w-full rounded overflow-hidden shadow-md bg-white">
+                <div class="background-cover-img relative">
+                    <img class="w-full h-44" style="object-fit: cover;" src="assets/images/employee-profile-background.jpeg" alt="Sunset in the mountains">
+                    <div class="profile-img relative">
+                        <div *ngIf="!tempImg" class="profile-image-container">
+                            <img *ngIf="employee.damId; else defaultImage"
+                                style="background: #CDE9EAFF; border-radius: 60px; height: 120px; object-fit: cover;"
+                                class="w-full" [src]="prependImage(employee.id)" alt="" />
+
+                            <ng-template #defaultImage>
+                                <img style="background: #CDE9EAFF; border-radius: 60px;" class="w-full"
+                                    [src]="defaultImg" alt="" />
+                            </ng-template>
+                        </div>
+                        <p-avatar *ngIf="tempImg" [image]="tempImg" shape="circle" size="xlarge"></p-avatar>
+                        <p-fileUpload #fileUpload *ngIf="isEditOn" mode="basic" chooseIcon="pi pi-pencil"
+                            (onSelect)="onUpload($event.currentFiles[0])" [auto]="true"></p-fileUpload>
+                    </div>
+                </div>
+                <div class="p-4 mt-16 pt-1">
+                    <div class="font-bold text-xl text-center">{{employee.firstName}} {{employee.lastName}}</div>
+                    <p class="text-center">
+                       {{employee.positionLevel?.jobLevel?.jobLevelName}} {{employee.positionLevel?.position?.positionName}}
+                    </p>
+                    <div>
+                        <p *ngIf="!isEditOn; else bioInput" class="text-gray-700 text-base text-center">
+                            {{employee.profileBio}}
+                        </p>
+                        <ng-template #bioInput>
+                            <textarea class="w-full" rows="5" cols="30" pInputTextarea
+                                formControlName="profileBio"></textarea>
+                        </ng-template>
+                    </div>
+                    <div class="social-icons mt-4 flex justify-center gap-4">
+                        <a *ngIf="employee.twitterLink" [href]="employee.twitterLink" target="_blank"><i
+                                class="pi pi-twitter"></i></a>
+                        <a *ngIf="employee.linkedinLink" [href]="employee.linkedinLink" target="_blank"><i
+                                class="pi pi-linkedin"></i></a>
+                        <a *ngIf="employee.facebookLink" [href]="employee.facebookLink" target="_blank"><i
+                                class="pi pi-facebook"></i></a>
+                        <a *ngIf="employee.instagramLink" [href]="employee.instagramLink" target="_blank"><i
+                                class="pi pi-github"></i></a>
+                    </div>
+                </div>
+                <div *ngIf="employee.department" class="p-4 pt-0">
+                    <div class="flex gap-4 justify-between items-center">
+                        <p class="label">Reporting to</p>
+                        <p>{{employee.department.sum.firstName}} {{employee.department.sum.lastName}}</p>
+                        <!-- <ng-template #managerSelect>
+                            <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="reportTo"
+                                [options]="managerOptions" optionLabel="label"></p-dropdown>
+                        </ng-template> -->
+                    </div>
+                    <div *ngIf="employee.employeeSkills.length" class="flex gap-2 justify-between items-start mt-2">
+                        <h1 class="text-md mb-1 mt-1 font-bold">Skills</h1>
+                        <div class="text-right">
+                            <span *ngFor="let employeeSkill of employee.employeeSkills"
+                                class="skill-tag inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 ml-1 mt-1">{{employeeSkill.skill.skillName}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right lg:w-9/12 md:w-6/12 flex-1">
+            <div class="card-container h-full">
+                <div class="employee-detail">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-xl font-bold">Employee Detail</h1>
+                        <p-button *ngIf="!isEditOn; else groupButtons" (click)="openEdit()" icon="pi pi-pencil"
+                            styleClass="p-button-link"> </p-button>
+                        <ng-template #groupButtons>
+                            <div>
+                                <p-button (click)="closeEdit()" styleClass="p-button-link" label="Cancel"> </p-button>
+                                <p-button [loading]="isLoading" type="submit" label="Save" icon="pi pi-save"
+                                    [disabled]="profileForm.invalid">
+                                </p-button>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5 justify-between mt-3">
+                        <div class="info-field">
+                            <p class="label">First Name</p>
+                            <p *ngIf="!isEditOn; else firstNameInput">{{employee.firstName}}</p>
+                            <ng-template #firstNameInput><input formControlName="firstName" type="text"
+                                    pInputText /></ng-template>
+                        </div>
+                        <div class="info-field">
+                            <p class="label">Last Name</p>
+                            <p *ngIf="!isEditOn; else lastNameInput">{{employee.lastName}}</p>
+                            <ng-template #lastNameInput><input formControlName="lastName" type="text"
+                                    pInputText /></ng-template>
+                        </div>
+                        <div class="info-field">
+                            <p class="label">Gender</p>
+                            <p *ngIf="!isEditOn; else dropdown">{{employee.gender}}</p>
+                            <ng-template #dropdown>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center">
+                                        <p-radioButton name="gender" value="Male" id="male"
+                                            formControlName="gender"></p-radioButton>
+
+                                        <label for="male" class="ml-2 !text-base">Male</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <p-radioButton name="gender" value="Female" id="female"
+                                            formControlName="gender"></p-radioButton>
+
+                                        <label for="female" class="ml-2 !text-base">Female</label>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+
+                        <div class="info-field">
+                            <p class="label">Birthday</p>
+                            <p *ngIf="!isEditOn; else dateInput">{{employee.dateOfBirth | date: 'dd/MM/yyyy'}}</p>
+                            <ng-template #dateInput>
+                                <p-calendar class="block w-full" formControlName="dateOfBirth"></p-calendar>
+                            </ng-template>
+                        </div>
+                        <div class="info-field">
+                            <p class="label">Phone</p>
+                            <p *ngIf="!isEditOn; else phoneInput">{{employee.phoneNumber}} <i class="pi pi-copy"></i>
+                            </p>
+                            <ng-template #phoneInput>
+                                <p-inputMask mask="999-999-9999" formControlName="phoneNumber" placeholder="Enter phone number"/>
+                            </ng-template>
+                        </div>
+                        <div class="info-field">
+                            <p class="label">Email</p>
+                            <p>{{employee.user?.username ?? "N/A"}}</p>
+                        </div>
+                        <div class="info-field col-span-3">
+                            <p class="label">Address</p>
+                            <p *ngIf="!isEditOn; else addressInput">{{employee.address}} <i class="pi pi-copy"></i></p>
+                            <ng-template #addressInput><input pInputText formControlName="address" /></ng-template>
+                        </div>
+                        <div class="info-field" [class.col-span-3]="!isEditOn">
+                            <p class="label">Department</p>
+                            <p *ngIf="!isEditOn; else departmentSelect">{{employee.department?.departmentName ?? 'This employee is not associated with any department'}}
+                            </p>
+                            <ng-template #departmentSelect>
+                                <ng-container *ngIf="position.hasDepartment; else noDep">
+                                    <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="department"
+                                        [options]="(departmentOptions | async) ?? []" optionLabel="label" placeholder="Select department"></p-dropdown>
+                                </ng-container>
+                                <ng-template #noDep>
+                                    <span>This employee should belong to no department</span>
+                                </ng-template>
+                            </ng-template>
+                        </div>
+                        <ng-container *ngIf="isEditOn">
+                            <div class="info-field">
+                                <p class="label">Position</p>
+                                <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="position"
+                                    [options]="(positionOptions | async) ?? []" optionLabel="label" placeholder="Select position"></p-dropdown>
+                            </div>
+                            <div class="info-field" *ngIf="position && position.hasLevel">
+                                <p class="label">Job Level</p>
+                                <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="jobLevel"
+                                    [options]="(jobLevelOptions | async) ?? []" optionLabel="label" placeholder="Select job level"></p-dropdown>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div *ngIf="isEditOn">
+                    <h1 class="text-xl mt-10 mb-1 font-bold">Social Media</h1>
+                    <div class="grid grid-cols-2 gap-4">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-twitter"></i>
+                            <input formControlName="twitterLink" type="text" pInputText
+                                placeholder="Link to twitter account" />
+                        </span>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-facebook"></i>
+                            <input formControlName="facebookLink" type="text" pInputText
+                                placeholder="Link to facebook account" />
+                        </span>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-linkedin"></i>
+                            <input formControlName="linkedinLink" type="text" pInputText
+                                placeholder="Link to linkedin account" />
+                        </span>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-github"></i>
+                            <input formControlName="instagramLink" type="text" pInputText
+                                placeholder="Link to github account" />
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="joined-projects">
+                    <h1 class="text-xl mt-10 mb-1 font-bold">Joined Projects</h1>
+                    <div class="card">
+                        <p-table [value]="employee.joinedProjects" [tableStyle]="{ 'min-width': '50rem' }"
+                            styleClass="p-datatable-gridlines">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Work as</th>
+                                    <th>Skill Tags</th>
+                                    <th>Contributed Hours</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-project>
+                                <tr>
+                                    <td>{{ project.name }}</td>
+                                    <td>{{ project.workAs }}</td>
+                                    <td>
+                                        <span *ngFor="let skill of project.skillTags"
+                                            class="skill-tag inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-1">{{skill}}</span>
+                                    </td>
+                                    <td>{{ project.contributedHours }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div> -->
+                <div class="emergency-contact">
+                    <h1 class="text-xl my-7 font-bold">Emergency Contacts</h1>
+                    <div *ngIf="!isEditOn; else emergencyContactInput" class="card">
+                        <p-table [value]="employee.emergencyContacts" [tableStyle]="{ 'min-width': '50rem' }"
+                            styleClass="p-datatable-gridlines p-datatable-sm">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-contact>
+                                <tr>
+                                    <td>{{ contact.firstName }}</td>
+                                    <td>{{ contact.lastName }}</td>
+                                    <td>
+                                        {{contact.phoneNumber | phoneFormat}} <i class="pi pi-copy"></i>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="3" class="text-center">
+                                        No Data found.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    <ng-template #emergencyContactInput>
+                        <div class="flex flex-col gap-2">
+                            <div formArrayName="emergencyContacts"
+                                *ngFor="let contact of emergencyContacts.controls; let i = index"
+                                class="flex justify-between items-end" [class.gap-2]="emergencyContacts.length !==1">
+                                <div class="flex-1 grid grid-cols-3 gap-2" [formGroupName]="i">
+                                    <div>
+                                        <label for="firstName">First Name:</label>
+                                        <input pInputText type="text" id="firstName" formControlName="firstName" placeholder="Enter contact first name"/>
+                                    </div>
+                                    <div>
+                                        <label for="lastName">Last Name:</label>
+                                        <input pInputText type="text" id="lastName" formControlName="lastName" placeholder="Enter contact last name"/>
+                                    </div>
+                                    <div>
+                                        <label for="phoneNumber">Phone Number:</label>
+                                        <p-inputMask mask="999-999-9999" formControlName="phoneNumber"
+                                            id="phoneNumber" placeholder="Enter contact phone number"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p-button *ngIf="emergencyContacts.length !== 1" icon="pi pi-minus-circle"
+                                        styleClass="p-button-link" (onClick)="removeEmergencyContact(i)"></p-button>
+                                </div>
+                            </div>
+                            <div class="w-full text-right mt-1">
+                                <p-button [disabled]="emergencyContacts.length===3" (onClick)="addEmergencyContact()" icon="pi pi-plus"
+                                    styleClass="p-button-sm add-contact-btn" class="w-2"></p-button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

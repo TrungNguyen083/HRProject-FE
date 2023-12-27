@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
+}
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    font-size: $scale;
+}
+body, .p-component {
+    font-family: 'Inter', sans-serif!important;
+}
+body {
+    color: var(--text-color);
+    background-color: var(--surface-ground);
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.layout-wrapper {
+    min-height: 100vh;
+}

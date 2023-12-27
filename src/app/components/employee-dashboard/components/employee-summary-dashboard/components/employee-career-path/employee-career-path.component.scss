@@ -1,0 +1,39 @@
+:host ::ng-deep {
+    .p-timeline-event-opposite,
+    .p-timeline-event-content {
+        display: none;
+    }
+    .current-role-tag {
+        @apply w-12 flex justify-center items-center;
+    }
+    .separator {
+        @apply lg:block md:hidden w-full border-gray-300 border-dashed;
+        border-width: 1px;
+        .career-path-arrow {
+            position: absolute;
+            top: 50%;
+            right: -9px;
+            transform: translateY(-48%);
+        }
+    }
+    .vertical-separator {
+        @apply lg:hidden md:block border-gray-300 border-dashed border-2 h-10;
+        .career-path-arrow {
+            position: absolute;
+            bottom: -14px;
+            right: -13.5px;
+        }
+    }
+    .career-path-card {
+        width: 120%;
+    }
+
+    i.pi-angle-right,
+    i.pi-angle-down {
+        @apply text-3xl text-gray-300;
+    }
+
+    .match-close {
+        color: #ff9900ff;
+    }
+}

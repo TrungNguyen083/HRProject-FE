@@ -1,0 +1,23 @@
+<div class="grid grid-cols-12 gap-2">
+    <div class="md:col-span-12 lg:col-span-4">
+        <employee-score-table
+            [tableData]="highestSkills.data"
+            [pagination]="highestSkills.pagination"
+            [tableHeader]="'Top Skill sets'"
+        ></employee-score-table>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <employee-score-table
+        [tableData]="targetSkills.data"
+        [pagination]="targetSkills.pagination"
+        [tableHeader]="'Top Interested skill sets'"
+    ></employee-score-table>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <employee-score-table
+        [tableData]="improveSkills.data"
+        [pagination]="improveSkills.pagination"
+        [tableHeader]="'Keen to improve'"
+    ></employee-score-table>
+    </div>
+</div>

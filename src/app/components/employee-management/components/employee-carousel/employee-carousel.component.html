@@ -1,0 +1,18 @@
+<div *ngIf="employees$ | async as employees" class="card-container carousel-container">
+    <p class="card-title font-medium">New Employee</p>
+    <ng-container *ngIf="employees.length < 3; else carousel">
+        <div class="flex gap-4 flex-row w-full mt-2">
+            <employee-card *ngFor="let employee of employees" [employee]="employee"></employee-card>
+        </div>
+    </ng-container>
+    <ng-template #carousel>
+        <div class="rounded-md mt-2">
+            <p-carousel [value]="employees" [numVisible]="3" [numScroll]="3" [circular]="false" [showIndicators]="false"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-employee pTemplate="item">
+                    <employee-card [employee]="employee"></employee-card>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </ng-template>
+</div>

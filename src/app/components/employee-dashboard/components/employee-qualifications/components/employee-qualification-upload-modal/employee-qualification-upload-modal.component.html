@@ -1,0 +1,66 @@
+<div class="flex flex-col gap-8">
+    <div>
+        <div class="flex gap-2 items-center">
+            <i class="pi pi-info-circle text-primary font-bold"></i>
+            <span class="font-bold text-primary">General Information</span>
+        </div>
+        <div class="mt-4">
+            <form action="" class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="font-bold mb-1" for="name">Name</label>
+                    <input pInputText id="name" type="text" placeholder="Enter document name">
+                </div>
+                <div>
+                    <label class="font-bold mb-1" for="issuer">Issuer</label>
+                    <input pInputText id="issuer" type="text" placeholder="Enter issuer">
+                </div>
+                <div>
+                    <label class="font-bold mb-1" for="qualificationType">Qualification type</label>
+                    <p-dropdown placeholder="Select qualification type" id="qualificationType"></p-dropdown>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="flex gap-2 items-center">
+            <i class="pi pi-file text-primary font-bold"></i>
+            <span class="font-bold text-primary">Upload Document</span>
+        </div>
+        <div class="mt-4">
+            <p-fileUpload 
+                #fileUpload
+                mode="basic" 
+                name="demo[]" 
+                chooseLabel="Browse files" 
+                [maxFileSize]="10000000" 
+                [auto]="true" 
+                [uploadIcon]="'pi pi-cloud-upload'"
+                (onSelect)="onUpload($event.currentFiles[0])"
+            >
+                <ng-template pTemplate="content" let-files>
+                    <div class="drag-drop-area flex flex-col justify-center items-center gap-2">
+                        <div>
+                            <i class="pi pi-cloud-upload"></i>
+                        </div>
+                        <p>Drag and drop your file here</p>
+                        <p>OR</p>
+                        <div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+            <div *ngIf="file" class="mt-4">
+                <div></div>
+                <div>
+                    <p class="font-medium">{{file.name}}</p>
+                    <p class="text-sm">{{bytesToKilobytes(file.size)}}kB</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-right w-full">
+        <p-button styleClass="p-button-link" label="Cancel"></p-button>
+        <p-button label="Save"></p-button>
+    </div>
+</div>

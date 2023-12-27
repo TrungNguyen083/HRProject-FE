@@ -1,0 +1,39 @@
+<app-topbar></app-topbar>
+<div class="mb-2 font-bold flex justify-between items-center">
+    <h1 class="text-2xl">Dashboard</h1>
+    <p-dropdown
+        [dropdownIcon]="'pi pi-filter'"
+        [options]="cycleOptions"
+        (onChange)="onSelectCycle($event)"
+    ></p-dropdown>
+</div>
+<hr-overview></hr-overview>
+<div class="dashboard-row">
+    <div class="md:col-span-12 lg:col-span-9">
+        <competency-review-cycle></competency-review-cycle>
+    </div>
+    <div class="md:col-span-12 lg:col-span-3">
+        <competency-time-line></competency-time-line>
+    </div>
+    <div class="md:col-span-12 lg:col-span-8">
+        <competency-level></competency-level>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <competency-level-by-unit></competency-level-by-unit>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <top-skills></top-skills>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <top-performers></top-performers>
+    </div>
+    <div class="md:col-span-12 lg:col-span-4">
+        <top-competencies></top-competencies>
+    </div>
+    <div class="col-span-12">
+        <employee-performance-grid-box></employee-performance-grid-box>
+    </div>
+    <div class="col-span-12">
+        <performance-by-job-level></performance-by-job-level>
+    </div>
+</div>

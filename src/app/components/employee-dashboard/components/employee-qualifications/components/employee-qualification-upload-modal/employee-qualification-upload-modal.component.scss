@@ -1,0 +1,15 @@
+:host ::ng-deep {
+    input, label {
+        @apply block w-full;
+    }
+    .p-dropdown {
+        @apply w-full;
+    }
+    .drag-drop-area {
+        @apply p-12 border-dashed border-primary border-2 rounded-lg;
+        background-color: #F4FAFA80;
+    }
+    .pi.pi-cloud-upload {
+        @apply text-6xl text-primary;
+    }
+}

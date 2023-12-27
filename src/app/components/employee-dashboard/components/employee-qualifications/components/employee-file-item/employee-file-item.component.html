@@ -1,0 +1,40 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<div
+    class="h-full w-full rounded-md flex flex-col justify-between border-solid border-2 file-item shadow-sm cursor-pointer hover:shadow-md">
+    <div class="px-6 pt-6 pb-3 flex justify-center file-preview rounded-t-lg h-full">
+        <div class="w-2/3">
+            <img [src]="qualification.fileType.iconUrl" [alt]="qualification.fileName">
+        </div>
+    </div>
+    <div class="px-6 py-6 flex justify-between items-center gap-2 bg-white rounded-b-lg">
+        <div class="flex items-center gap-2">
+            <div class="w-4 h-4">
+                <img [src]="qualification.fileType.iconUrl" [alt]="qualification.fileName">
+            </div>
+            <div>
+                <span class="text-sm font-medium">{{qualification.fileName}}.{{qualification.fileType.name}}</span>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <i class="pi pi-ellipsis-v text-primary" (click)="menu.toggle($event)"></i>
+            <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body"></p-menu>
+        </div>
+    </div>
+</div>
+<p-dialog header="File Detail" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="grid grid-cols-2 gap-2">
+        <div>
+            <p class="font-bold">File Name</p>
+            <p>University degree</p>
+        </div>
+        <div>
+            <p class="font-bold">Issuer</p>
+            <p>University degree</p>
+        </div>
+        <div>
+            <p class="font-bold">Qualification Type</p>
+            <p>Certificate</p>
+        </div>
+    </div>
+</p-dialog>

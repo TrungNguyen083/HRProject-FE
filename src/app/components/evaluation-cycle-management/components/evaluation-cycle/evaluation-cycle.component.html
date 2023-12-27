@@ -1,0 +1,17 @@
+<div class="flex justify-between w-4/5">
+    <div class="flex gap-2">
+        <p-dropdown placeholder="Status" [options]="cycleStatusOptions" dropdownIcon="pi pi-filter"></p-dropdown>
+        <!-- <p-button label="Sort Newest"></p-button> -->
+    </div>
+    <div>
+        <a [routerLink]="['new-cycle']">
+            <p-button label="Create new process" icon="pi pi-plus"></p-button>
+        </a>
+    </div>
+</div>
+<div class="mt-2 flex flex-col gap-4">
+    <evaluation-item-card 
+        *ngFor="let evaluation of evaluations"
+        [evaluation]="evaluation"
+    ></evaluation-item-card>
+</div>

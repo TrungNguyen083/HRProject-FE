@@ -1,0 +1,14 @@
+:host ::ng-deep {
+    .employee-difference {
+        line-height: 1.75rem;
+
+        .percentage {
+            color: #0a762eff;
+        }
+    }
+
+    .overview-card {
+        @apply p-6 rounded-lg flex-1 w-full;
+        border-width: 1.5px;
+    }
+}

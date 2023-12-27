@@ -1,0 +1,15 @@
+:host ::ng-deep{
+  display: contents;
+  .action-col {
+    @apply flex justify-center;
+  }
+  a {
+    color: var(--text-color);
+  }
+  .avatar-img {
+    width: 3rem;
+  }
+  .employment-tag {
+    border-radius: 50px;
+  }
+}

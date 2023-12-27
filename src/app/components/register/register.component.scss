@@ -1,0 +1,33 @@
+.oms-login-host {
+  .input-class {
+    @apply focus:shadow-sm duration-200 transition-all focus:shadow-primary outline-none px-4 py-2 text-lg focus:outline-none rounded-md bg-neutral-100;
+  }
+
+  .validate {
+    @apply text-danger text-sm font-medium absolute -bottom-0 translate-y-full;
+  }
+
+  .p-toast-message .p-toast-message-content {
+    @apply border-none;
+  }
+
+  .p-toast.p-toast-top-left {
+    @apply top-10 left-40;
+  }
+
+  .password-strength-meter {
+    width: 60%;
+    height: 5px;
+    background-color: lightgray;
+    margin-top: 5px;
+    position: relative;
+    flex: auto;
+    justify-content: center;
+    border-radius: 18px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0;
+  }
+}

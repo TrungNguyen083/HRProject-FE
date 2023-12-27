@@ -1,0 +1,66 @@
+<tr class="mt-3 p-selectable-row">
+  <td>
+    <div class="flex items-center pl-2">
+      <!-- <hrms-avatar [imgSrc]="prependImage(employee.imageSource.imagePath)" shape="circle" size="normal"></hrms-avatar> -->
+
+      <img
+        *ngIf="employee.damId"
+        class="avatar-img"
+        style="background: #cde9eaff; border-radius: 60px"
+        [src]="prependImage(employee.id)"
+        [alt]="employee.firstName"
+      />
+
+      <img
+        *ngIf="!employee.damId"
+        class="avatar-img"
+        style="background: #cde9eaff; border-radius: 60px"
+        [src]="defaultImg"
+        [alt]="employee.firstName"
+      />
+      <a class="text-black ml-2 name" [routerLink]="['detail', employee.id]"
+        >{{ employee.firstName }} {{ employee.lastName }}</a
+      >
+    </div>
+  </td>
+  <td>{{ employee.position.positionName }}</td>
+  <td>
+    <a
+      class="ml-1 text-primary underline"
+      [href]="'mailto:' + employee.user?.username"
+      >{{ employee.user?.username }}</a
+    >
+    <span *ngIf="!employee.user">N/A</span>
+  </td>
+  <td>{{ employee.department?.departmentName ?? 'N/A' }}</td>
+  <td>
+    <contract-badge
+      *ngIf="
+        employee.currentContract !== undefined &&
+        employee.currentContract !== null
+      "
+      [currentContract]="employee.currentContract"
+    ></contract-badge>
+  </td>
+  <td
+    class="user-item-row"
+    [class.text-success]="employee.status === 1"
+    [class.text-danger]="employee.status === 0 || !employee.status"
+  >
+    <div class="flex gap-2 items-center">
+      <i class="pi-circle-fill pi"></i>
+      <span>
+        {{ employee.status === 1 ? 'Active' : ('Inactive' | titlecase) }}
+      </span>
+    </div>
+  </td>
+  <td class="action-col">
+    <p-button
+      type="button"
+      (click)="menu.toggle($event)"
+      icon="pi pi-ellipsis-v"
+      styleClass="p-button-link"
+    ></p-button>
+    <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body"></p-menu>
+  </td>
+</tr>

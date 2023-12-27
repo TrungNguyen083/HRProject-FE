@@ -1,0 +1,13 @@
+<div class="card-container h-full">
+  <div class="flex justify-between">
+    <div>
+      <p class="card-title">Competency Level (AVG)</p>
+      <p class="text-sm">by Job level and Position</p>
+    </div>
+    <position-filter (handleSelectItem)="onSelectPosition($event)">
+    </position-filter>
+  </div>
+  <div id="chart">
+    <hrms-chart [apexOptions]="chartOptions" [type]="'heatmap'"></hrms-chart>
+  </div>
+</div>

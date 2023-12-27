@@ -1,0 +1,22 @@
+<div class="overview-card flex flex-col gap-4 justify-between shadow-md">
+    <p class="font-bold text-lg">Competency</p>
+    <div class="flex gap-2 items-end">
+        <p class="text-gray-950 font-bold">
+            <span class="text-4xl">3.7</span> <span class="text-2xl">/4.0</span>
+        </p>
+    </div>
+    <div class="relative">
+        <div class="employee-difference flex gap-1">
+            <div class="percentage font-bold text-danger">
+                <span>
+                    <i class="pi pi-angle-down"></i>
+                </span>
+                <span class="ml-1">5%</span>
+            </div>
+            <div>Over previous cycle</div>
+        </div>
+        <div class="chart-container absolute right-0">
+            <hrms-chart type="bar" [data]="data" [options]="options" width="110" height="50"></hrms-chart>
+        </div>
+    </div>
+</div>
