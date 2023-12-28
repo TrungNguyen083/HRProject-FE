@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HrDashboardShareStore as HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
-import { ICompetencyTimeline } from '../../models/hr-dashboard.model';
+import { ITimeline } from '../../models/hr-dashboard.model';
 
-interface TimelineEvent extends ICompetencyTimeline {
+interface TimelineEvent extends ITimeline {
   icon: string;
 }
 @Component({

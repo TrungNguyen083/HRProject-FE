@@ -89,7 +89,7 @@ export const GET_COMPETENCY_BY_UNIT = gql`
 export const GET_COMPETENCY_TIMELINE = gql`
   query GetTimeline($competencyCycleId: Int!) {
     competencyTimeLine(competencyCycleId: $competencyCycleId) {
-      competencyTimeLineName
+      timeLineName
       startDate
       dueDate
       isDone

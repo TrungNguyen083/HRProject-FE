@@ -8,7 +8,7 @@ import { Observable, switchMap } from 'rxjs';
 import { EmployeeManagementService } from '../../employee-management/services/employee-management.service';
 import {
   ICompetencyCycle,
-  ICompetencyTimeline,
+  ITimeline,
   IPerformanceByLevel,
   IPerformanceByLevelParams,
   IPotentialPerformance,
@@ -19,7 +19,7 @@ import { HrDashboardService } from '../services/hr-dashboard.service';
 export interface IHRDashboardShareState {
   departments: IDepartment[];
   positions: IPosition[];
-  competencyTimeline: ICompetencyTimeline[];
+  competencyTimeline: ITimeline[];
   competencyCycles: ICompetencyCycle[];
   activeCycle: number | null;
   employeesPotentialPerformance: IPotentialPerformance[];
@@ -68,7 +68,7 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
   readonly setCompetencyTimeline = this.updater(
     (
       state: IHRDashboardShareState,
-      competencyTimeline: ICompetencyTimeline[],
+      competencyTimeline: ITimeline[],
     ) => {
       return {
         ...state,
