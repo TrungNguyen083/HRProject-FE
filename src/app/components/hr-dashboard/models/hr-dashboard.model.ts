@@ -64,15 +64,15 @@ export interface ICompetencyByUnit {
   }[];
 }
 
-export interface ICompetencyTimeline {
-  competencyTimeLineName: string;
+export interface ITimeline {
+  timeLineName: string;
   startDate: string;
   dueDate: string;
   isDone: boolean;
 }
 
 export interface ICompetencyTimelineApiResponse {
-  competencyTimeLine: ICompetencyTimeline[];
+  competencyTimeLine: ITimeline[];
 }
 
 export interface ITopSkillset {
