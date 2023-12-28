@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   IDepartment,
   IEmployee,
+  IEmployeeInfo,
   IEmployeeParams,
   IJobLevel,
   IPosition,
@@ -12,11 +13,11 @@ import { EmployeeManagementService } from '../services/employee-management.servi
 import { PaginatedData } from 'src/app/models/global.model';
 
 export interface IEmployeeMngmentState {
-  employees: PaginatedData<IEmployee>;
+  employees: PaginatedData<IEmployeeInfo>;
   loading: boolean;
-  employeeDetail: IEmployee | null;
+  employeeDetail: IEmployeeInfo | null;
   departments: IDepartment[];
-  newEmployees: IEmployee[];
+  newEmployees: IEmployeeInfo[];
   positions: IPosition[];
   jobLevels: IJobLevel[];
 }
@@ -62,7 +63,7 @@ export class EmployeeStore extends ComponentStore<IEmployeeMngmentState> {
     },
   );
   readonly setEmployees = this.updater(
-    (state: IEmployeeMngmentState, employees: PaginatedData<IEmployee>) => {
+    (state: IEmployeeMngmentState, employees: PaginatedData<IEmployeeInfo>) => {
       return {
         ...state,
         employees,
@@ -70,8 +71,8 @@ export class EmployeeStore extends ComponentStore<IEmployeeMngmentState> {
     },
   );
   readonly setEmployee = this.updater(
-    (state: IEmployeeMngmentState, employee: IEmployee) => {
-      return { ...state, employeeDetail: employee };
+    (state: IEmployeeMngmentState, employeeInfo: IEmployeeInfo) => {
+      return { ...state, employeeDetail: employeeInfo };
     },
   );
   readonly setDepartments = this.updater(
@@ -80,7 +81,7 @@ export class EmployeeStore extends ComponentStore<IEmployeeMngmentState> {
     },
   );
   readonly setNewEmployees = this.updater(
-    (state: IEmployeeMngmentState, newEmployees: IEmployee[]) => {
+    (state: IEmployeeMngmentState, newEmployees: IEmployeeInfo[]) => {
       return { ...state, newEmployees };
     },
   );

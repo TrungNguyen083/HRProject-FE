@@ -8,7 +8,7 @@ import { selectNewEmployees } from '../../store/employee-management.selectors';
   styleUrls: ['./employee-carousel.component.scss'],
 })
 export class EmployeeCarouselComponent implements OnInit {
-  employees$ = this.store.select(selectNewEmployees)
+  employeesInfo$ = this.store.select(selectNewEmployees)
   responsiveOptions;
 
   constructor(private store: Store) {

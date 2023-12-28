@@ -1,4 +1,4 @@
-<form *ngIf="employeeDetail$ | async as employee" [formGroup]="profileForm" (ngSubmit)="onUpdateEmployee()">
+<form *ngIf="employeeDetail$ | async as employeeInfo" [formGroup]="profileForm" (ngSubmit)="onUpdateEmployee()">
     <div class="flex gap-2 lg:p-4 md:p-0">
         <div class="left lg:w-3/12 md:w-5/12">
             <div class="w-full rounded overflow-hidden shadow-md bg-white">
@@ -6,9 +6,9 @@
                     <img class="w-full h-44" style="object-fit: cover;" src="assets/images/employee-profile-background.jpeg" alt="Sunset in the mountains">
                     <div class="profile-img relative">
                         <div *ngIf="!tempImg" class="profile-image-container">
-                            <img *ngIf="employee.damId; else defaultImage"
+                            <img *ngIf="employeeInfo.imageUrl; else defaultImage"
                                 style="background: #CDE9EAFF; border-radius: 60px; height: 120px; object-fit: cover;"
-                                class="w-full" [src]="prependImage(employee.id)" alt="" />
+                                class="w-full" [src]="employeeInfo.imageUrl" alt="" />
 
                             <ng-template #defaultImage>
                                 <img style="background: #CDE9EAFF; border-radius: 60px;" class="w-full"
@@ -21,13 +21,13 @@
                     </div>
                 </div>
                 <div class="p-4 mt-16 pt-1">
-                    <div class="font-bold text-xl text-center">{{employee.firstName}} {{employee.lastName}}</div>
+                    <div class="font-bold text-xl text-center">{{employeeInfo.employee.firstName}} {{employeeInfo.employee.lastName}}</div>
                     <p class="text-center">
-                       {{employee.positionLevel?.jobLevel?.jobLevelName}} {{employee.positionLevel?.position?.positionName}}
+                       {{employeeInfo.employee.jobLevel?.jobLevelName}} {{employeeInfo.employee.position?.positionName}}
                     </p>
                     <div>
                         <p *ngIf="!isEditOn; else bioInput" class="text-gray-700 text-base text-center">
-                            {{employee.profileBio}}
+                            {{employeeInfo.employee.profileBio}}
                         </p>
                         <ng-template #bioInput>
                             <textarea class="w-full" rows="5" cols="30" pInputTextarea
@@ -35,32 +35,32 @@
                         </ng-template>
                     </div>
                     <div class="social-icons mt-4 flex justify-center gap-4">
-                        <a *ngIf="employee.twitterLink" [href]="employee.twitterLink" target="_blank"><i
+                        <a *ngIf="employeeInfo.employee.twitterLink" [href]="employeeInfo.employee.twitterLink" target="_blank"><i
                                 class="pi pi-twitter"></i></a>
-                        <a *ngIf="employee.linkedinLink" [href]="employee.linkedinLink" target="_blank"><i
+                        <a *ngIf="employeeInfo.employee.linkedinLink" [href]="employeeInfo.employee.linkedinLink" target="_blank"><i
                                 class="pi pi-linkedin"></i></a>
-                        <a *ngIf="employee.facebookLink" [href]="employee.facebookLink" target="_blank"><i
+                        <a *ngIf="employeeInfo.employee.facebookLink" [href]="employeeInfo.employee.facebookLink" target="_blank"><i
                                 class="pi pi-facebook"></i></a>
-                        <a *ngIf="employee.instagramLink" [href]="employee.instagramLink" target="_blank"><i
+                        <a *ngIf="employeeInfo.employee.instagramLink" [href]="employeeInfo.employee.instagramLink" target="_blank"><i
                                 class="pi pi-github"></i></a>
                     </div>
                 </div>
-                <div *ngIf="employee.department" class="p-4 pt-0">
+                <div *ngIf="employeeInfo.employee.department" class="p-4 pt-0">
                     <div class="flex gap-4 justify-between items-center">
                         <p class="label">Reporting to</p>
-                        <p>{{employee.department.sum.firstName}} {{employee.department.sum.lastName}}</p>
+                        <p>{{employeeInfo.employee.department.sum.firstName}} {{employeeInfo.employee.department.sum.lastName}}</p>
                         <!-- <ng-template #managerSelect>
                             <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="reportTo"
                                 [options]="managerOptions" optionLabel="label"></p-dropdown>
                         </ng-template> -->
                     </div>
-                    <div *ngIf="employee.employeeSkills.length" class="flex gap-2 justify-between items-start mt-2">
+                    <!-- <div *ngIf="employeeInfo.employee.employeeSkills.length" class="flex gap-2 justify-between items-start mt-2">
                         <h1 class="text-md mb-1 mt-1 font-bold">Skills</h1>
                         <div class="text-right">
                             <span *ngFor="let employeeSkill of employee.employeeSkills"
                                 class="skill-tag inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 ml-1 mt-1">{{employeeSkill.skill.skillName}}</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -83,19 +83,19 @@
                     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5 justify-between mt-3">
                         <div class="info-field">
                             <p class="label">First Name</p>
-                            <p *ngIf="!isEditOn; else firstNameInput">{{employee.firstName}}</p>
+                            <p *ngIf="!isEditOn; else firstNameInput">{{employeeInfo.employee.firstName}}</p>
                             <ng-template #firstNameInput><input formControlName="firstName" type="text"
                                     pInputText /></ng-template>
                         </div>
                         <div class="info-field">
                             <p class="label">Last Name</p>
-                            <p *ngIf="!isEditOn; else lastNameInput">{{employee.lastName}}</p>
+                            <p *ngIf="!isEditOn; else lastNameInput">{{employeeInfo.employee.lastName}}</p>
                             <ng-template #lastNameInput><input formControlName="lastName" type="text"
                                     pInputText /></ng-template>
                         </div>
                         <div class="info-field">
                             <p class="label">Gender</p>
-                            <p *ngIf="!isEditOn; else dropdown">{{employee.gender}}</p>
+                            <p *ngIf="!isEditOn; else dropdown">{{employeeInfo.employee.gender}}</p>
                             <ng-template #dropdown>
                                 <div class="flex items-center gap-4">
                                     <div class="flex items-center">
@@ -116,14 +116,14 @@
 
                         <div class="info-field">
                             <p class="label">Birthday</p>
-                            <p *ngIf="!isEditOn; else dateInput">{{employee.dateOfBirth | date: 'dd/MM/yyyy'}}</p>
+                            <p *ngIf="!isEditOn; else dateInput">{{employeeInfo.employee.dateOfBirth | date: 'dd/MM/yyyy'}}</p>
                             <ng-template #dateInput>
                                 <p-calendar class="block w-full" formControlName="dateOfBirth"></p-calendar>
                             </ng-template>
                         </div>
                         <div class="info-field">
                             <p class="label">Phone</p>
-                            <p *ngIf="!isEditOn; else phoneInput">{{employee.phoneNumber}} <i class="pi pi-copy"></i>
+                            <p *ngIf="!isEditOn; else phoneInput">{{employeeInfo.employee.phoneNumber}} <i class="pi pi-copy"></i>
                             </p>
                             <ng-template #phoneInput>
                                 <p-inputMask mask="999-999-9999" formControlName="phoneNumber" placeholder="Enter phone number"/>
@@ -131,16 +131,16 @@
                         </div>
                         <div class="info-field">
                             <p class="label">Email</p>
-                            <p>{{employee.user?.username ?? "N/A"}}</p>
+                            <p>{{employeeInfo.employee.email}}</p>
                         </div>
                         <div class="info-field col-span-3">
                             <p class="label">Address</p>
-                            <p *ngIf="!isEditOn; else addressInput">{{employee.address}} <i class="pi pi-copy"></i></p>
+                            <p *ngIf="!isEditOn; else addressInput">{{employeeInfo.employee.address}} <i class="pi pi-copy"></i></p>
                             <ng-template #addressInput><input pInputText formControlName="address" /></ng-template>
                         </div>
                         <div class="info-field" [class.col-span-3]="!isEditOn">
                             <p class="label">Department</p>
-                            <p *ngIf="!isEditOn; else departmentSelect">{{employee.department?.departmentName ?? 'This employee is not associated with any department'}}
+                            <p *ngIf="!isEditOn; else departmentSelect">{{employeeInfo.employee.department?.departmentName ?? 'This employee is not associated with any department'}}
                             </p>
                             <ng-template #departmentSelect>
                                 <ng-container *ngIf="position.hasDepartment; else noDep">
@@ -221,7 +221,7 @@
                 <div class="emergency-contact">
                     <h1 class="text-xl my-7 font-bold">Emergency Contacts</h1>
                     <div *ngIf="!isEditOn; else emergencyContactInput" class="card">
-                        <p-table [value]="employee.emergencyContacts" [tableStyle]="{ 'min-width': '50rem' }"
+                        <p-table [value]="employeeInfo.emergencyContacts" [tableStyle]="{ 'min-width': '50rem' }"
                             styleClass="p-datatable-gridlines p-datatable-sm">
                             <ng-template pTemplate="header">
                                 <tr>

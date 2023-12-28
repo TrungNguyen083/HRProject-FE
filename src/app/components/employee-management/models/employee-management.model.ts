@@ -4,29 +4,38 @@ export interface IEmployee {
   id: number;
   firstName?: string;
   lastName?: string;
-  gender: number;
-  dateOfBirth: string;
-  positionLevel?: IPositionLevel;
-  phoneNumber?: string;
   address?: string;
-  status: number;
-  reportTo?: number;
-  department?: IDepartment;
+  email: string;
+  gender: number;
+  joinedDate: string;
+  dateOfBirth: string;
+  // positionLevel?: IPositionLevel;
+  phoneNumber?: string;
   currentContract?: number;
   profileBio: string;
-  skillsTags?: string[];
-  joinedProjects?: Project[];
-  emergencyContacts: IEmergencyContact[];
-  damId: number;
-  employeeSkills: EmployeeSkill[];
   twitterLink: string;
   facebookLink: string;
   instagramLink: string;
   linkedinLink: string;
-  user: { isEnabled: boolean; username: string } | null;
-  email: string;
-  position: IPosition;
+  department?: IDepartment;
+  position?: IPosition;
+  jobLevel?: IJobLevel;
+  status: boolean;
+  leftDate?: string;
+  // reportTo?: number;
+  // skillsTags?: string[];
+  // joinedProjects?: Project[];
+  // emergencyContacts: IEmergencyContact[];
+  // damId: number;
+  // employeeSkills: EmployeeSkill[];
 }
+
+export interface IEmployeeInfo {
+  employee: IEmployee;
+  imageUrl?: string;
+  emergencyContacts: IEmergencyContact[];
+}
+
 export interface IAddEmployee {
   firstName: string;
   lastName: string;
@@ -111,11 +120,11 @@ export interface IEmergencyContact {
 }
 
 export interface IEmployeeApiResponse {
-  employees: PaginatedData<IEmployee>;
+  employees: PaginatedData<IEmployeeInfo>;
 }
 
 export interface IEmployeeDetailApiResponse {
-  employee: IEmployee;
+  employee: IEmployeeInfo;
 }
 
 export interface IDepartmentApiResponse {
@@ -123,7 +132,7 @@ export interface IDepartmentApiResponse {
 }
 
 export interface INewEmployeeApiResponse {
-  newEmployees: IEmployee[];
+  newEmployees: IEmployeeInfo[];
 }
 
 export interface IAddEmployeeApiResponse {
@@ -142,7 +151,7 @@ export interface IEmployeeParams {
   currentContracts?: number[];
   name?: string;
   pageNo?: number;
-  pagingInfo: PagingInfoParams;
+  pageSize?: number;
 }
 
 export enum ContractType {
