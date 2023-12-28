@@ -17,7 +17,7 @@ import {
 } from 'src/app/store/selectors/filter-data.selectors';
 import { prependImage } from 'src/app/utils/prependImage';
 import { genders } from '../../constants/employee-management.constant';
-import { IEmployee } from '../../models/employee-management.model';
+import { IEmployeeInfo } from '../../models/employee-management.model';
 import { EmployeeManagementService } from '../../services/employee-management.service';
 import { loadEmployeeDetail } from '../../store/employee-management.actions';
 import { selectEmployeeDetail } from '../../store/employee-management.selectors';
@@ -48,7 +48,7 @@ export class EmployeeDetailComponent implements OnInit {
     private notificationService: NotificationService,
     private employeeService: EmployeeManagementService,
     private store: Store,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.store.dispatch(loadDepartments());
@@ -68,9 +68,10 @@ export class EmployeeDetailComponent implements OnInit {
       }
     });
 
-    this.employeeDetail$.subscribe(employee => {
-      if (!employee) return;
-      this.initEmployeeForm(employee);
+    this.employeeDetail$.subscribe(employeeInfo => {
+      console.log(employeeInfo);
+      if (!employeeInfo) return;
+      this.initEmployeeForm(employeeInfo);
     });
   }
 
@@ -78,51 +79,38 @@ export class EmployeeDetailComponent implements OnInit {
     this.store.dispatch(loadEmployeeDetail({ id }));
   }
 
-  initEmployeeForm(employee: IEmployee) {
+  initEmployeeForm(employeeInfo: IEmployeeInfo) {
     const {
-      firstName,
-      lastName,
-      gender,
-      dateOfBirth,
-      phoneNumber,
-      address,
-      positionLevel,
-      profileBio,
-      department,
-      twitterLink,
-      facebookLink,
-      instagramLink,
-      linkedinLink,
+      employee,
       emergencyContacts,
-      currentContract,
-    } = employee;
+    } = employeeInfo;
     this.profileForm = this.fb.group({
-      firstName: [firstName, [Validators.required, Validators.maxLength(100)]],
-      lastName: [lastName, [Validators.required, Validators.maxLength(100)]],
-      gender: [gender, Validators.required],
-      dateOfBirth: [new Date(dateOfBirth), Validators.required],
-      phoneNumber: [phoneNumber, Validators.required],
-      address: [address, Validators.required],
+      firstName: [employee.firstName, [Validators.required, Validators.maxLength(100)]],
+      lastName: [employee.lastName, [Validators.required, Validators.maxLength(100)]],
+      gender: [employee.gender, Validators.required],
+      dateOfBirth: [new Date(employee.dateOfBirth), Validators.required],
+      phoneNumber: [employee.phoneNumber, Validators.required],
+      address: [employee.address, Validators.required],
       position: {
-        label: positionLevel?.position.positionName,
-        value: positionLevel?.position.id,
-        hasLevel: positionLevel?.position.hasLevel,
-        hasDepartment: positionLevel?.position.hasDepartment,
+        label: employee.position?.positionName,
+        value: employee.position?.id,
+        hasLevel: employee.position?.hasLevel,
+        hasDepartment: employee.position?.hasDepartment,
       },
       jobLevel: {
-        label: positionLevel?.jobLevel?.jobLevelName,
-        value: positionLevel?.jobLevel?.id,
+        label: employee.jobLevel?.jobLevelName,
+        value: employee.jobLevel?.id,
       },
-      profileBio: [profileBio, [Validators.maxLength(250)]],
+      profileBio: [employee.profileBio, [Validators.maxLength(250)]],
       department: {
-        label: department?.departmentName,
-        value: department?.id,
+        label: employee.department?.departmentName,
+        value: employee.department?.id,
       },
-      twitterLink,
-      facebookLink,
-      instagramLink,
-      linkedinLink,
-      currentContract,
+      twitterLink: employee.twitterLink,
+      facebookLink: employee.facebookLink,
+      instagramLink: employee.instagramLink,
+      linkedinLink: employee.linkedinLink,
+      currentContract: employee.currentContract,
       emergencyContacts: this.fb.array([
         ...emergencyContacts.map(({ id, firstName, lastName, phoneNumber }) => {
           return this.fb.group({

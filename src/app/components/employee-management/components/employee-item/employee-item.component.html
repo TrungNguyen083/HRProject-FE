@@ -4,53 +4,53 @@
       <!-- <hrms-avatar [imgSrc]="prependImage(employee.imageSource.imagePath)" shape="circle" size="normal"></hrms-avatar> -->
 
       <img
-        *ngIf="employee.damId"
+        *ngIf="employeeInfo.imageUrl"
         class="avatar-img"
         style="background: #cde9eaff; border-radius: 60px"
-        [src]="prependImage(employee.id)"
-        [alt]="employee.firstName"
+        [src]="employeeInfo.imageUrl"
+        [alt]="employeeInfo.employee.firstName"
       />
 
       <img
-        *ngIf="!employee.damId"
+        *ngIf="!employeeInfo.imageUrl"
         class="avatar-img"
         style="background: #cde9eaff; border-radius: 60px"
         [src]="defaultImg"
-        [alt]="employee.firstName"
+        [alt]="employeeInfo.employee.firstName"
       />
-      <a class="text-black ml-2 name" [routerLink]="['detail', employee.id]"
-        >{{ employee.firstName }} {{ employee.lastName }}</a
+      <a class="text-black ml-2 name" [routerLink]="['detail', employeeInfo.employee.id]"
+        >{{ employeeInfo.employee.firstName }} {{ employeeInfo.employee.lastName }}</a
       >
     </div>
   </td>
-  <td>{{ employee.position.positionName }}</td>
+  <td>{{ employeeInfo.employee.position?.positionName }}</td>
   <td>
     <a
       class="ml-1 text-primary underline"
-      [href]="'mailto:' + employee.user?.username"
-      >{{ employee.user?.username }}</a
+      [href]="'mailto:' + employeeInfo.employee.email"
+      >{{ employeeInfo.employee.email }}</a
     >
-    <span *ngIf="!employee.user">N/A</span>
+    <span *ngIf="!employeeInfo.employee.email"></span>
   </td>
-  <td>{{ employee.department?.departmentName ?? 'N/A' }}</td>
+  <td>{{ employeeInfo.employee.department?.departmentName ?? 'Not belong to department' }}</td>
   <td>
     <contract-badge
       *ngIf="
-        employee.currentContract !== undefined &&
-        employee.currentContract !== null
+        employeeInfo.employee.currentContract !== undefined &&
+        employeeInfo.employee.currentContract !== null
       "
-      [currentContract]="employee.currentContract"
+      [currentContract]="employeeInfo.employee.currentContract"
     ></contract-badge>
   </td>
   <td
     class="user-item-row"
-    [class.text-success]="employee.status === 1"
-    [class.text-danger]="employee.status === 0 || !employee.status"
+    [class.text-success]="employeeInfo.employee.status === true"
+    [class.text-danger]="employeeInfo.employee.status === false || !employeeInfo.employee.status"
   >
     <div class="flex gap-2 items-center">
       <i class="pi-circle-fill pi"></i>
       <span>
-        {{ employee.status === 1 ? 'Active' : ('Inactive' | titlecase) }}
+        {{ employeeInfo.employee.status === true ? 'Active' : ('Inactive' | titlecase) }}
       </span>
     </div>
   </td>

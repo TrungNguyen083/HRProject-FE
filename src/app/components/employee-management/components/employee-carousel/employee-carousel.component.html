@@ -1,16 +1,16 @@
-<div *ngIf="employees$ | async as employees" class="card-container carousel-container">
+<div *ngIf="employeesInfo$ | async as employeesInfo" class="card-container carousel-container">
     <p class="card-title font-medium">New Employee</p>
-    <ng-container *ngIf="employees.length < 3; else carousel">
+    <ng-container *ngIf="employeesInfo.length < 3; else carousel">
         <div class="flex gap-4 flex-row w-full mt-2">
-            <employee-card *ngFor="let employee of employees" [employee]="employee"></employee-card>
+            <employee-card *ngFor="let employeeInfo of employeesInfo" [employeeInfo]="employeeInfo"></employee-card>
         </div>
     </ng-container>
     <ng-template #carousel>
         <div class="rounded-md mt-2">
-            <p-carousel [value]="employees" [numVisible]="3" [numScroll]="3" [circular]="false" [showIndicators]="false"
+            <p-carousel [value]="employeesInfo" [numVisible]="3" [numScroll]="3" [circular]="false" [showIndicators]="false"
                 [responsiveOptions]="responsiveOptions">
-                <ng-template let-employee pTemplate="item">
-                    <employee-card [employee]="employee"></employee-card>
+                <ng-template let-employeeInfo pTemplate="item">
+                    <employee-card [employeeInfo]="employeeInfo"></employee-card>
                 </ng-template>
             </p-carousel>
         </div>

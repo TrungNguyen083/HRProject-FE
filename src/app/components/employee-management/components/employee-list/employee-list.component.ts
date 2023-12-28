@@ -16,7 +16,7 @@ import {
   employeeTableCols,
 } from '../../constants/employee-management.constant';
 import {
-  IEmployee,
+  IEmployeeInfo,
   IEmployeeParams,
 } from '../../models/employee-management.model';
 import { loadEmployees } from '../../store/employee-management.actions';
@@ -33,7 +33,7 @@ export class EmployeeListComponent implements OnInit {
   activeItem: MenuItem = this.labelItems[0];
   employees$ = this.store.select(selectEmployees);
   departments$ = this.store.select(selectDepartments);
-  tableData: HrmsTable<IEmployee> = {
+  tableData: HrmsTable<IEmployeeInfo> = {
     ...defaultTablePagination,
     data: {
       header: employeeTableCols,
@@ -43,14 +43,14 @@ export class EmployeeListComponent implements OnInit {
   filterForm!: FormGroup;
   contractOptions = currentContracts;
   ref!: DynamicDialogRef;
-  employeeParams: IEmployeeParams = { pagingInfo: { pageNo: 1 } };
+  employeeParams: IEmployeeParams = { pageNo: 1, pageSize: 10 };
   gapPageNumber = 1;
 
   constructor(
     private fb: FormBuilder,
     public dialogService: DialogService,
     private store: Store,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getEmployees();
@@ -92,13 +92,13 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployees();
   }
   onPageChange(e: PageChangeEvent): void {
-    // this.handleEmployeeParams('pageNo', e.page + this.gapPageNumber);
+    this.handleEmployeeParams('pageNo', e.page + this.gapPageNumber);
     this.employeeParams = {
       ...this.employeeParams,
-      pagingInfo: {
-        ...this.employeeParams.pagingInfo,
-        pageNo: e.page + this.gapPageNumber,
-      },
+      // pagingInfo: {
+      //   ...this.employeeParams.pagingInfo,
+      //   pageNo: e.page + this.gapPageNumber,
+      // },
     };
     this.getEmployees();
   }

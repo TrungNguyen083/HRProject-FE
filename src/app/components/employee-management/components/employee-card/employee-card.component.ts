@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { IEmployee } from '../../models/employee-management.model';
+import { IEmployee, IEmployeeInfo } from '../../models/employee-management.model';
 import { prependImage } from 'src/app/utils/prependImage';
 
 @Component({
@@ -9,7 +9,7 @@ import { prependImage } from 'src/app/utils/prependImage';
   styleUrls: ['./employee-card.component.scss'],
 })
 export class EmployeeCardComponent implements OnChanges {
-  @Input() employee!: IEmployee;
+  @Input() employeeInfo!: IEmployeeInfo;
   menuItems!: MenuItem[] 
   defaultImg = 'assets/images/profile-image-default.jpg';
   prependImage = prependImage

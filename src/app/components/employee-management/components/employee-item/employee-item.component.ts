@@ -10,6 +10,7 @@ import { prependImage } from 'src/app/utils/prependImage';
 import {
   ContractType,
   IEmployee,
+  IEmployeeInfo,
 } from '../../models/employee-management.model';
 
 @Component({
@@ -20,7 +21,7 @@ import {
 })
 export class EmployeeItemComponent implements OnChanges {
   @HostBinding('class') hostClass = 'hrms-employee-item';
-  @Input() employee!: IEmployee;
+  @Input() employeeInfo!: IEmployeeInfo;
   defaultImg = 'assets/images/profile-image-default.jpg';
   menuItems!: MenuItem[];
   contractType = ContractType;

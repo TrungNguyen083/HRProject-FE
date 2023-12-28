@@ -34,7 +34,7 @@ export class EmployeeEffects {
       ofType(EmployeeActions.loadEmployeeDetail),
       switchMap(action =>
         this.employeeService.getEmployee(action.id).pipe(
-          map(res => EmployeeActions.setEmployee({ employee: res.employee })),
+          map(res => EmployeeActions.setEmployee({ employeeInfo: res.employee })),
           catchError(error => {
             console.error(error);
             return of();

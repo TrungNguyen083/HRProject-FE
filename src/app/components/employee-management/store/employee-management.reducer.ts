@@ -1,15 +1,15 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PaginatedData } from 'src/app/models/global.model';
 import {
-  IEmployee
+  IEmployee, IEmployeeInfo
 } from '../models/employee-management.model';
 import * as EmployeeActions from './employee-management.actions';
 
 export interface EmployeeState {
-  employees: PaginatedData<IEmployee>;
+  employees: PaginatedData<IEmployeeInfo>;
   loading: boolean;
-  employeeDetail: IEmployee | null;
-  newEmployees: IEmployee[];
+  employeeDetail: IEmployeeInfo | null;
+  newEmployees: IEmployeeInfo[];
 }
 
 export const initialState: EmployeeState = {
@@ -39,9 +39,9 @@ export const employeeFeature = createFeature({
       ...state,
       employees,
     })),
-    on(EmployeeActions.setEmployee, (state, { employee }) => ({
+    on(EmployeeActions.setEmployee, (state, { employeeInfo }) => ({
       ...state,
-      employeeDetail: employee,
+      employeeDetail: employeeInfo,
     })),
     on(EmployeeActions.setNewEmployees, (state, { newEmployees }) => ({
       ...state,

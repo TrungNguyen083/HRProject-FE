@@ -82,14 +82,16 @@ export const GET_EMPLOYEES = gql`
     $status: Boolean
     $departmentIds: [Int]
     $currentContracts: [Int]
-    $pagingInfo: PagingInfo!
+    $pageNo: Int
+    $pageSize: Int
     $name: String
   ) {
     employees(
       status: $status
       departmentIds: $departmentIds
       currentContracts: $currentContracts
-      pagingInfo: $pagingInfo
+      pageNo: $pageNo
+      pageSize: $pageSize
       name: $name
     ) {
       pagination {
@@ -98,10 +100,57 @@ export const GET_EMPLOYEES = gql`
         totalItems
         totalPages
       }
-      employee{
+      data {
+        employee {
+          id
+          firstName
+          lastName
+          address
+          email
+          gender
+          joinedDate
+          dateOfBirth
+          phoneNumber
+          currentContract
+          profileBio
+          facebookLink
+          twitterLink
+          linkedinLink
+          instagramLink
+          department {
+            id
+            departmentName
+          }
+          position{
+            id
+            positionName
+          }
+          jobLevel{
+            id
+            jobLevelName
+          }
+          status
+          leftDate
+        }
+        imageUrl
+        emergencyContacts {
+          id
+          firstName
+          lastName
+          phoneNumber
+        }
+      }
+    }
+  }
+`;
+
+export const GET_EMPLOYEE = gql`
+  query GetEmployee($id: Int!) {
+    employee(id: $id) {
+      employee {
         id
         firstName
-    		lastName
+        lastName
         address
         email
         gender
@@ -123,6 +172,7 @@ export const GET_EMPLOYEES = gql`
           positionName
         }
         jobLevel{
+          id
           jobLevelName
         }
         status
@@ -134,61 +184,6 @@ export const GET_EMPLOYEES = gql`
         firstName
         lastName
         phoneNumber
-      }
-    }
-  }
-`;
-
-export const GET_EMPLOYEE = gql`
-  query GetEmployee($id: Int!) {
-    employee(id: $id) {
-      id
-      firstName
-      lastName
-      gender
-      dateOfBirth
-      phoneNumber
-      address
-      positionLevel {
-        position {
-          id
-          positionName
-          hasLevel
-          hasDepartment
-        }
-        jobLevel {
-          id
-          jobLevelName
-        }
-      }
-      currentContract
-      employeeSkills {
-        skill {
-          skillName
-        }
-      }
-      damId
-      profileBio
-      emergencyContacts {
-        id
-        firstName
-        lastName
-        phoneNumber
-      }
-      department {
-        id
-        departmentName
-        sum {
-          firstName
-          lastName
-        }
-      }
-      twitterLink
-      facebookLink
-      instagramLink
-      linkedinLink
-      user {
-        username
       }
     }
   }
@@ -224,16 +219,18 @@ export const GET_DEPARTMENTS = gql`
 export const GET_NEW_EMPLOYEES = gql`
   query GetEmployeesCarousel {
     newEmployees {
-      id
-      damId
-      firstName
-      lastName
-      position {
-        positionName
+      employee{
+        id
+        firstName
+        lastName
+        email
+        position {
+          positionName
+        }
+        phoneNumber
+        currentContract
       }
-
-      phoneNumber
-      currentContract
+      imageUrl
     }
   }
 `;
