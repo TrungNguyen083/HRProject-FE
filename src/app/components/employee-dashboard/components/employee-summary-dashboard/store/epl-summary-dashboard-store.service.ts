@@ -117,7 +117,7 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
           this.summaryService.getEmployeeHighestSkills(params).pipe(
             tapResponse({
               next: res =>
-                this.setEmployeeHighestSkills(res.topHighestSkillSetEmployee),
+                this.setEmployeeHighestSkills(res.topSkillSet),
               error: error => console.log(error),
             }),
           ),

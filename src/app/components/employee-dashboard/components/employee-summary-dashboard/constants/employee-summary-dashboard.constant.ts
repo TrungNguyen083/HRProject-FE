@@ -43,13 +43,9 @@ export const GET_EMPLOYEE_IMPROVE_SKILL = gql`
       pageNo: $pageNo
       pageSize: $pageSize
     ) {
-      data {
-        skillSet {
-          skillSetName
-        }
-        proficiencyLevel {
-          score
-        }
+      data{
+        label
+        value
       }
       pagination {
         pageNo
@@ -68,13 +64,9 @@ export const GET_EMPLOYEE_TARGET_SKILL = gql`
       pageNo: $pageNo
       pageSize: $pageSize
     ) {
-      data {
-        skillSet {
-          skillSetName
-        }
-        proficiencyLevel {
-          score
-        }
+      data{
+        label
+        value
       }
       pagination {
         pageNo
@@ -101,7 +93,7 @@ export const GET_EMPLOYEE_PERFORMANCE_RATING = gql`
     employeePerformanceRatingScore(employeeId: $employeeId) {
       data {
         label
-        score
+        value
       }
     }
   }

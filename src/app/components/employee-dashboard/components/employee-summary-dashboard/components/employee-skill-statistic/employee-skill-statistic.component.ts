@@ -21,9 +21,9 @@ interface IEmployeeScoreData {
 })
 export class EmployeeSkillStatisticComponent implements OnInit {
   defaultParams: IEmployeeScoreParams = {
-    employeeId: 5,
+    employeeId: 4,
     pageNo: 1,
-    pageSize: 10,
+    pageSize: 5,
   };
   highestSkillsParams = { ...this.defaultParams };
   targetSkillsParams = { ...this.defaultParams };
