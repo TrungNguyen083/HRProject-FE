@@ -166,6 +166,11 @@ export const GET_EMPLOYEE = gql`
         department {
           id
           departmentName
+          sum {
+            id
+            firstName
+            lastName
+          }
         }
         position{
           id
