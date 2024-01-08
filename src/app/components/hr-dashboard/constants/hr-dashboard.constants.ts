@@ -9,64 +9,40 @@ export const topSkillsTableCol: TableHeader[] = [
 export const topPerformersTableCol: TableHeader[] = [
   { col: 'No.', field: 'no' },
   { col: 'Rating', field: 'rating' },
-  { col: 'Employee', field: 'employee' },
+  { col: 'Employee', field: 'firstName' },
 ];
 export const topCompetenciesTableCol: TableHeader[] = [
   { col: 'No.', field: 'no' },
   { col: 'Rating', field: 'rating' },
-  { col: 'Employee', field: 'employee' },
+  { col: 'Employee', field: 'firstName' },
 ];
-
-export const GET_TOP_PERFORMERS = gql`
-  query GetTopPerformers($pageNo: Int, $pageSize: Int) {
-    employeesPerformance(pageNo: $pageNo, pageSize: $pageSize) {
-      data {
-        employee {
-          firstName
-          lastName
-        }
-        finalAssessment
-      }
-      pagination {
-        pageNo
-        pageSize
-        totalItems
-        totalPages
-      }
-    }
-  }
-`;
 
 export const GET_COMPETENCY_CYCLE_STATUS = gql`
   query GetCompetencyCycleStatus($competencyCycleId: Int!) {
-    departmentInComplete(competencyCycleId: $competencyCycleId) {
-      department {
-        departmentName
+    departmentInCompleteComp(competencyCycleId: $competencyCycleId) {
+      labels
+      datasets{
+        label
+        data
       }
-      employeePercentage
-      evaluatorPercentage
     }
 
-    companyInComplete(competencyCycleId: $competencyCycleId) {
-      label
-      data
+    competencyEvalProgress(competencyCycleId: $competencyCycleId) {
+      labels
+      datasets
     }
   }
 `;
 
 export const GET_COMPETENCY_BY_LEVEL_AND_POSITION = gql`
-  query GetCmptByLevelAndPosition($positionId: Int!, $competencyCycleId: Int!) {
+  query GetCmptByLevelAndPosition($positionId: Int, $competencyCycleId: Int!) {
     avgCompetencyScore(
       positionId: $positionId
       competencyCycleId: $competencyCycleId
     ) {
-      jobLevel {
-        jobLevelName
-      }
-      competency {
-        competencyName
-      }
-      average
+      verticalColumnName
+      horizontalColumnName
+      score
     }
   }
 `;
@@ -80,7 +56,7 @@ export const GET_COMPETENCY_BY_UNIT = gql`
       labels
       datasets {
         lineName
-        datasets
+        dataset
       }
     }
   }
@@ -98,15 +74,32 @@ export const GET_COMPETENCY_TIMELINE = gql`
 `;
 
 export const GET_TOP_SKILL_SETS = gql`
-  query GetTopSkillset($competencyCycleId: Int!) {
-    topHighestSkillSet(competencyCycleId: $competencyCycleId) {
+  query GetTopSkillset($competencyCycleId: Int!, $pageNo: Int, $pageSize: Int) {
+    topSkillSet(competencyCycleId: $competencyCycleId, pageNo: $pageNo, pageSize: $pageSize) {
+      data{
+        label
+        value
+      }
+      pagination {
+        pageNo
+        pageSize
+        totalItems
+        totalPages
+      }
+    }
+  }
+`;
+
+
+export const GET_TOP_PERFORMERS = gql`
+  query GetTopPerformers($cycleId: Int!, $pageNo: Int, $pageSize: Int) {
+    topPerformers(cycleId: $cycleId, pageNo: $pageNo, pageSize: $pageSize) {
       data {
-        skillSet {
-          skillSetName
-        }
-        proficiencyLevel {
-          score
-        }
+        id
+        firstName
+        lastName
+        profileImgUrl
+        rating
       }
       pagination {
         pageNo
@@ -119,13 +112,13 @@ export const GET_TOP_SKILL_SETS = gql`
 `;
 
 export const GET_TOP_COMPETENCIES = gql`
-  query GetTopCompetencies($pageNo: Int!, $pageSize: Int!) {
-    employeesCompetency(pageNo: $pageNo, pageSize: $pageSize) {
-      data {
-        employee {
-          lastName
-          firstName
-        }
+  query GetTopCompetencies($cycleId: Int!, $pageNo: Int!, $pageSize: Int!) {
+    topCompetencyRating(cycleId: $cycleId, pageNo: $pageNo, pageSize: $pageSize) {
+      data{
+        id
+        firstName
+        lastName
+        profileImgUrl
         rating
       }
       pagination {
@@ -148,12 +141,10 @@ export const GET_COMPETENCY_CYCLES = gql`
 `;
 
 export const GET_POTENTIAL_PERFORMANCE = gql`
-  query GetPotentialPerformance($departmentId: Int) {
-    employeesPotentialPerformance(departmentId: $departmentId) {
-      employee {
-        lastName
-        firstName
-      }
+  query GetPotentialPerformance($departmentId: Int, $cycleId: Int) {
+    employeesPotentialPerformance(departmentId: $departmentId, cycleId: $cycleId) {
+      employeeId
+      fullName
       profileImgUri
       potential
       performance
@@ -162,13 +153,16 @@ export const GET_POTENTIAL_PERFORMANCE = gql`
 `;
 
 export const GET_PERFORMANCE_BY_JOB_LEVEL = gql`
-  query GetPerformanceByJobLevel($performanceCycleId: Int!, $positionId: Int!) {
-    performanceByJobLevel(performanceCycleId: $performanceCycleId , positionId: $positionId) {
+  query GetPerformanceByJobLevel($positionId: Int!, $cycleId: Int!) {
+    performanceByJobLevel(positionId: $positionId, cycleId: $cycleId) {
       labels {
+        id
         jobLevelName
       }
-      datasets
-      categories
+      datasets {
+        tag
+        data
+      }
     }
-  }
+  } 
 `

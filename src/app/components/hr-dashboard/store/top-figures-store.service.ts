@@ -3,19 +3,17 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap } from 'rxjs';
 import { PaginatedData } from 'src/app/models/global.model';
 import {
-  ITopCompetency,
-  ITopCompetencyParams,
-  ITopPerformer,
-  ITopPerformerParams,
+  ITopEmployee,
+  ITopEmployeeParams,
   ITopSkillset,
   ITopskillsetParams,
 } from '../models/hr-dashboard.model';
 import { HrDashboardService } from '../services/hr-dashboard.service';
 
 export interface ITopFiguresState {
-  topPerformers: PaginatedData<ITopPerformer>;
+  topPerformers: PaginatedData<ITopEmployee>;
   topSkillsets: PaginatedData<ITopSkillset>;
-  topCompetencies: PaginatedData<ITopCompetency>;
+  topCompetencies: PaginatedData<ITopEmployee>;
 }
 
 const defaultPagination = {
@@ -57,7 +55,7 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
   readonly topCompetencies$ = this.select(state => state.topCompetencies);
   //UPDATER
   readonly setTopPerformers = this.updater(
-    (state: ITopFiguresState, topPerformers: PaginatedData<ITopPerformer>) => {
+    (state: ITopFiguresState, topPerformers: PaginatedData<ITopEmployee>) => {
       return {
         ...state,
         topPerformers,
@@ -75,7 +73,7 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
   readonly setTopCompetencies = this.updater(
     (
       state: ITopFiguresState,
-      topCompetencies: PaginatedData<ITopCompetency>,
+      topCompetencies: PaginatedData<ITopEmployee>,
     ) => {
       return {
         ...state,
@@ -85,12 +83,12 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
   );
   //EFFECT
   readonly getTopPerformers = this.effect(
-    (params$: Observable<ITopPerformerParams>) =>
+    (params$: Observable<ITopEmployeeParams>) =>
       params$.pipe(
         switchMap(params =>
           this.hrDashboardService.getTopPerformers(params).pipe(
             tapResponse({
-              next: res => this.setTopPerformers(res.employeesPerformance),
+              next: res => this.setTopPerformers(res.topPerformers),
               error: error => console.log(error),
             }),
           ),
@@ -104,7 +102,9 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
         switchMap(params =>
           this.hrDashboardService.getTopSkillset(params).pipe(
             tapResponse({
-              next: res => this.setTopSkillsets(res.topHighestSkillSet),
+              next: res => {
+                this.setTopSkillsets(res.topSkillSet)
+              },
               error: error => console.log(error),
             }),
           ),
@@ -113,12 +113,14 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
   );
 
   readonly getTopCompetencies = this.effect(
-    (params$: Observable<ITopCompetencyParams>) =>
+    (params$: Observable<ITopEmployeeParams>) =>
       params$.pipe(
         switchMap(params =>
           this.hrDashboardService.getTopCompetencies(params).pipe(
             tapResponse({
-              next: res => this.setTopCompetencies(res.employeesCompetency),
+              next: res => {
+                this.setTopCompetencies(res.topCompetencyRating);
+              },
               error: error => console.log(error),
             }),
           ),

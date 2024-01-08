@@ -4,33 +4,22 @@ import {
   IJobLevel,
 } from '../../employee-management/models/employee-management.model';
 
-export interface ITopPerformerParams {
-  pageNo?: number;
-  pageSize?: number;
-}
-
-export interface ITopPerformer {
-  employee: IEmployee;
-  finalAssessment?: number;
-}
-
-export interface ITopPerformerApiResponse {
-  employeesPerformance: PaginatedData<ITopPerformer>;
-}
 
 export interface ICompetencyIncompletionStatus {
-  department: { departmentName: string };
-  employeePercentage: number;
-  evaluatorPercentage: number;
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+  }[];
 }
 
 export interface ICompanyCompletion {
-  label: string;
-  data: number;
+  labels: string[];
+  datasets: number[];
 }
 export interface ICompetencyIncompletionApiResponse {
-  departmentInComplete: ICompetencyIncompletionStatus[];
-  companyInComplete: ICompanyCompletion[];
+  departmentInCompleteComp: ICompetencyIncompletionStatus;
+  competencyEvalProgress: ICompanyCompletion;
 }
 
 export interface ICompetencyByLevelAndPositionParams {
@@ -38,11 +27,9 @@ export interface ICompetencyByLevelAndPositionParams {
   competencyCycleId?: number;
 }
 export interface IAvgCompetencyScore {
-  jobLevel: IJobLevel;
-  competency: {
-    competencyName: string;
-  };
-  average: number;
+  verticalColumnName: string;
+  horizontalColumnName: string;
+  score: number;
 }
 export interface IAvgCompetencyScoreApiResponse {
   avgCompetencyScore: IAvgCompetencyScore[];
@@ -60,7 +47,7 @@ export interface ICompetencyByUnit {
   labels: string[];
   datasets: {
     lineName: string;
-    datasets: number[];
+    dataset: number[];
   }[];
 }
 
@@ -76,12 +63,8 @@ export interface ICompetencyTimelineApiResponse {
 }
 
 export interface ITopSkillset {
-  skillSet: {
-    skillSetName: string;
-  };
-  proficiencyLevel: {
-    score: number;
-  };
+  label: string;
+  value: number;
 }
 export interface ITopskillsetParams {
   pageNo?: number;
@@ -89,7 +72,7 @@ export interface ITopskillsetParams {
   competencyCycleId?: number;
 }
 export interface ITopSkillsetApiResponse {
-  topHighestSkillSet: PaginatedData<ITopSkillset>;
+  topSkillSet: PaginatedData<ITopSkillset>;
 }
 
 export interface ICompetencyCycle {
@@ -100,21 +83,33 @@ export interface ICptCyclesApiResponse {
   competencyCycles: ICompetencyCycle[];
 }
 
-export interface ITopCompetency {
-  employee: IEmployee;
+
+export interface ITopEmployeeParams {
+  cycleId?: number;
+  pageNo?: number;
+  pageSize?: number;
+}
+
+export interface ITopEmployee {
+  id: number;
+  firstName: string;
+  lastName: string;
+  profileImgUrl?: string;
   rating: number;
 }
 
-export interface ITopCompetencyParams {
-  pageNo: number;
-  pageSize: number;
+export interface ITopPerformerApiResponse {
+  topPerformers: PaginatedData<ITopEmployee>;
 }
+
+
 export interface ITopCompetencyApiResponse {
-  employeesCompetency: PaginatedData<ITopCompetency>;
+  topCompetencyRating: PaginatedData<ITopEmployee>;
 }
 
 export interface IPotentialPerformance {
-  employee: IEmployee;
+  employeeId: number;
+  fullName: string;
   profileImgUri: string;
   potential: number;
   performance: number;
@@ -122,6 +117,7 @@ export interface IPotentialPerformance {
 
 export interface IPotentialPerformanceParams {
   departmentId: number;
+  cycleId: number;
 }
 
 export interface IPotentialPerformanceApiResponse {
@@ -129,13 +125,16 @@ export interface IPotentialPerformanceApiResponse {
 }
 
 export interface IPerformanceByLevelParams {
-  performanceCycleId: number;
-  positionId: 1;
+  positionId: number;
+  cycleId: number;
 }
+
 export interface IPerformanceByLevel {
   labels: IJobLevel[];
-  datasets: number[][];
-  categories: string[];
+  datasets: {
+    tag: string;
+    data: number[];
+  }[]
 }
 export interface IPerformanceByLevelApiResponse {
   performanceByJobLevel: IPerformanceByLevel;

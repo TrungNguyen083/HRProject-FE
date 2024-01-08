@@ -29,7 +29,10 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
       switchMap(params =>
         this.employeeDashboardService.getEmployeeOverview(params).pipe(
           tapResponse({
-            next: res => this.setEmployeeOverview(res.employeeOverview),
+            next: res => {
+              this.setEmployeeOverview(res.employeeOverview);
+              console.log(res.employeeOverview);
+            },
             error: error => console.log(error),
           }),
         ),

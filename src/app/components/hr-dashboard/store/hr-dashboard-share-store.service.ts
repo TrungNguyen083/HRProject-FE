@@ -177,8 +177,9 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
         switchMap(params =>
           this.hrDashboardService.getPerformanceByLevel(params).pipe(
             tapResponse({
-              next: res =>
-                this.setPerformanceByLevel(res.performanceByJobLevel),
+              next: res => {
+                this.setPerformanceByLevel(res.performanceByJobLevel);
+              },
               error: error => console.log(error),
             }),
           ),

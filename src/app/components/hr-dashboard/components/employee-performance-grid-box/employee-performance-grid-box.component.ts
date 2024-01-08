@@ -19,7 +19,7 @@ export class EmployeePerformanceGridBoxComponent implements OnInit {
   basicOptions: ChartOptions = nineGridboxOptions;
   labels: string[] = [];
   data: { x: number; y: number; image: string }[] = [];
-  params = { departmentId: 1 };
+  params = { departmentId: -1, cycleId: 1 };
   pointImages: string[] = []
 
   constructor(private shareStore: HrDashboardShareStore) {
@@ -50,11 +50,16 @@ export class EmployeePerformanceGridBoxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shareStore.getPotentialPerformance(this.params);
+    this.shareStore.activeCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.params = { ...this.params, cycleId: cycleId };
+      this.shareStore.getPotentialPerformance(this.params);
+    });
+    // this.shareStore.getPotentialPerformance(this.params);
     this.shareStore.employeesPotentialPerformance$.subscribe(res => {
       this.labels = _.map(
         res,
-        item => `${item.employee.firstName} ${item.employee.lastName}`,
+        item => item.fullName,
       );
 
       this.data = _.map(res, item => {

@@ -74,8 +74,8 @@ export class EmployeeSkillStatisticComponent implements OnInit {
   private mapSkillsTableData(data: IEmployeeSkillScore[]) {
     return data.map((s, i) => ({
       no: i + 1,
-      score: s.proficiencyLevel.score,
-      skillsetName: s.skillSet.skillSetName,
+      score: s.value,
+      skillsetName: s.label,
     }));
   }
 }

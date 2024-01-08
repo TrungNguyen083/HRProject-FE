@@ -8,13 +8,15 @@ import { configPagination } from 'src/app/utils/configPagination';
 import { defaultTablePagination, defaultImg } from '../../../../constants/app.constant';
 import { topPerformersTableCol } from '../../constants/hr-dashboard.constants';
 import { TopFiguresStore } from '../../store/top-figures-store.service';
-import { IEmployee } from 'src/app/components/employee-management/models/employee-management.model';
+import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 
 interface TopPerformersTableData {
   no: number;
-  profileImg: string;
-  employee: IEmployee;
-  finalAssessment?: number;
+  id: number;
+  firstName: string;
+  lastName: string;
+  profileImgUrl?: string;
+  rating: number;
 }
 @Component({
   selector: 'top-performers',
@@ -32,16 +34,22 @@ export class TopPerformersComponent implements OnInit {
     },
   };
   popUpTableRef!: DynamicDialogRef;
-  tableParams = { pageNo: 1, pageSize: 10 };
+  tableParams = { cycleId: 0, pageNo: 1, pageSize: 5 };
   isFullTableShown = false;
   gapPageNumber = 1;
 
   constructor(
     private topFigureScore: TopFiguresStore,
+    private shareStore: HrDashboardShareStore,
   ) {}
 
   ngOnInit(): void {
-    this.topFigureScore.getTopPerformers(this.tableParams);
+    this.shareStore.activeCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.tableParams = { ...this.tableParams, cycleId: cycleId };
+      this.topFigureScore.getTopPerformers(this.tableParams);
+    });
+    // this.topFigureScore.getTopPerformers(this.tableParams);
     this.topPerformers$.subscribe(result => {
       const pagination = configPagination(result.pagination);
 
@@ -49,7 +57,7 @@ export class TopPerformersComponent implements OnInit {
         return {
           ...p,
           no: i + 1,
-          profileImg: this.defaultImg,
+          profileImgUrl: this.defaultImg,
         };
       });
       const tData = {

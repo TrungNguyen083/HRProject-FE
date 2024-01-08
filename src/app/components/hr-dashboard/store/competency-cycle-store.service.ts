@@ -10,8 +10,8 @@ import { HrDashboardService } from '../services/hr-dashboard.service';
 export interface ICompetencyCyleState {
   loading: boolean;
   cycleStatus: {
-    departmentInComplete: ICompetencyIncompletionStatus[];
-    companyInComplete: ICompanyCompletion[];
+    departmentInCompleteComp: ICompetencyIncompletionStatus;
+    competencyEvalProgress: ICompanyCompletion;
   };
 }
 @Injectable({
@@ -22,8 +22,14 @@ export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
     super({
       loading: true,
       cycleStatus: {
-        departmentInComplete: [],
-        companyInComplete: [],
+        departmentInCompleteComp: {
+          labels: [],
+          datasets: [],
+        },
+        competencyEvalProgress: {
+          labels: [],
+          datasets: [],
+        },
       },
     });
   }
@@ -36,8 +42,8 @@ export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
     (
       state: ICompetencyCyleState,
       cycleStatus: {
-        departmentInComplete: ICompetencyIncompletionStatus[];
-        companyInComplete: ICompanyCompletion[];
+        departmentInCompleteComp: ICompetencyIncompletionStatus;
+        competencyEvalProgress: ICompanyCompletion;
       },
     ) => {
       return {
@@ -64,8 +70,8 @@ export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
               next: res => {
                 this.setLoading(false);
                 return this.setCycleStatus({
-                  departmentInComplete: res.departmentInComplete,
-                  companyInComplete: res.companyInComplete,
+                  departmentInCompleteComp: res.departmentInCompleteComp,
+                  competencyEvalProgress: res.competencyEvalProgress,
                 });
               },
               error: error => console.log(error),

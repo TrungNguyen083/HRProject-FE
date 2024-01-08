@@ -6,16 +6,18 @@ import {
   defaultImg,
 } from '../../../../constants/app.constant';
 import { TopFiguresStore } from '../../store/top-figures-store.service';
-import { ITopCompetencyParams } from '../../models/hr-dashboard.model';
 import { configPagination } from 'src/app/utils/configPagination';
 import _ from 'lodash';
 import { PageChangeEvent } from 'src/app/components/share/models/pagingInfo.model';
-import { IEmployee } from 'src/app/components/employee-management/models/employee-management.model';
+import { ITopEmployeeParams } from '../../models/hr-dashboard.model';
+import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 
 interface TopCompetenciesTableData {
   no: number;
-  profileImg: string;
-  employee: IEmployee;
+  id: number;
+  firstName: string;
+  lastName: string;
+  profileImgUrl?: string;
   rating: number;
 }
 @Component({
@@ -31,23 +33,28 @@ export class TopCompetenciesComponent implements OnInit {
       body: [],
     },
   };
-  tableParams: ITopCompetencyParams = { pageNo: 1, pageSize: 10 };
+  tableParams: ITopEmployeeParams = { cycleId: 0, pageNo: 1, pageSize: 10 };
   topCompetencies$ = this.topFigureStore.topCompetencies$;
   isFullTableShown = false;
   gapPageNumber = 1;
   defaultImg = defaultImg;
 
-  constructor(private topFigureStore: TopFiguresStore) {}
+  constructor(private topFigureStore: TopFiguresStore, private shareStore: HrDashboardShareStore) {}
   
   ngOnInit(): void {
-    this.topFigureStore.getTopCompetencies(this.tableParams);
+    this.shareStore.activeCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.tableParams = { ...this.tableParams, cycleId: cycleId };
+      this.topFigureStore.getTopCompetencies(this.tableParams);
+    });
+    //this.topFigureStore.getTopCompetencies(this.tableParams);
     this.topCompetencies$.subscribe(res => {
       const pagination = configPagination(res.pagination);
       const topCompetencies = res.data.map((s, i) => {
         return {
           ...s,
           no: i + 1,
-          profileImg: this.defaultImg,
+          profileImgUrl: this.defaultImg,
         };
       });
 
@@ -70,6 +77,6 @@ export class TopCompetenciesComponent implements OnInit {
       ...this.tableParams,
       pageNo: e.page + this.gapPageNumber,
     };
-    this.topFigureStore.getTopSkillsets(this.tableParams);
+    this.topFigureStore.getTopCompetencies(this.tableParams);
   }
 }

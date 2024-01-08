@@ -17,18 +17,14 @@ export const defaultTable = {
 };
 export const GET_EMPLOYEE_HIGHEST_SKILL = gql`
   query GetHighestSkill($employeeId: Int!, $pageNo: Int, $pageSize: Int) {
-    topHighestSkillSetEmployee(
+    topSkillSet(
       employeeId: $employeeId
       pageNo: $pageNo
       pageSize: $pageSize
     ) {
       data {
-        skillSet {
-          skillSetName
-        }
-        proficiencyLevel {
-          score
-        }
+        label
+        value
       }
       pagination {
         pageNo

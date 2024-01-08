@@ -25,9 +25,8 @@ import {
   IPotentialPerformanceApiResponse,
   IPotentialPerformanceParams,
   ITopCompetencyApiResponse,
-  ITopCompetencyParams,
   ITopPerformerApiResponse,
-  ITopPerformerParams,
+  ITopEmployeeParams,
   ITopSkillsetApiResponse,
   ITopskillsetParams,
 } from '../models/hr-dashboard.model';
@@ -40,7 +39,7 @@ export class HrDashboardService {
   constructor(private apollo: Apollo) {}
 
   getTopPerformers(
-    params: ITopPerformerParams,
+    params: ITopEmployeeParams,
   ): Observable<ITopPerformerApiResponse> {
     return this.apollo
       .watchQuery<ITopPerformerApiResponse>({
@@ -114,7 +113,7 @@ export class HrDashboardService {
   }
 
   getTopCompetencies(
-    params: ITopCompetencyParams,
+    params: ITopEmployeeParams,
   ): Observable<ITopCompetencyApiResponse> {
     return this.apollo
       .watchQuery<ITopCompetencyApiResponse>({
