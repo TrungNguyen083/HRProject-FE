@@ -33,12 +33,12 @@ export class CompetencyLevelComponent implements OnInit {
     // this.competencyScoreStore.getScoreByLevelAndPosition(this.params);
     this.scoreByLevelAndPosition$.subscribe(result => {
       const series = _(result)
-        .groupBy('jobLevel.jobLevelName')
+        .groupBy('verticalColumnName')
         .map((values, key) => ({
           name: key,
-          data: values.map(({ competency: { competencyName }, average }) => ({
-            x: competencyName,
-            y: average,
+          data: values.map(({ horizontalColumnName, score }) => ({
+            x: horizontalColumnName,
+            y: score,
           })),
         }))
         .value();

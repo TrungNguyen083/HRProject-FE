@@ -13,12 +13,12 @@ export const employeeInfoLabelItems = [
   },
   {
     label: 'qualifications',
-    id: '0',
+    id: '2',
     title: 'Qualifications',
   },
   {
     label: 'evaluation',
-    id: '',
+    id: '3',
     title: 'Evaluation',
   },
 ];
@@ -26,27 +26,13 @@ export const employeeInfoLabelItems = [
 export const GET_EMPLOYEE_OVERVIEW = gql`
   query GetEmployeeOverview($employeeId: Int!) {
     employeeOverview(employeeId: $employeeId) {
-      employee {
-        damId
-        firstName
-        lastName
-        positionLevel {
-          jobLevel {
-            jobLevelName
-          }
-          position {
-            positionName
-          }
-        }
-        address
-      }
-      skills {
-        skillSetName
-      }
-      interests {
-        skillSetName
-      }
-      certification
-    }
+      firstName
+      lastName
+      profileImgUri
+      position
+      level
+      skillSets
+      certifications
   }
+}
 `;

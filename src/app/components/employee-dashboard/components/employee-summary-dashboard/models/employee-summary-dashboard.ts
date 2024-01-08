@@ -13,12 +13,8 @@ export interface IEmployeeScoreParams {
 }
 
 export interface IEmployeeSkillScore {
-  skillSet: {
-    skillSetName: string;
-  };
-  proficiencyLevel: {
-    score: number;
-  };
+    label: string;
+    value: number;
 }
 
 export interface IEmployeeHighestSkillApiResponse {

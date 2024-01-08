@@ -31,7 +31,7 @@ export class TopSkillsComponent implements OnInit {
   };
   tableParams: ITopskillsetParams = {
     pageNo: 1,
-    pageSize: 10,
+    pageSize: 5,
   };
   topSkillsets$ = this.topFigureStore.topSkillsets$;
   isFullTableShown = false;
@@ -54,8 +54,8 @@ export class TopSkillsComponent implements OnInit {
       const topSkillsets = result.data.map((s, i) => {
         return {
           no: i + 1,
-          avgScore: s.proficiencyLevel.score,
-          skill: s.skillSet.skillSetName,
+          avgScore: s.value,
+          skill: s.label,
         };
       });
       const tData = {

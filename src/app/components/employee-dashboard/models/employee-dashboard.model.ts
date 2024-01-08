@@ -1,12 +1,15 @@
-import { IEmployee } from '../../employee-management/models/employee-management.model';
+
+export interface IEmployeeOverview {
+  id: number;
+  firstName: string;
+  lastName: string;
+  profileImgUri: string;
+  position: string;
+  level: string;
+  skillSets: string[];
+  certification: string[];
+}
 
 export interface IEmployeeOverviewApiResponse {
   employeeOverview: IEmployeeOverview;
-}
-
-export interface IEmployeeOverview {
-  employee: IEmployee;
-  skills: { skillSetName: string }[];
-  interests: { skillSetName: string }[];
-  certification: string[];
 }

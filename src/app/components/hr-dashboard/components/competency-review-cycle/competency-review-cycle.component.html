@@ -19,8 +19,9 @@
                     [height]="'250'">
                 </hrms-chart>
                 <div class="completion-percentage">
-                    <span class="font-bold text-primary text-3xl">{{completionPercentage === 0?
-                        0:completionPercentage.toFixed(1)}}%</span>
+                    <span class="font-bold text-primary text-3xl">
+                        {{ completionPercentage !== undefined ? completionPercentage.toFixed(1) + '%' : '0%' }}
+                    </span>
                 </div>
             </div>
         </div>

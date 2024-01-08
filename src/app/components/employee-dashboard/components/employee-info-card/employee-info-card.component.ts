@@ -8,9 +8,14 @@ import _ from 'lodash';
   styleUrls: ['./employee-info-card.component.scss'],
 })
 export class EmployeeInfoCardComponent implements OnInit {
+  employeeId!: number;
+  firstName!: string;
+  lastName!: string;
+  profileImgUri!: string;
+  position!: string;
+  level!: string;
   defaultImg = 'assets/images/avatar-default.jpg';
-  skills = ['Figma', 'Adobe Creative Suite', 'Adobe Illustrator'];
-  interests = ['Wireframing', 'Adobe Creative Suite', 'Collaboration skills'];
+  skillSets!: string[];
   certification!: string[];
   employeeOverview$ = this.dashboardStore.employeeOverview$;
 
@@ -20,8 +25,13 @@ export class EmployeeInfoCardComponent implements OnInit {
     this.dashboardStore.getEmployeeOverview(4);
 
     this.employeeOverview$.subscribe(res => {
-      this.skills = _.map(_.slice(res?.skills, 0, 5), 'skillSetName');
-      this.interests = _.map(_.slice(res?.interests, 0, 5), 'skillSetName');
+      this.employeeId = res?.id ?? 0;
+      this.firstName = res?.firstName ?? '';
+      this.lastName = res?.lastName ?? '';
+      this.profileImgUri = res?.profileImgUri ?? '';
+      this.position = res?.position ?? '';
+      this.level = res?.level ?? '';
+      this.skillSets = res?.skillSets ?? [];
       this.certification = res?.certification ?? [];
     });
   }

@@ -36,7 +36,7 @@ export class CompetencyReviewCycleComponent implements OnInit {
   constructor(
     private competencyCycleStore: CompetencyCycleStore,
     private shareStore: HrDashboardShareStore,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.shareStore.activeCycle$.subscribe(cycle => {
@@ -47,14 +47,28 @@ export class CompetencyReviewCycleComponent implements OnInit {
       this.loading = res
     })
     this.cycleStatus$.subscribe(result => {
-      const { departmentInComplete, companyInComplete } = result;
-      
-      this.barChartLabel = _.map(departmentInComplete,'department.departmentName');
-      this.selfEvalData = _.map(departmentInComplete, 'employeePercentage');
-      this.managerEvalData = _.map(departmentInComplete, 'evaluatorPercentage');
-      this.pieLabels = _.reverse([...companyInComplete]).map(c => c.label);
-      this.pieChartData = _.reverse([...companyInComplete]).map(c => c.data);
-      this.completionPercentage = _.find(companyInComplete, { label: 'Completed' })?.data ?? 0;
+      const { departmentInCompleteComp, competencyEvalProgress } = result;
+
+      //Multi-bar chart data
+      this.barChartLabel = departmentInCompleteComp.labels;
+      this.selfEvalData = departmentInCompleteComp.datasets
+        .filter(dataset => dataset.label === "Self Evaluation")
+        .flatMap(dataset => dataset.data);
+      this.managerEvalData = departmentInCompleteComp.datasets
+        .filter(dataset => dataset.label === "Supervisor")
+        .flatMap(dataset => dataset.data);
+
+      //Pie chart data
+      this.pieLabels = competencyEvalProgress.labels;
+      this.pieChartData = competencyEvalProgress.datasets;
+      this.completionPercentage = competencyEvalProgress.datasets[0];
+
+      // this.barChartLabel = _.map(departmentInComplete,'department.departmentName');
+      // this.selfEvalData = _.map(departmentInComplete, 'employeePercentage');
+      // this.managerEvalData = _.map(departmentInComplete, 'evaluatorPercentage');
+      // this.pieLabels = _.reverse([...companyInComplete]).map(c => c.label);
+      // this.pieChartData = _.reverse([...companyInComplete]).map(c => c.data);
+      // this.completionPercentage = _.find(companyInComplete, { label: 'Completed' })?.data ?? 0;
 
       this.initBarChartData();
       this.initPieChartData();

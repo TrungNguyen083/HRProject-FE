@@ -19,7 +19,7 @@ export class CompetencyLevelByUnitComponent implements OnInit {
   filterForm!: FormGroup;
   scoreByUnit$ = this.competencyScoreStore.scoreByUnit$;
   lebels: string[] = [];
-  scoreParams = { competencyCyclesId: [7, 8], departmentId: 2 };
+  scoreParams = { competencyCyclesId: [2, 3], departmentId: 2 };
   cycleOptions!: IDropdownItem[];
   departmentOptions!: IDropdownItem[];
 
@@ -77,7 +77,7 @@ export class CompetencyLevelByUnitComponent implements OnInit {
           pointBorderColor: colorObj.borderColor,
           pointHoverBackgroundColor: textColor,
           pointHoverBorderColor: colorObj.borderColor,
-          data: data.datasets,
+          data: data.dataset,
         };
       });
 
