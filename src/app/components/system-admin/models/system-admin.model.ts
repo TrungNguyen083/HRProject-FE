@@ -43,7 +43,7 @@ export interface IUpdateAccountParams {
 }
 
 export interface IGetUserApiResponse {
-  user: IEmployeeAccount;
+  users: IEmployeeAccount;
 }
 
 export interface IUpdateAccountInfoParams {

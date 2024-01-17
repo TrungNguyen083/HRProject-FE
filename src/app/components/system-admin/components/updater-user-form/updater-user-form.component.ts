@@ -67,6 +67,7 @@ export class UpdaterUserFormComponent implements OnInit {
         );
         this.ref.close({ success: true });
       });
+
   }
 
   onCloseModal() {

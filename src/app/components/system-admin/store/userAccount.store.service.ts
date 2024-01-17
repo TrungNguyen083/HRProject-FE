@@ -161,7 +161,7 @@ export class EmployeeAccountStore extends ComponentStore<IUserAccountState> {
       switchMap(id =>
         this.systemAdminService.getUser(id).pipe(
           tapResponse({
-            next: res => this.setUser(res.user),
+            next: res => this.setUser(res.users),
             error: error => console.log(error),
           }),
         ),
