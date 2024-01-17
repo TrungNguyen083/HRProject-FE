@@ -18,7 +18,7 @@ export interface IEmployeeSkillScore {
 }
 
 export interface IEmployeeHighestSkillApiResponse {
-  topHighestSkillSetEmployee: PaginatedData<IEmployeeSkillScore>;
+  topSkillSet: PaginatedData<IEmployeeSkillScore>;
 }
 
 export interface IEmployeeImproveSkillApiResponse {
@@ -45,7 +45,7 @@ export interface IEmployeePerformanceRatingApiResponse {
 export interface IEmployeePerformanceRating {
   data: {
     label: string;
-    score: number;
+    value: number;
   }[];
 }
 

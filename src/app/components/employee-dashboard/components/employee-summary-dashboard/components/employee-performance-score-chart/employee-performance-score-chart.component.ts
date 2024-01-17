@@ -13,7 +13,7 @@ export class EmployeePerformanceScoreChartComponent implements OnInit {
   options: ChartOptions = barChartWithLineOptions;
   data!: ChartData;
   labels: string[] = [];
-  scores: number[] = [];
+  values: number[] = [];
 
   constructor(private eplSummaryStore: EplSummaryDashboardStore) {}
 
@@ -21,7 +21,7 @@ export class EmployeePerformanceScoreChartComponent implements OnInit {
     this.eplSummaryStore.getEmployeePerformanceRating(4);
     this.eplSummaryStore.employeePerformanceRating$.subscribe(res => {
       this.labels = _.map(res.data, 'label');
-      this.scores = _.map(res.data, 'score');
+      this.values = _.map(res.data, 'value');
       this.initChartData();
     });
   }
@@ -37,13 +37,13 @@ export class EmployeePerformanceScoreChartComponent implements OnInit {
           borderWidth: 2,
           fill: false,
           tension: 0.4,
-          data: this.scores,
+          data: this.values,
         },
         {
           type: 'bar',
           label: 'Performance',
           backgroundColor: colorObj.primary,
-          data: this.scores,
+          data: this.values,
           borderColor: 'white',
           borderWidth: 2,
         },

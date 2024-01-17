@@ -31,7 +31,6 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
           tapResponse({
             next: res => {
               this.setEmployeeOverview(res.employeeOverview);
-              console.log(res.employeeOverview);
             },
             error: error => console.log(error),
           }),

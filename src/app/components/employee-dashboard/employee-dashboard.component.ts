@@ -19,7 +19,6 @@ export class EmployeeDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe(url => {
-      console.log({ url });
     });
   }
 
