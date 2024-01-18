@@ -11,13 +11,13 @@ export class AuthService {
   apollo = inject(Apollo);
 
   login(
-    user: Partial<{ userName: string | null; userPassword: string | null }>
+    user: Partial<{ userName: string | null; password: string | null }>
   ): Observable<MutationResult<LoginApiResponse>> {
     return this.apollo.mutate<LoginApiResponse>({
       mutation: LOGIN,
       variables: {
         username: user.userName,
-        password: user.userPassword,
+        password: user.password,
       },
     });
   }
