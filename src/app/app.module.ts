@@ -18,6 +18,7 @@ import { ProgressBarComponent } from './components/share/progress-bar/progress-b
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { filterDataReducer } from './store/reducers/filter-data.reducer';
 import { FilterDataEffects } from './store/effects/filter-data.effect';
+import { TokenExpiryInterceptor } from './services/token-expiry.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,11 @@ import { FilterDataEffects } from './store/effects/filter-data.effect';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ProgressBarInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenExpiryInterceptor,
       multi: true,
     },
   ],

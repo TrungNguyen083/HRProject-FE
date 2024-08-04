@@ -19,5 +19,10 @@ export interface User {
 export type Role = 'ADMIN' | 'MANAGER' | 'USER';
 
 export interface LoginApiResponse {
-  login: string;
+  generateToken: string;
+}
+
+export interface IAuthRequest {
+  username: string;
+  password: string;
 }

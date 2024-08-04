@@ -57,7 +57,7 @@ export interface IAddEmployee {
 export interface IUpdateEmployee {
   firstName: string;
   lastName: string;
-  email: string;
+  email?: string;
   gender: string;
   dateOfBirth: string;
   phoneNumber: string;

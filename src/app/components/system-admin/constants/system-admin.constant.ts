@@ -7,6 +7,8 @@ export const userAccount: TableHeader[] = [
   { col: 'Status', field: 'status' },
   { col: 'Created at', field: 'createdAt' },
   { col: 'Role', field: 'role' },
+  { col: '', field: 'active' },
+  { col: '', field: 'asign' },
   { col: '', field: 'action' },
 ];
 export const userLabelItems: MenuItem[] = [
@@ -31,16 +33,16 @@ export const GET_USERS = gql`
   query GetUsers(
     $search: String
     $status: Boolean
-    $roles: [ID]
+    $roleId: Int
     $pageNo: Int
   ) {
-    users(search: $search, roles: $roles, pageNo: $pageNo, status: $status) {
+    users(search: $search, roleId: $roleId, pageNo: $pageNo, status: $status) {
       data {
         userId
         userName
         createdAt
         status
-        roles {
+        role {
           roleId
           name
         }
@@ -65,8 +67,8 @@ export const GET_ROLES = gql`
 `;
 
 export const UPDATE_USERS = gql`
-  mutation UpdateUsers($ids: [Int]!, $status: Boolean, $roles: [Int]) {
-    updateUsers(ids: $ids, status: $status, roles: $roles)
+  mutation UpdateUsers($userId: Int!, $status: Boolean, $roleId: Int) {
+    updateUsers(userId: $userId, status: $status, roleId: $roleId)
   }
 `;
 
@@ -76,7 +78,7 @@ export const GET_USER = gql`
       userId
       username
       status  
-      roles {
+      role {
         roleId
         name
       }

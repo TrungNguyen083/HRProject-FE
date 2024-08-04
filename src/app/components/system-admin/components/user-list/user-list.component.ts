@@ -5,7 +5,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { Observable } from 'rxjs';
 
-import { CheckboxChangeEvent } from 'primeng/checkbox';
 import { defaultTablePagination } from 'src/app/constants/app.constant';
 import { PaginatedData } from 'src/app/models/global.model';
 import { configPagination } from 'src/app/utils/configPagination';
@@ -20,7 +19,6 @@ import {
   IEmployeeAccount,
 } from '../../models/system-admin.model';
 import { EmployeeAccountStore } from '../../store/userAccount.store.service';
-import { UserActivateFormComponent } from '../user-activate-form/user-activate-form.component';
 import { mapToDropdownOptions } from 'src/app/utils/mapToDropdownOptions';
 @Component({
   selector: 'app-user-list',
@@ -34,7 +32,6 @@ export class UserListComponent implements OnInit {
     this.accountStore.employeeAccounts$;
   employeeAccounts!: PaginatedData<IEmployeeAccount>;
 
-  selectedAccountIds: number[] = [];
   tableData: HrmsTable<IEmployeeAccount> = {
     ...defaultTablePagination,
     data: {
@@ -46,7 +43,6 @@ export class UserListComponent implements OnInit {
   roleOptions!: { label: string; value: number }[];
   accountParams: IAccountParams = { pageNo: 1 };
   gapPageNumber = 1;
-  headerChecked$ = this.accountStore.headerChecked$;
   activateModalRef!: DynamicDialogRef;
 
   constructor(
@@ -82,9 +78,6 @@ export class UserListComponent implements OnInit {
     this.accountStore.roles$.subscribe(roles => {
       this.roleOptions = mapToDropdownOptions(roles, "name", "roleId")
     });
-    this.accountStore.selectedAccountIds$.subscribe(accountIds => {
-      this.selectedAccountIds = accountIds;
-    });
   }
 
   handleClearAll() {
@@ -117,8 +110,6 @@ export class UserListComponent implements OnInit {
     }
 
     this.getAccounts();
-    // this.accountStore.removeAllAccount();
-    // this.accountStore.setHeaderChecked(false);
   }
   getAccounts() {
     this.accountStore.getEmployeeAccounts(this.accountParams);
@@ -145,31 +136,31 @@ export class UserListComponent implements OnInit {
     this.getAccounts();
   }
 
-  onUpdateFields() {
-    this.activateModalRef = this.dialogService.open(UserActivateFormComponent, {
-      header: 'Update Fields',
-      contentStyle: { overflow: 'visible' },
-      width: '30vw',
-      data: {
-        selectedIds: this.selectedAccountIds,
-      },
-    });
+  // onUpdateFields() {
+  //   this.activateModalRef = this.dialogService.open(UserActivateFormComponent, {
+  //     header: 'Update Fields',
+  //     contentStyle: { overflow: 'visible' },
+  //     width: '30vw',
+  //     data: {
+  //       selectedIds: this.selectedAccountIds,
+  //     },
+  //   });
 
-    this.activateModalRef.onClose.subscribe(({ success }) => {
-      if (!success) return;
-      this.accountStore.removeAllAccount();
-      this.accountStore.getEmployeeAccounts(this.accountParams);
-      this.accountStore.setHeaderChecked(false);
-    });
-  }
+  //   this.activateModalRef.onClose.subscribe(({ success }) => {
+  //     if (!success) return;
+  //     this.accountStore.removeAllAccount();
+  //     this.accountStore.getEmployeeAccounts(this.accountParams);
+  //     this.accountStore.setHeaderChecked(false);
+  //   });
+  // }
 
-  handleCheckAll(e: CheckboxChangeEvent) {
-    const { checked } = e;
+  // handleCheckAll(e: CheckboxChangeEvent) {
+  //   const { checked } = e;
 
-    if (checked) {
-      this.employeeAccounts.data.forEach((account) => this.accountStore.addAccount(account.userId))
-    } else {
-      this.accountStore.removeAllAccount();
-    }
-  }
+  //   if (checked) {
+  //     this.employeeAccounts.data.forEach((account) => this.accountStore.addAccount(account.userId))
+  //   } else {
+  //     this.accountStore.removeAllAccount();
+  //   }
+  // }
 }

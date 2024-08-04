@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from './models/menu.model';
 import { LayoutService } from './services/app.layout.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-topbar',
@@ -33,10 +34,11 @@ export class AppTopbarComponent implements OnInit {
   };
 
   constructor(
+    private authService: AuthService,
     public layoutService: LayoutService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.layoutService.currentNavbarState.subscribe(
@@ -63,7 +65,7 @@ export class AppTopbarComponent implements OnInit {
   }
 
   logOut() {
-    // this.authService.logout();
+    this.authService.logout();
     this.router.navigate(['login']);
   }
 }

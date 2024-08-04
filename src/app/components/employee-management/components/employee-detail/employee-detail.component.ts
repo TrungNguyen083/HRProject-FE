@@ -166,10 +166,10 @@ export class EmployeeDetailComponent implements OnInit {
       this.profileForm.value;
     const updatedEmployee = {
       ...this.profileForm.value,
-      departmentId: department.value ?? 0,
-      positionId: position.value,
+      departmentId: department.value ?? null,
+      positionId: position.value ?? null ,
       dateOfBirth: new Date(dateOfBirth).toISOString(),
-      jobLevelId: position.hasLevel ? jobLevel.value : 0,
+      jobLevelId: position.hasLevel ? jobLevel.value : null,
       id: this.employeeId,
       currentContract: 0,
     };

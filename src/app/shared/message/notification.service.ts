@@ -24,4 +24,13 @@ export class NotificationService {
       closable: true,
     });
   }
+
+  warnNotification(mes: string): void {
+    this.service.add({
+      severity: 'warn',
+      summary: 'Warn',
+      detail: mes,
+      closable: true,
+    });
+  }
 }

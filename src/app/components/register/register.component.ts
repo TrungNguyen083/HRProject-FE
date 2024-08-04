@@ -41,7 +41,7 @@ export class RegisterComponent {
     this.apollo
       .mutate({
         mutation: REGISTER,
-        variables: { signupDto: { username, password } },
+        variables: { authRequest: { username, password } },
       })
       .subscribe({
         next: () => {          

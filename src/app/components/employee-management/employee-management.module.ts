@@ -35,6 +35,7 @@ import { EmployeeManagementService } from './services/employee-management.servic
 import { EmployeeEffects } from './store/employee-management.effects';
 import { employeeesReducer } from './store/employee-management.reducer';
 import { EmployeeStore } from './store/employee-management.store.service';
+import { AppSidebarComponent } from 'src/app/layout/app-sidebar.component';
 @NgModule({
   declarations: [
     EmployeeManagementComponent,
@@ -45,6 +46,7 @@ import { EmployeeStore } from './store/employee-management.store.service';
     EmployeeCardComponent,
     EmployeeCarouselComponent,
     ContractBadgeComponent,
+    AppSidebarComponent,
   ],
   imports: [
     CommonModule,
