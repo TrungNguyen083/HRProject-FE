@@ -48,8 +48,8 @@ const dummies: MenuItem[] = [
 ];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './app.sidebar.component.html',
+  selector: 'app-sidebar-admin',
+  templateUrl: './app-sidebar-admin.component.html',
   styles: [
     `
       .active {
@@ -74,7 +74,7 @@ const dummies: MenuItem[] = [
     `,
   ],
 })
-export class AppSidebarComponent implements OnInit {
+export class AppSidebarAdminComponent implements OnInit {
   isNavbarOn!: boolean;
   menuElements: MenuItem[] = dummies;
   private readonly destroy$ = new Subject();

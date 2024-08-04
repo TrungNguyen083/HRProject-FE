@@ -1,12 +1,4 @@
 <tr class="mt-3 p-selectable-row" (click)="handleEmployeeDetail()">
-  <td class="text-center">
-    <p-checkbox
-      [(ngModel)]="checked"
-      [binary]="true"
-      inputId="binary"
-      (onChange)="onCheckChange($event)"
-    ></p-checkbox>
-  </td>
   <td>{{ employeeAccount.userName }}</td>
   <td
     class="user-item-row"
@@ -22,12 +14,21 @@
   </td>
   <td>{{ employeeAccount.createdAt | date: 'dd/MM/yyyy' }}</td>
   <td class="text-sm">
-    <ng-container *ngIf="employeeAccount.roles?.length; else noRole">
-      <ng-container *ngFor="let role of employeeAccount.roles">
-        <role-badge [role]="role.roleId"></role-badge>
-      </ng-container>
+    <ng-container *ngIf="employeeAccount.role; else noRole">
+      <role-badge [role]="employeeAccount.role.roleId"></role-badge>
     </ng-container>
     <ng-template #noRole>This user has no role</ng-template>
+  </td>
+  <td>
+    <p-button
+    (onClick)="onActives()"
+    >Active User</p-button
+  >
+  <td>
+    <p-button
+    (onClick)="onAssign()"
+    >Assign User</p-button
+  >
   </td>
   <td class="text-right">
     <p-button

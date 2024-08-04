@@ -2,7 +2,7 @@ import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-// import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/shared/message/notification.service';
 import { MessageService } from 'primeng/api';
 import { Apollo } from 'apollo-angular';
@@ -23,12 +23,12 @@ export class LoginComponent {
   helper = new JwtHelperService();
 
   constructor(
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
     private messageService: MessageService,
     private apollo: Apollo,
-  ) {}
+  ) { }
 
   signInForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
@@ -39,6 +39,11 @@ export class LoginComponent {
     this.signInForm.markAllAsTouched();
     const { username, password } = this.signInForm.value;
 
+    const authRequest = {
+      username,
+      password,
+    }
+
     if (!this.signInForm.valid) {
       this.notificationService.errorNotification('Enter valid form value');
     } else {
@@ -47,57 +52,43 @@ export class LoginComponent {
         .query({
           query: LOGIN,
           variables: {
-            username,
-            password,
+            authRequest
           },
         })
-        .subscribe(res => {
-          if (res.errors?.length) {
-            const error = res.errors[0];
+        .subscribe(
+          (res: any) => {
+            if (res.errors?.length) {
+              this.isLoading = false;
+              this.notificationService.errorNotification('Username or Password is wrong');
+              this.signInForm.reset();
+            } else {
+              const token = res.data.generateToken;
+              this.authService.saveToken(token);
 
-            this.isLoading = false;
-            this.notificationService.errorNotification(`${error.message}`);
-          } else {
-            this.router.navigate(['system-admin']);
-            this.notificationService.successNotification(`Login Successful`);
+              const decodedToken = this.helper.decodeToken(token);
+              const role = decodedToken.authorities;
+
+              switch (true) {
+                case role.includes('ADMIN'):
+                  this.router.navigate(['system-admin']);
+                  this.notificationService.successNotification('Login Successful');
+                  break;
+                case role.includes('HR'):
+                  this.router.navigate(['employee-management']);
+                  this.notificationService.successNotification('Login Successful');
+                  break;
+                // Add more cases as needed for other roles
+                default:
+                  this.router.navigate(['home']); // Default navigation
+                  this.notificationService.successNotification('Login Successful');
+                  break;
+              }
+              this.notificationService.successNotification('Login Successful');
+              this.isLoading = false;
+            }
           }
-        });
+        );
     }
-
-    // const values: Partial<{
-    //   userName: string | null;
-    //   userPassword: string | null;
-    // }> = this.signInForm.value;
-
-    // this.authService
-    // .login(values)
-    //     .pipe(
-    //       tap(res => {
-    //         const token = res.data?.login;
-
-    //         localStorage.setItem('token', token!);
-
-    //         const decodedToken = this.helper.decodeToken(token!);
-
-    //         localStorage.setItem('userId', decodedToken.Id);
-
-    //         this.router.navigate(['system-admin']);
-
-    //         this.isLoading = false;
-    //       }),
-    // catchError(async err => {
-    //   this.isLoading = false;
-
-    //   const errMes = err.networkError.error.errors[0].extensions?.message;
-
-    //   if (errMes) {
-    //     this.notificationService.errorNotification(errMes);
-
-    //     this.signInForm.reset();
-    //   }
-    // }),
-    //     )
-    //     .subscribe();
   }
 
   togglePassword() {

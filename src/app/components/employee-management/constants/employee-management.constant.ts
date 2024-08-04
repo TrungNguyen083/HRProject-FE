@@ -41,27 +41,6 @@ export const genders = [
   },
 ];
 
-export const departments = [
-  { label: 'Software Development', value: 1 },
-  { label: 'Design', value: 2 },
-  { label: 'Quality Assurance', value: 3 },
-];
-
-export const positions = [
-  {
-    label: 'Frontend Developer',
-    value: 1,
-  },
-  {
-    label: 'Backend Developer',
-    value: 2,
-  },
-  {
-    label: 'Business Analyst',
-    value: 3,
-  },
-];
-
 export const currentContracts = [
   {
     label: 'Full-time',

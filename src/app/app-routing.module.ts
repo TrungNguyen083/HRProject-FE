@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app-layout.component';
+import { authGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -25,6 +26,8 @@ const routes: Routes = [
           import('./components/system-admin/system-admin.module').then(
             m => m.SystemAdminModule,
           ),
+        canActivate: [authGuard],
+        data: { requiredRole: 'ADMIN' }
       },
       {
         path: 'dashboard',
@@ -61,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

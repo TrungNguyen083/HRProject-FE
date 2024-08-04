@@ -4,7 +4,7 @@ export interface IEmployeeAccount {
   userId: number;
   name?: string;
   userName: string;
-  roles?: IAccountRole[];
+  role?: IAccountRole;
   status?: boolean;
   createdAt?: string;
   password?: string;
@@ -17,7 +17,7 @@ export interface IAccountRole {
 export interface IAccountParams {
   pageNo?: number;
   keyword?: string;
-  roles?: number[];
+  roleId?: number;
   status?: boolean;
   pageSize?: number;
 }
@@ -32,14 +32,17 @@ export interface IRoleApiResponse {
 
 export enum EAccountRole {
   Admin = 1,
-  User = 2,
-  Manager = 3,
+  Employee = 2,
+  HR = 3,
+  SUM = 4,
+  PM = 5,
+  USER = 6
 }
 
 export interface IUpdateAccountParams {
-  roles: number[];
-  ids: number[];
+  userId: number;
   status: boolean;
+  roleId: number;
 }
 
 export interface IGetUserApiResponse {

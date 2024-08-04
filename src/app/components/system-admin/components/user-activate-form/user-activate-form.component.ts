@@ -6,6 +6,7 @@ import { EmployeeAccountStore } from '../../store/userAccount.store.service';
 import { SystemAdminService } from '../../services/system-admin.service';
 import { IUpdateAccountParams } from '../../models/system-admin.model';
 import { NotificationService } from 'src/app/shared/message/notification.service';
+import '@angular/localize/init';
 
 @Component({
   selector: 'app-user-activate-form',
@@ -14,8 +15,7 @@ import { NotificationService } from 'src/app/shared/message/notification.service
   providers: [EmployeeAccountStore],
 })
 export class UserActivateFormComponent implements OnInit {
-  selectedIds = this.config.data.selectedIds;
-  selectedIdsCount = this.selectedIds.length;
+  userId = this.config.data.userId;
   roleOptions!: IDropdownItem[];
   activateOptions = [
     {
@@ -52,31 +52,22 @@ export class UserActivateFormComponent implements OnInit {
     });
 
     this.initForm();
-    if(this.selectedIdsCount === 1) {
-      this.accountStore.getUser(this.selectedIds[0]);
-      this.user$.subscribe(user => {
-        this.activateUserForm.patchValue({
-          roles: user?.roles?.map(r => r.roleId),
-          status: user?.status
-        });
-      });
-    }
   }
 
   initForm() {
     this.activateUserForm = this.fb.group({
-      roles: ['', Validators.required],
+      roleId: ['', Validators.required],
       status: ['', Validators.required],
     });
   }
 
   onActivate() {
-    const { roles, status } = this.activateUserForm.value;
-
+    const { roleId, status } = this.activateUserForm.value;
+    
     const updateData: IUpdateAccountParams = {
-      roles,
+      roleId,
       status,
-      ids: this.selectedIds,
+      userId: this.userId,
     };
 
     this.systemAdminService

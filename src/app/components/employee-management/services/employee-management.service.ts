@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
@@ -25,6 +25,7 @@ import {
   IPositionApiResponse,
   IUpdateEmployee,
 } from '../models/employee-management.model';
+import { AuthService } from 'src/app/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +33,7 @@ export class EmployeeManagementService {
   constructor(
     private apollo: Apollo,
     private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   getEmployees(params: IEmployeeParams): Observable<IEmployeeApiResponse> {
@@ -104,11 +106,16 @@ export class EmployeeManagementService {
   uploadProfileImage(id: number, file: File) {
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('type', "PROFILE_IMAGE");
+
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.post(
       `${environment.apiUrl}/dam/upload/${id}`,
       formData,
-      { responseType: 'text' },
+      { headers, responseType: 'text' },
     );
   }
 }
