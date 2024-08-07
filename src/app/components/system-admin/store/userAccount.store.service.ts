@@ -8,6 +8,7 @@ import {
 } from '../models/system-admin.model';
 import { SystemAdminService } from '../services/system-admin.service';
 import { PaginatedData } from 'src/app/models/global.model';
+import { EmployeeManagementService } from '../../employee-management/services/employee-management.service';
 
 export interface IUserAccountState {
   employeeAccounts: PaginatedData<IEmployeeAccount>;
@@ -20,7 +21,7 @@ export interface IUserAccountState {
 
 @Injectable()
 export class EmployeeAccountStore extends ComponentStore<IUserAccountState> {
-  constructor(private systemAdminService: SystemAdminService) {
+  constructor(private systemAdminService: SystemAdminService, private employeeMngmentService: EmployeeManagementService) {
     super({
       employeeAccounts: {
         pagination: {
@@ -45,6 +46,7 @@ export class EmployeeAccountStore extends ComponentStore<IUserAccountState> {
   readonly selectedAccountIds$ = this.select(state => state.selectedAccountIds);
   readonly headerChecked$ = this.select(state => state.headerChecked);
   readonly user$ = this.select(state => state.user);
+
   //UPDATER
   readonly setLoading = this.updater(
     (state: IUserAccountState, loading: boolean) => {
@@ -128,6 +130,7 @@ export class EmployeeAccountStore extends ComponentStore<IUserAccountState> {
       };
     },
   );
+
   //EFFECTS
   readonly getEmployeeAccounts = this.effect(
     (params$: Observable<IAccountParams>) =>

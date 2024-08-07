@@ -136,21 +136,7 @@
                         <div class="info-field col-span-3">
                             <p class="label">Address</p>
                             <p *ngIf="!isEditOn; else addressInput">{{employeeInfo.employee.address}} <i class="pi pi-copy"></i></p>
-                            <ng-template #addressInput><input pInputText formControlName="address" /></ng-template>
-                        </div>
-                        <div class="info-field" [class.col-span-3]="!isEditOn">
-                            <p class="label">Department</p>
-                            <p *ngIf="!isEditOn; else departmentSelect">{{employeeInfo.employee.department?.departmentName ?? 'This employee is not associated with any department'}}
-                            </p>
-                            <ng-template #departmentSelect>
-                                <ng-container *ngIf="position.hasDepartment; else noDep">
-                                    <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="department"
-                                        [options]="(departmentOptions | async) ?? []" optionLabel="label" placeholder="Select department"></p-dropdown>
-                                </ng-container>
-                                <ng-template #noDep>
-                                    <span>This employee should belong to no department</span>
-                                </ng-template>
-                            </ng-template>
+                            <ng-template #addressInput><input pInputText formControlName="address"/></ng-template>
                         </div>
                         <ng-container *ngIf="isEditOn">
                             <div class="info-field">
@@ -164,6 +150,20 @@
                                     [options]="(jobLevelOptions | async) ?? []" optionLabel="label" placeholder="Select job level"></p-dropdown>
                             </div>
                         </ng-container>
+                        <div class="info-field" [class.col-span-3]="!isEditOn">
+                            <p class="label">Department</p>
+                            <p *ngIf="!isEditOn; else departmentSelect">{{employeeInfo.employee.department?.departmentName ?? 'This employee is not associated with any department'}}
+                            </p>
+                            <ng-template #departmentSelect>
+                                <ng-container *ngIf="!employeeInfo.employee.position || position.hasDepartment; else noDep">
+                                    <p-dropdown styleClass="w-full" class="w-full flex-1" formControlName="department"
+                                        [options]="(departmentOptions | async) ?? []" optionLabel="label" placeholder="Select department"></p-dropdown>
+                                </ng-container>
+                                <ng-template #noDep>
+                                    <span>This employee should belong to no department</span>
+                                </ng-template>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="isEditOn">

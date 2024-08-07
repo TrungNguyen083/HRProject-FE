@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   IDepartment,
-  IEmployee,
   IEmployeeInfo,
   IEmployeeParams,
   IJobLevel,

@@ -22,6 +22,7 @@ import { SystemAdminComponent } from './system-admin.component';
 import { UserActivateFormComponent } from './components/user-activate-form/user-activate-form.component';
 import { UpdaterUserFormComponent } from './components/updater-user-form/updater-user-form.component';
 import { AppSidebarAdminComponent } from 'src/app/layout/app-sidebar-admin.component';
+import { UserAssignFormComponent } from './components/user-assign-form/user-assign-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AppSidebarAdminComponent } from 'src/app/layout/app-sidebar-admin.compo
     RoleBadgeComponent,
     UserActivateFormComponent,
     UpdaterUserFormComponent,
+    UserAssignFormComponent,
     AppSidebarAdminComponent,
   ],
   imports: [

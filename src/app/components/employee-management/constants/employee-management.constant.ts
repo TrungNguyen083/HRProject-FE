@@ -118,6 +118,15 @@ export const GET_EMPLOYEES = gql`
           lastName
           phoneNumber
         }
+        skills {
+          id
+          skillName
+          competency {
+            id
+            competencyName
+          }
+          description
+        }
       }
     }
   }
@@ -169,6 +178,15 @@ export const GET_EMPLOYEE = gql`
         lastName
         phoneNumber
       }
+      skills {
+        id
+        skillName
+        competency {
+          id
+          competencyName
+        }
+        description
+      }
     }
   }
 `;
@@ -215,6 +233,10 @@ export const GET_NEW_EMPLOYEES = gql`
         currentContract
       }
       imageUrl
+      skills {
+          id
+          skillName
+        }
     }
   }
 `;
