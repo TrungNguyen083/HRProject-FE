@@ -23,7 +23,13 @@ export class AuthService {
     });
   }
 
+  saveRole(role: string) {
+    localStorage.setItem('role', role);
+  }
 
+  gẻtRole(): string | null {
+    return localStorage.getItem('role');
+  }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
