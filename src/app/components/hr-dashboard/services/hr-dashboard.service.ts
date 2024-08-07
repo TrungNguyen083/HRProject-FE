@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {
-  GET_COMPETENCY_BY_LEVEL_AND_POSITION,
-  GET_COMPETENCY_BY_UNIT,
+  GET_AVG_COMPETENCY_SCORE,
+  GET_COMPETENCY_RADAR_CHART,
   GET_COMPETENCY_CYCLES,
-  GET_COMPETENCY_CYCLE_STATUS,
+  GET_DEPARTMENT_INCOMPLETE,
   GET_COMPETENCY_TIMELINE,
   GET_PERFORMANCE_BY_JOB_LEVEL,
   GET_POTENTIAL_PERFORMANCE,
@@ -65,7 +65,7 @@ export class HrDashboardService {
   ): Observable<ICompetencyIncompletionApiResponse> {
     return this.apollo
       .watchQuery<ICompetencyIncompletionApiResponse>({
-        query: GET_COMPETENCY_CYCLE_STATUS,
+        query: GET_DEPARTMENT_INCOMPLETE,
         variables: { competencyCycleId },
       })
       .valueChanges.pipe(map(res => res.data));
@@ -76,7 +76,7 @@ export class HrDashboardService {
   ): Observable<IAvgCompetencyScoreApiResponse> {
     return this.apollo
       .watchQuery<IAvgCompetencyScoreApiResponse>({
-        query: GET_COMPETENCY_BY_LEVEL_AND_POSITION,
+        query: GET_AVG_COMPETENCY_SCORE,
         variables: { ...params },
       })
       .valueChanges.pipe(map(res => res.data));
@@ -87,7 +87,7 @@ export class HrDashboardService {
   ): Observable<ICompetencyByUnitApiResponse> {
     return this.apollo
       .watchQuery<ICompetencyByUnitApiResponse>({
-        query: GET_COMPETENCY_BY_UNIT,
+        query: GET_COMPETENCY_RADAR_CHART,
         variables: { ...params },
       })
       .valueChanges.pipe(map(res => res.data));

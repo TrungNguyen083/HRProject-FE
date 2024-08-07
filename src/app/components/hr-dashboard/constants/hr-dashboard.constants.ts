@@ -17,8 +17,8 @@ export const topCompetenciesTableCol: TableHeader[] = [
   { col: 'Employee', field: 'firstName' },
 ];
 
-export const GET_COMPETENCY_CYCLE_STATUS = gql`
-  query GetCompetencyCycleStatus($competencyCycleId: Int!) {
+export const GET_DEPARTMENT_INCOMPLETE = gql`
+  query GetDepartmentInComplete($competencyCycleId: Int!) {
     departmentInCompleteComp(competencyCycleId: $competencyCycleId) {
       labels
       datasets{
@@ -34,8 +34,8 @@ export const GET_COMPETENCY_CYCLE_STATUS = gql`
   }
 `;
 
-export const GET_COMPETENCY_BY_LEVEL_AND_POSITION = gql`
-  query GetCmptByLevelAndPosition($positionId: Int, $competencyCycleId: Int!) {
+export const GET_AVG_COMPETENCY_SCORE = gql`
+  query GetAVGCompetencyScore($positionId: Int, $competencyCycleId: Int!) {
     avgCompetencyScore(
       positionId: $positionId
       competencyCycleId: $competencyCycleId
@@ -47,8 +47,8 @@ export const GET_COMPETENCY_BY_LEVEL_AND_POSITION = gql`
   }
 `;
 
-export const GET_COMPETENCY_BY_UNIT = gql`
-  query GetCompetencyByUnit($competencyCyclesId: [Int]!, $departmentId: Int!) {
+export const GET_COMPETENCY_RADAR_CHART = gql`
+  query GetCompetencyRadarChart($competencyCyclesId: [Int]!, $departmentId: Int!) {
     competencyRadarChart(
       competencyCyclesId: $competencyCyclesId
       departmentId: $departmentId

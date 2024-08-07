@@ -67,6 +67,7 @@ export class LoginComponent {
 
               const decodedToken = this.helper.decodeToken(token);
               const role = decodedToken.authorities;
+              this.authService.saveRole(role);
 
               switch (true) {
                 case role.includes('ADMIN'):
@@ -74,7 +75,7 @@ export class LoginComponent {
                   this.notificationService.successNotification('Login Successful');
                   break;
                 case role.includes('HR'):
-                  this.router.navigate(['employee-management']);
+                  this.router.navigate(['dashboard']);
                   this.notificationService.successNotification('Login Successful');
                   break;
                 // Add more cases as needed for other roles
