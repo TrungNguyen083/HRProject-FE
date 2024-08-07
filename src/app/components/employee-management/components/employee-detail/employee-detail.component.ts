@@ -41,6 +41,7 @@ export class EmployeeDetailComponent implements OnInit {
   isLoading = false;
   prependImage = prependImage;
   imageFile!: File;
+  employeeInfo!: IEmployeeInfo;
 
   constructor(
     private fb: FormBuilder,
@@ -69,8 +70,8 @@ export class EmployeeDetailComponent implements OnInit {
     });
 
     this.employeeDetail$.subscribe(employeeInfo => {
-      console.log(employeeInfo);
       if (!employeeInfo) return;
+      this.employeeInfo = employeeInfo;
       this.initEmployeeForm(employeeInfo);
     });
   }
@@ -88,6 +89,7 @@ export class EmployeeDetailComponent implements OnInit {
       firstName: [employee.firstName, [Validators.required, Validators.maxLength(100)]],
       lastName: [employee.lastName, [Validators.required, Validators.maxLength(100)]],
       gender: [employee.gender, Validators.required],
+      email: [employee.email],
       dateOfBirth: [new Date(employee.dateOfBirth), Validators.required],
       phoneNumber: [employee.phoneNumber, Validators.required],
       address: [employee.address, Validators.required],
@@ -156,6 +158,7 @@ export class EmployeeDetailComponent implements OnInit {
   openEdit() {
     this.isEditOn = true;
   }
+
   closeEdit() {
     this.isEditOn = false;
     this.tempImg = '';

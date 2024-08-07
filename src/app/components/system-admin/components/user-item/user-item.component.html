@@ -20,16 +20,27 @@
     <ng-template #noRole>This user has no role</ng-template>
   </td>
   <td>
+    <ng-container *ngIf="employeeAccount.profileImage; else noImage">
+      <div class="image-container">
+        <img [src]="employeeAccount.profileImage" alt="Profile Image" class="profile-image" />
+        <div class="overlay" (click)="onAssign()">
+          <i class="pi pi-pencil overlay-icon"></i>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noImage>
+        <p-button
+        icon="pi pi-plus"
+        styleClass="p-button-rounded p-button-text p-button-outlined plus-button"
+        (click)="onAssign()"
+      ></p-button>
+    </ng-template>
+  </td>
+  <td>
     <p-button
     (onClick)="onActives()"
     >Active User</p-button
   >
-  <td>
-    <p-button
-    (onClick)="onAssign()"
-    >Assign User</p-button
-  >
-  </td>
   <td class="text-right">
     <p-button
       type="button"

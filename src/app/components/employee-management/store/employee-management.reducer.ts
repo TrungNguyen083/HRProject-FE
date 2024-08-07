@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PaginatedData } from 'src/app/models/global.model';
 import {
-  IEmployee, IEmployeeInfo
+  IEmployeeInfo
 } from '../models/employee-management.model';
 import * as EmployeeActions from './employee-management.actions';
 

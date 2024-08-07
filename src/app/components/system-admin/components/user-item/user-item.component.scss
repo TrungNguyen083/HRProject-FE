@@ -12,4 +12,47 @@
   .employment-tag {
     border-radius: 50px;
   }
+
+  .plus-button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.overlay:hover {
+  opacity: 1;
+}
+
+.overlay-icon {
+  color: white;
+  font-size: 18px;
 }

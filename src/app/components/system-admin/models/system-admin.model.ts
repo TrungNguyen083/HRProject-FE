@@ -8,6 +8,7 @@ export interface IEmployeeAccount {
   status?: boolean;
   createdAt?: string;
   password?: string;
+  profileImage?: string;
 }
 
 export interface IAccountRole {
@@ -36,13 +37,19 @@ export enum EAccountRole {
   HR = 3,
   SUM = 4,
   PM = 5,
-  USER = 6
+  USER = 6,
+  DIRECTOR = 7
 }
 
 export interface IUpdateAccountParams {
   userId: number;
   status: boolean;
   roleId: number;
+}
+
+export interface IAssignUserParams {
+  userId: number;
+  employeeId: number;
 }
 
 export interface IGetUserApiResponse {

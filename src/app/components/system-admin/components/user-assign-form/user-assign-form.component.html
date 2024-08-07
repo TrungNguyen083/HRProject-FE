@@ -1,0 +1,36 @@
+<div>
+  <form [formGroup]="assignUserForm" (ngSubmit)="onAssign()">
+    <div class="mt-4">
+      <label class="block font-bold" for="roleSelect">Employees</label>
+      <p-dropdown [options]="employeeOptions" formControlName="employee" optionLabel="label" [filter]="true"
+        filterBy="label" [showClear]="true" placeholder="Select an Employee" styleClass="w-full mt-1">
+        <ng-template pTemplate="filter" let-options="options">
+          <div class="flex gap-1">
+            <div class="p-inputgroup" (click)="$event.stopPropagation()">
+              <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+              <input type="text" pInputText placeholder="Filter" formControlName="filterValue"
+                (keyup)="customFilterFunction($event, options)" />
+            </div>
+            <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="selectedItem" let-selectedOption>
+          <div class="flex align-items-center gap-2">
+            <img [src]="selectedOption.urlImage" style="width: 18px; height: 18px; border-radius: 50%;" />
+            <div>{{ selectedOption.label }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-employee pTemplate="item">
+          <div class="flex align-items-center gap-2">
+            <img [src]="employee.urlImage" style="width: 18px; height: 18px; border-radius: 50%;" />
+            <div>{{ employee.label }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="mt-16">
+      <p-button styleClass="w-full flex justify-center" type="submit" [loading]="isLoading"
+        [disabled]="assignUserForm.invalid">Confirm</p-button>
+    </div>
+  </form>
+</div>

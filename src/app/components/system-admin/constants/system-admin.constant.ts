@@ -46,6 +46,7 @@ export const GET_USERS = gql`
           roleId
           name
         }
+        profileImage
       }
       pagination {
         pageNo
@@ -71,6 +72,12 @@ export const UPDATE_USERS = gql`
     updateUsers(userId: $userId, status: $status, roleId: $roleId)
   }
 `;
+
+export const ASSIGN_USERS = gql`
+  mutation assignUser($userId: Int!, $employeeId: Int!) {
+    assignUser(userId: $userId, employeeId: $employeeId)
+  }
+`
 
 export const GET_USER = gql`
   query GetUser($id: Int) {

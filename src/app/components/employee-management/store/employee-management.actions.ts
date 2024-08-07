@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { PaginatedData } from 'src/app/models/global.model';
-import { IEmployee, IEmployeeInfo, IEmployeeParams } from '../models/employee-management.model';
+import { IEmployeeInfo, IEmployeeParams } from '../models/employee-management.model';
 
 export const setLoading = createAction('[Employee] Set Loading', props<{ loading: boolean }>());
 export const setEmployees = createAction('[Employee] Set Employees', props<{ employees: PaginatedData<IEmployeeInfo> }>());

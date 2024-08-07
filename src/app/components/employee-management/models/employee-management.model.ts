@@ -9,7 +9,6 @@ export interface IEmployee {
   gender: number;
   joinedDate: string;
   dateOfBirth: string;
-  // positionLevel?: IPositionLevel;
   phoneNumber?: string;
   currentContract?: number;
   profileBio: string;
@@ -22,12 +21,6 @@ export interface IEmployee {
   jobLevel?: IJobLevel;
   status: boolean;
   leftDate?: string;
-  // reportTo?: number;
-  // skillsTags?: string[];
-  // joinedProjects?: Project[];
-  // emergencyContacts: IEmergencyContact[];
-  // damId: number;
-  // employeeSkills: EmployeeSkill[];
 }
 
 export interface IEmployeeInfo {
@@ -84,11 +77,6 @@ export interface IDepartment {
   };
 }
 
-interface IPositionLevel {
-  position: IPosition;
-  jobLevel: IJobLevel;
-}
-
 export interface IPosition {
   id: number;
   positionName: string;
@@ -100,11 +88,7 @@ export interface IJobLevel {
   id: number;
   jobLevelName: string;
 }
-interface EmployeeSkill {
-  skill: {
-    skillName: string;
-  };
-}
+
 export interface Project {
   name: string;
   workAs: string;

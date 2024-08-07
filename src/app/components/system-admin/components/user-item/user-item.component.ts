@@ -13,6 +13,7 @@ import { IAccountParams, IEmployeeAccount } from '../../models/system-admin.mode
 import { EmployeeAccountStore } from '../../store/userAccount.store.service';
 import { UpdaterUserFormComponent } from '../updater-user-form/updater-user-form.component';
 import { UserActivateFormComponent } from '../user-activate-form/user-activate-form.component';
+import { UserAssignFormComponent } from '../user-assign-form/user-assign-form.component';
 @Component({
   selector: 'app-user-item',
   templateUrl: './user-item.component.html',
@@ -23,7 +24,7 @@ export class UserItemComponent implements OnInit, OnChanges {
   @Input() employeeAccount!: IEmployeeAccount;
   menuItems!: MenuItem[];
   defaultImg = 'assets/images/profile-image-default.jpg';
-  activateModalRef!: DynamicDialogRef;
+  modalRef!: DynamicDialogRef;
   accountParams: IAccountParams = { pageNo: 1 };
 
   constructor(
@@ -44,7 +45,7 @@ export class UserItemComponent implements OnInit, OnChanges {
             label: 'Update',
             icon: 'pi pi-pencil',
             command: () => {
-              this.activateModalRef = this.dialogService.open(
+              this.modalRef = this.dialogService.open(
                 UpdaterUserFormComponent,
                 {
                   header: 'Change password',
@@ -54,7 +55,7 @@ export class UserItemComponent implements OnInit, OnChanges {
                 },
               );
 
-              this.activateModalRef.onClose.subscribe(({ success }) => {
+              this.modalRef.onClose.subscribe(({ success }) => {
                 if (!success) return;
                 this.accountStore.getEmployeeAccounts({
                   pageNo: 1
@@ -71,7 +72,7 @@ export class UserItemComponent implements OnInit, OnChanges {
   }
 
   onActives() {
-    this.activateModalRef = this.dialogService.open(UserActivateFormComponent, {
+    this.modalRef = this.dialogService.open(UserActivateFormComponent, {
       header: 'Update Fields',
       contentStyle: { overflow: 'visible' },
       width: '30vw',
@@ -80,13 +81,25 @@ export class UserItemComponent implements OnInit, OnChanges {
       },
     });
 
-    this.activateModalRef.onClose.subscribe(({ success }) => {
+    this.modalRef.onClose.subscribe(({ success }) => {
       if (!success) return;
       this.accountStore.getEmployeeAccounts(this.accountParams);
     });
   }
 
   onAssign() {
+    this.modalRef = this.dialogService.open(UserAssignFormComponent, {
+      header: 'Assign User',
+      contentStyle: { overflow: 'visible' },
+      width: '30vw',
+      data: {
+        userId: this.employeeAccount.userId,
+      },
+    });
 
+    this.modalRef.onClose.subscribe(({ success }) => {
+      if (!success) return;
+      this.accountStore.getEmployeeAccounts(this.accountParams);
+    });
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
 import {
+  ASSIGN_USERS,
   GET_ROLES,
   GET_USER,
   GET_USERS,
@@ -11,6 +12,7 @@ import {
 import {
   IAccountApiResponse,
   IAccountParams,
+  IAssignUserParams,
   IGetUserApiResponse,
   IRoleApiResponse,
   IUpdateAccountInfoParams,
@@ -58,6 +60,13 @@ export class SystemAdminService {
   updateUsernamePassword(params: IUpdateAccountInfoParams) {
     return this.apollo.mutate({
       mutation: UPDATE_USER,
+      variables: { ...params },
+    });
+  }
+
+  assignUser(params: IAssignUserParams) {
+    return this.apollo.mutate({
+      mutation: ASSIGN_USERS,
       variables: { ...params },
     });
   }
