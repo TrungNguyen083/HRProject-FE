@@ -30,7 +30,6 @@ export class CompetencyLevelComponent implements OnInit {
       this.competencyScoreStore.getScoreByLevelAndPosition(this.params);
     });
 
-    // this.competencyScoreStore.getScoreByLevelAndPosition(this.params);
     this.scoreByLevelAndPosition$.subscribe(result => {
       const series = _(result)
         .groupBy('verticalColumnName')
