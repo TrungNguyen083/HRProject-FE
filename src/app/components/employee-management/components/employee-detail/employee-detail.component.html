@@ -129,10 +129,6 @@
                                 <p-inputMask mask="999-999-9999" formControlName="phoneNumber" placeholder="Enter phone number"/>
                             </ng-template>
                         </div>
-                        <div class="info-field">
-                            <p class="label">Email</p>
-                            <p>{{employeeInfo.employee.email}}</p>
-                        </div>
                         <div class="info-field col-span-3">
                             <p class="label">Address</p>
                             <p *ngIf="!isEditOn; else addressInput">{{employeeInfo.employee.address}} <i class="pi pi-copy"></i></p>

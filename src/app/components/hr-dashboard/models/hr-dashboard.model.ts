@@ -24,7 +24,7 @@ export interface ICompetencyIncompletionApiResponse {
 
 export interface ICompetencyByLevelAndPositionParams {
   positionId?: number;
-  competencyCycleId?: number;
+  evaluateCycleId?: number;
 }
 export interface IAvgCompetencyScore {
   verticalColumnName: string;
@@ -36,7 +36,7 @@ export interface IAvgCompetencyScoreApiResponse {
 }
 
 export interface ICompetencyByUnitParams {
-  competencyCyclesId: number[];
+  evaluateCycleIds: number[];
   departmentId: number;
 }
 
@@ -58,8 +58,8 @@ export interface ITimeline {
   isDone: boolean;
 }
 
-export interface ICompetencyTimelineApiResponse {
-  competencyTimeLine: ITimeline[];
+export interface IEvaluateCycleTimelineApiResponse {
+  evaluateTimeLine: ITimeline[];
 }
 
 export interface ITopSkillset {
@@ -69,18 +69,19 @@ export interface ITopSkillset {
 export interface ITopskillsetParams {
   pageNo?: number;
   pageSize?: number;
-  competencyCycleId?: number;
+  evaluateCycleId?: number;
 }
 export interface ITopSkillsetApiResponse {
   topSkillSet: PaginatedData<ITopSkillset>;
 }
 
-export interface ICompetencyCycle {
+export interface IEvaluateCycle {
   id: number;
-  competencyCycleName: string;
+  evaluateCycleName: string;
 }
-export interface ICptCyclesApiResponse {
-  competencyCycles: ICompetencyCycle[];
+
+export interface IEvaluateCyclesApiResponse {
+  evaluateCycles: IEvaluateCycle[];
 }
 
 

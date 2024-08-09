@@ -3,9 +3,9 @@ import { Apollo } from 'apollo-angular';
 import {
   GET_AVG_COMPETENCY_SCORE,
   GET_COMPETENCY_RADAR_CHART,
-  GET_COMPETENCY_CYCLES,
+  GET_EVALUATE_CYCLES,
   GET_DEPARTMENT_INCOMPLETE,
-  GET_COMPETENCY_TIMELINE,
+  GET_COMPETENCY_TIMELINE as GET_EVALUATE_TIMELINE,
   GET_PERFORMANCE_BY_JOB_LEVEL,
   GET_POTENTIAL_PERFORMANCE,
   GET_TOP_COMPETENCIES,
@@ -18,8 +18,8 @@ import {
   ICompetencyByUnitApiResponse,
   ICompetencyByUnitParams,
   ICompetencyIncompletionApiResponse,
-  ICompetencyTimelineApiResponse,
-  ICptCyclesApiResponse,
+  IEvaluateCycleTimelineApiResponse,
+  IEvaluateCyclesApiResponse,
   IPerformanceByLevelApiResponse,
   IPerformanceByLevelParams,
   IPotentialPerformanceApiResponse,
@@ -93,21 +93,21 @@ export class HrDashboardService {
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getCompetencyTimeline(
-    competencyCycleId: number,
-  ): Observable<ICompetencyTimelineApiResponse> {
+  getEvaluateTimeline(
+    evaluateCycleId: number,
+  ): Observable<IEvaluateCycleTimelineApiResponse> {
     return this.apollo
-      .watchQuery<ICompetencyTimelineApiResponse>({
-        query: GET_COMPETENCY_TIMELINE,
-        variables: { competencyCycleId },
+      .watchQuery<IEvaluateCycleTimelineApiResponse>({
+        query: GET_EVALUATE_TIMELINE,
+        variables: { evaluateCycleId },
       })
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getCompetencyCycles(): Observable<ICptCyclesApiResponse> {
+  getEvaluateCycles(): Observable<IEvaluateCyclesApiResponse> {
     return this.apollo
-      .watchQuery<ICptCyclesApiResponse>({
-        query: GET_COMPETENCY_CYCLES,
+      .watchQuery<IEvaluateCyclesApiResponse>({
+        query: GET_EVALUATE_CYCLES,
       })
       .valueChanges.pipe(map(res => res.data));
   }

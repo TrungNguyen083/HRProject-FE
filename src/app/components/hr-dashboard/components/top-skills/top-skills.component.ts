@@ -45,7 +45,7 @@ export class TopSkillsComponent implements OnInit {
   ngOnInit(): void {
     this.shareStore.activeCycle$.subscribe(cycleId => {
       if (!cycleId) return;
-      this.tableParams = { ...this.tableParams, competencyCycleId: cycleId };
+      this.tableParams = { ...this.tableParams, evaluateCycleId: cycleId };
       this.topFigureStore.getTopSkillsets(this.tableParams);
     });
     // this.topFigureStore.getTopSkillsets(this.tableParams);

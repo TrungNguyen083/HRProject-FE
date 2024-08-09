@@ -89,7 +89,6 @@ export class EmployeeDetailComponent implements OnInit {
       firstName: [employee.firstName, [Validators.required, Validators.maxLength(100)]],
       lastName: [employee.lastName, [Validators.required, Validators.maxLength(100)]],
       gender: [employee.gender, Validators.required],
-      email: [employee.email],
       dateOfBirth: [new Date(employee.dateOfBirth), Validators.required],
       phoneNumber: [employee.phoneNumber, Validators.required],
       address: [employee.address, Validators.required],

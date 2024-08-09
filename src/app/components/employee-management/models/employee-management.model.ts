@@ -1,4 +1,4 @@
-import { PaginatedData, PagingInfoParams } from 'src/app/models/global.model';
+import { PaginatedData } from 'src/app/models/global.model';
 
 export interface IEmployee {
   id: number;
@@ -32,12 +32,10 @@ export interface IEmployeeInfo {
 export interface IAddEmployee {
   firstName: string;
   lastName: string;
-  email: string;
   gender: string;
   dateOfBirth: string;
   phoneNumber: string;
   address: string;
-  dateJoined: string;
   currentContract: number;
   profileBio: string;
   facebookLink: string;
@@ -55,7 +53,6 @@ export interface IUpdateEmployee {
   dateOfBirth: string;
   phoneNumber: string;
   address: string;
-  dateJoined: string;
   currentContract: number;
   profileBio: string;
   facebookLink: string;
@@ -120,7 +117,7 @@ export interface INewEmployeeApiResponse {
 }
 
 export interface IAddEmployeeApiResponse {
-  employee: IEmployee;
+  createProfile: IEmployee;
 }
 export interface IPositionApiResponse {
   positions: IPosition[];

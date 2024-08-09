@@ -7,7 +7,7 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap } from 'rxjs';
 import { EmployeeManagementService } from '../../employee-management/services/employee-management.service';
 import {
-  ICompetencyCycle,
+  IEvaluateCycle,
   ITimeline,
   IPerformanceByLevel,
   IPerformanceByLevelParams,
@@ -19,8 +19,8 @@ import { HrDashboardService } from '../services/hr-dashboard.service';
 export interface IHRDashboardShareState {
   departments: IDepartment[];
   positions: IPosition[];
-  competencyTimeline: ITimeline[];
-  competencyCycles: ICompetencyCycle[];
+  evaluateTimeline: ITimeline[];
+  evaluateCycles: IEvaluateCycle[];
   activeCycle: number | null;
   employeesPotentialPerformance: IPotentialPerformance[];
   performanceByJobLevel: IPerformanceByLevel | null;
@@ -37,8 +37,8 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
     super({
       departments: [],
       positions: [],
-      competencyTimeline: [],
-      competencyCycles: [],
+      evaluateTimeline: [],
+      evaluateCycles: [],
       activeCycle: null,
       employeesPotentialPerformance: [],
       performanceByJobLevel: null,
@@ -48,8 +48,8 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
   //SELECTOR
   readonly departments$ = this.select(state => state.departments);
   readonly positions$ = this.select(state => state.positions);
-  readonly competencyTimeline$ = this.select(state => state.competencyTimeline);
-  readonly competencyCycles$ = this.select(state => state.competencyCycles);
+  readonly evaluateTimeline$ = this.select(state => state.evaluateTimeline);
+  readonly evaluateCycles$ = this.select(state => state.evaluateCycles);
   readonly activeCycle$ = this.select(state => state.activeCycle);
   readonly employeesPotentialPerformance$ = this.select(state => state.employeesPotentialPerformance);
   readonly performanceByJobLevel$ = this.select(state => state.performanceByJobLevel);  
@@ -65,19 +65,19 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
       return { ...state, positions };
     },
   );
-  readonly setCompetencyTimeline = this.updater(
+  readonly setEvaluateTimeline = this.updater(
     (
       state: IHRDashboardShareState,
-      competencyTimeline: ITimeline[],
+      evaluateTimeline: ITimeline[],
     ) => {
       return {
         ...state,
-        competencyTimeline,
+        evaluateTimeline,
       };
     },
   );
-  readonly setCompetencyCycles = this.updater(
-    (state: IHRDashboardShareState, competencyCycles: ICompetencyCycle[]) => {
+  readonly setEvaluateCycles = this.updater(
+    (state: IHRDashboardShareState, competencyCycles: IEvaluateCycle[]) => {
       return { ...state, competencyCycles };
     },
   );
@@ -131,24 +131,24 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
     ),
   );
 
-  readonly getCompetencyTimeline = this.effect((params$: Observable<number>) =>
+  readonly getEvaluateTimeline = this.effect((params$: Observable<number>) =>
     params$.pipe(
       switchMap(params =>
-        this.hrDashboardService.getCompetencyTimeline(params).pipe(
+        this.hrDashboardService.getEvaluateTimeline(params).pipe(
           tapResponse({
-            next: res => this.setCompetencyTimeline(res.competencyTimeLine),
+            next: res => this.setEvaluateTimeline(res.evaluateTimeLine),
             error: error => console.log(error),
           }),
         ),
       ),
     ),
   );
-  readonly getCompetencyCycles = this.effect<void>(trigger$ =>
+  readonly getEvaluateCycles = this.effect<void>(trigger$ =>
     trigger$.pipe(
       switchMap(() =>
-        this.hrDashboardService.getCompetencyCycles().pipe(
+        this.hrDashboardService.getEvaluateCycles().pipe(
           tapResponse({
-            next: res => this.setCompetencyCycles(res.competencyCycles),
+            next: res => this.setEvaluateCycles(res.evaluateCycles),
             error: error => console.log(error),
           }),
         ),

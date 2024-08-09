@@ -6,13 +6,13 @@ interface TimelineEvent extends ITimeline {
   icon: string;
 }
 @Component({
-  selector: 'competency-time-line',
+  selector: 'evaluate-time-line',
   templateUrl: './time-line.component.html',
   styleUrls: ['./time-line.component.scss'],
 })
 export class TimeLineComponent implements OnInit {
   events!: TimelineEvent[];
-  competencyTimeline$ = this.shareStore.competencyTimeline$;
+  evaluateTimeline$ = this.shareStore.evaluateTimeline$;
 
   constructor(private shareStore: HrDashboardShareStore) {}
 
@@ -20,9 +20,9 @@ export class TimeLineComponent implements OnInit {
     // this.shareStore.getCompetencyTimeline(8);
     this.shareStore.activeCycle$.subscribe(cycle => {
       if (!cycle) return;
-      this.shareStore.getCompetencyTimeline(cycle);
+      this.shareStore.getEvaluateTimeline(cycle);
     });
-    this.competencyTimeline$.subscribe(
+    this.evaluateTimeline$.subscribe(
       result => {
         this.events = result.map((r, i) => ({
           ...r,
