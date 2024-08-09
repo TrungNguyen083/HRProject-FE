@@ -194,6 +194,7 @@ export const GET_EMPLOYEE = gql`
 export const ADD_EMPLOYEE = gql`
   mutation AddEmployee($input: EmployeeInput!) {
     createProfile(input: $input) {
+      id
       firstName
       lastName
     }

@@ -18,8 +18,8 @@ export const topCompetenciesTableCol: TableHeader[] = [
 ];
 
 export const GET_DEPARTMENT_INCOMPLETE = gql`
-  query GetDepartmentInComplete($competencyCycleId: Int!) {
-    departmentInCompleteComp(competencyCycleId: $competencyCycleId) {
+  query GetDepartmentInComplete($evaluateCycleId: Int!) {
+    departmentInCompleteComp(evaluateCycleId: $evaluateCycleId) {
       labels
       datasets{
         label
@@ -27,7 +27,7 @@ export const GET_DEPARTMENT_INCOMPLETE = gql`
       }
     }
 
-    competencyEvalProgress(competencyCycleId: $competencyCycleId) {
+    competencyEvalProgress(evaluateCycleId: $evaluateCycleId) {
       labels
       datasets
     }
@@ -35,10 +35,10 @@ export const GET_DEPARTMENT_INCOMPLETE = gql`
 `;
 
 export const GET_AVG_COMPETENCY_SCORE = gql`
-  query GetAVGCompetencyScore($positionId: Int, $competencyCycleId: Int!) {
+  query GetAVGCompetencyScore($positionId: Int, $evaluateCycleId: Int!) {
     avgCompetencyScore(
       positionId: $positionId
-      competencyCycleId: $competencyCycleId
+      evaluateCycleId: $evaluateCycleId
     ) {
       verticalColumnName
       horizontalColumnName
@@ -48,9 +48,9 @@ export const GET_AVG_COMPETENCY_SCORE = gql`
 `;
 
 export const GET_COMPETENCY_RADAR_CHART = gql`
-  query GetCompetencyRadarChart($competencyCyclesId: [Int]!, $departmentId: Int!) {
+  query GetCompetencyRadarChart($evaluateCycleIds: [Int]!, $departmentId: Int!) {
     competencyRadarChart(
-      competencyCyclesId: $competencyCyclesId
+      evaluateCycleIds: $evaluateCycleIds
       departmentId: $departmentId
     ) {
       labels
@@ -63,8 +63,8 @@ export const GET_COMPETENCY_RADAR_CHART = gql`
 `;
 
 export const GET_COMPETENCY_TIMELINE = gql`
-  query GetTimeline($competencyCycleId: Int!) {
-    competencyTimeLine(competencyCycleId: $competencyCycleId) {
+  query GetTimeline($evaluateCycleId: Int!) {
+    evaluateTimeLine(evaluateCycleId: $evaluateCycleId) {
       timeLineName
       startDate
       dueDate
@@ -74,8 +74,8 @@ export const GET_COMPETENCY_TIMELINE = gql`
 `;
 
 export const GET_TOP_SKILL_SETS = gql`
-  query GetTopSkillset($competencyCycleId: Int!, $pageNo: Int, $pageSize: Int) {
-    topSkillSet(competencyCycleId: $competencyCycleId, pageNo: $pageNo, pageSize: $pageSize) {
+  query GetTopSkillset($evaluateCycleId: Int!, $pageNo: Int, $pageSize: Int) {
+    topSkillSet(evaluateCycleId: $evaluateCycleId, pageNo: $pageNo, pageSize: $pageSize) {
       data{
         label
         value
@@ -131,11 +131,11 @@ export const GET_TOP_COMPETENCIES = gql`
   }
 `;
 
-export const GET_COMPETENCY_CYCLES = gql`
-  query GetCompetencyCyles {
-    competencyCycles {
+export const GET_EVALUATE_CYCLES = gql`
+  query GetEvaluateCycles {
+    evaluateCycles {
       id
-      competencyCycleName
+      evaluateCycleName
     }
   }
 `;

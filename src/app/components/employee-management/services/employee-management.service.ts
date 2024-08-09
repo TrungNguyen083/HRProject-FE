@@ -24,6 +24,7 @@ import {
   INewEmployeeApiResponse,
   IPositionApiResponse,
   IUpdateEmployee,
+  IEmployee,
 } from '../models/employee-management.model';
 import { AuthService } from 'src/app/services/auth.service';
 @Injectable({

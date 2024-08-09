@@ -7,7 +7,7 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap } from 'rxjs';
 import { HrDashboardService } from '../services/hr-dashboard.service';
 
-export interface ICompetencyCyleState {
+export interface IEvaluateCyleState {
   loading: boolean;
   cycleStatus: {
     departmentInCompleteComp: ICompetencyIncompletionStatus;
@@ -17,7 +17,7 @@ export interface ICompetencyCyleState {
 @Injectable({
   providedIn: 'root',
 })
-export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
+export class CompetencyCycleStore extends ComponentStore<IEvaluateCyleState> {
   constructor(private hrDashboardService: HrDashboardService) {
     super({
       loading: true,
@@ -40,7 +40,7 @@ export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
   //UPDATER
   readonly setCycleStatus = this.updater(
     (
-      state: ICompetencyCyleState,
+      state: IEvaluateCyleState,
       cycleStatus: {
         departmentInCompleteComp: ICompetencyIncompletionStatus;
         competencyEvalProgress: ICompanyCompletion;
@@ -54,7 +54,7 @@ export class CompetencyCycleStore extends ComponentStore<ICompetencyCyleState> {
   );
 
   readonly setLoading = this.updater(
-    (state: ICompetencyCyleState, loading: boolean) => ({ ...state, loading }),
+    (state: IEvaluateCyleState, loading: boolean) => ({ ...state, loading }),
   );
   //EFFECT
   readonly getDepartmentIncomplete = this.effect(

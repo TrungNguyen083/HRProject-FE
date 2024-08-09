@@ -7,7 +7,7 @@ import {
   multipleHorizontalBarOptions,
 } from 'src/app/components/share/constants/chart.constant';
 import { colorObj } from 'src/app/components/share/hrms-chart/hrms-chart.component';
-import { CompetencyCycleStore } from '../../store/competency-cycle-store.service';
+import { CompetencyCycleStore } from '../../store/evaluate-cycle-store.service';
 import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 import { DonutChartOptions } from 'src/app/components/share/models/chart.model';
 @Component({

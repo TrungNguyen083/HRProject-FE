@@ -147,6 +147,10 @@ export class EmployeeListComponent implements OnInit {
       contentStyle: { overflow: 'auto' },
       width: '60vw',
     });
+
+    this.ref.onClose.subscribe(() => {
+      this.getEmployees();
+    });
   }
 
   handleClearAll() {

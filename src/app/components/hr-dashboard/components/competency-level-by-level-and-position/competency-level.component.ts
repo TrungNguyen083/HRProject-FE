@@ -16,7 +16,7 @@ export class CompetencyLevelComponent implements OnInit {
   public chartOptions: ApexChartOptions = heatmapChartOptions;
   scoreByLevelAndPosition$ = this.competencyScoreStore.scoreByLevelAndPosition$;
   dataSeries: { name: string; data: { x: string; y: number }[] }[] = [];
-  params = { positionId: 1, competencyCycleId: 10  };
+  params = { positionId: 1, evaluateCycleId: 10  };
 
   constructor(
     private competencyScoreStore: CompetencyScoreStore,
@@ -26,7 +26,7 @@ export class CompetencyLevelComponent implements OnInit {
   ngOnInit(): void {
     this.shareStore.activeCycle$.subscribe(cycleId => {
       if (!cycleId) return;
-      this.params = { ...this.params, competencyCycleId: cycleId };
+      this.params = { ...this.params, evaluateCycleId: cycleId };
       this.competencyScoreStore.getScoreByLevelAndPosition(this.params);
     });
 

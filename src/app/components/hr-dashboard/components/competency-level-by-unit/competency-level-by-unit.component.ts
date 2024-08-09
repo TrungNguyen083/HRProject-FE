@@ -19,7 +19,7 @@ export class CompetencyLevelByUnitComponent implements OnInit {
   filterForm!: FormGroup;
   scoreByUnit$ = this.competencyScoreStore.scoreByUnit$;
   lebels: string[] = [];
-  scoreParams = { competencyCyclesId: [2, 3], departmentId: 2 };
+  scoreParams = { evaluateCycleIds: [2, 3], departmentId: 2 };
   cycleOptions!: IDropdownItem[];
   departmentOptions!: IDropdownItem[];
 
@@ -34,11 +34,10 @@ export class CompetencyLevelByUnitComponent implements OnInit {
   ngOnInit(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
-    // this.shareStore.getCompetencyCycles();
-    this.shareStore.competencyCycles$.subscribe(cycles => {
+    this.shareStore.evaluateCycles$.subscribe(cycles => {
       this.cycleOptions = mapToDropdownOptions(
         cycles,
-        'competencyCycleName',
+        'evaluateCycleName',
         'id',
       );
 

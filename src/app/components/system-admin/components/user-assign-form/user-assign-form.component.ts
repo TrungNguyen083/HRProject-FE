@@ -22,7 +22,7 @@ export class UserAssignFormComponent implements OnInit {
   filterValue: FormControl;
   isLoading: boolean = false;
   employeeOptions!: IDropdownItem[];
-  employeeParams: IEmployeeParams = { pageNo: 1, pageSize: 10 };
+  employeeParams: IEmployeeParams = { pageNo: 1, pageSize: 1000 };
   employees!: PaginatedData<IEmployeeInfo>
 
   constructor(

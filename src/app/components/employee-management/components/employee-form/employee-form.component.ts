@@ -15,6 +15,7 @@ import {
   selectPositions,
 } from 'src/app/store/selectors/filter-data.selectors';
 import { EmployeeManagementService } from '../../services/employee-management.service';
+import { concatMap, of } from 'rxjs';
 
 @Component({
   selector: 'employee-form',
@@ -24,6 +25,7 @@ import { EmployeeManagementService } from '../../services/employee-management.se
 export class EmployeeFormComponent implements OnInit {
   @Input() visible!: boolean;
   @ViewChild('fileUpload') fileUpload!: FileUpload;
+  imageFile!: File;
   addEmployeeForm!: FormGroup;
   employeeTypes = [
     {
@@ -49,7 +51,7 @@ export class EmployeeFormComponent implements OnInit {
     private notificationService: NotificationService,
     private employeeService: EmployeeManagementService,
     private store: Store,
-  ) {}
+  ) { }
 
   get currentContract() {
     return this.addEmployeeForm.get('currentContract')?.value;
@@ -97,8 +99,6 @@ export class EmployeeFormComponent implements OnInit {
           phoneNumber: ['', Validators.required],
         }),
       ]),
-      email: ['', [Validators.email, Validators.required]],
-      joinedDate: ['', [Validators.required]],
     });
   }
 
@@ -116,27 +116,23 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   onUpload(f: File): void {
+    const reader = new FileReader();
     this.fileUpload.clear();
     this.fileUpload.choose();
-    const reader = new FileReader();
+    this.imageFile = f;
 
     reader.onload = () => {
       const fileContent = reader.result as string;
 
       this.tempImg = fileContent;
-
       this.notificationService.successNotification(`Uploaded new photo`);
-
-      this.addEmployeeForm.patchValue({
-        avatarImg: this.tempImg,
-      });
     };
 
     reader.readAsDataURL(f);
   }
 
   onSubmit() {
-    const { department, position, dateOfBirth, jobLevel, joinedDate } =
+    const { department, position, dateOfBirth, jobLevel } =
       this.addEmployeeForm.value;
     const employee = {
       ...this.addEmployeeForm.value,
@@ -144,7 +140,6 @@ export class EmployeeFormComponent implements OnInit {
       positionId: position.value,
       jobLevelId: jobLevel.value ?? 0,
       dateOfBirth: new Date(dateOfBirth).toISOString(),
-      joinedDate: new Date(joinedDate).toISOString(),
     };
 
     delete employee.department;
@@ -153,14 +148,23 @@ export class EmployeeFormComponent implements OnInit {
 
     this.employeeService
       .addEmployee(employee)
-      .pipe(o$ => {
-        this.isLoading = true;
-        return o$;
-      })
+      .pipe(
+        concatMap((result) => {
+          this.isLoading = true;
+
+          const employeeId = result.data?.createProfile?.id;
+
+          if (!this.imageFile || !employeeId) return of(undefined);
+          return this.employeeService.uploadProfileImage(
+            employeeId,
+            this.imageFile,
+          );
+        }),
+      )
       .subscribe(() => {
         this.isLoading = false;
         this.notificationService.successNotification(
-          `Add new employee successfully`,
+          `Add employee successfully`,
         );
         this.ref.close();
       });

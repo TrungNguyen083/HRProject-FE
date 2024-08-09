@@ -10,19 +10,19 @@ import { HrDashboardShareStore } from './store/hr-dashboard-share-store.service'
 })
 export class HrDashboardComponent implements OnInit {
   cycleOptions!: IDropdownItem[];
-  competencyCycle$ = this.shareStore.competencyCycles$;
+  evaluateCycles$ = this.shareStore.evaluateCycles$;
 
   constructor(private shareStore: HrDashboardShareStore) {}
 
   ngOnInit(): void {
-    this.shareStore.getCompetencyCycles();
-    this.competencyCycle$.subscribe(cycles => {
+    this.shareStore.getEvaluateCycles();
+    this.evaluateCycles$.subscribe(cycles => {
       this.cycleOptions = cycles.map((c, i) => {
         if (i === 0) {
           this.shareStore.setActiveCycle(c.id);
         }
         return {
-          label: c.competencyCycleName,
+          label: c.evaluateCycleName,
           value: c.id,
         };
       });
