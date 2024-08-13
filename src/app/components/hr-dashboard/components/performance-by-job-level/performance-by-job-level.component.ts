@@ -22,7 +22,7 @@ export class PerformanceByJobLevelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shareStore.activeCycle$.subscribe(cycle => {
+    this.shareStore.previousCycle$.subscribe(cycle => {
       if (!cycle) return;
       this.params = {
         ...this.params,
@@ -42,6 +42,30 @@ export class PerformanceByJobLevelComponent implements OnInit {
         })) || [],
       }
     })
+
+
+    // this.performanceByJobLevel$.subscribe(result => {
+    //   const filteredLabels = result?.labels.filter((_, index) => 
+    //     result.datasets.some(dataset => dataset.data[index] !== 0)
+    //   );
+
+    //   const filteredDatasets = result?.datasets.map(dataset => ({
+    //     ...dataset,
+    //     data: dataset.data.filter((value, index) => 
+    //       result.labels[index] && value !== 0
+    //     )
+    //   })).filter(dataset => dataset.data.length > 0);
+
+    //   this.data = {
+    //     labels: filteredLabels.map(item => item.jobLevelName),
+    //     datasets: filteredDatasets.map(item => ({
+    //       type: 'bar' as const,
+    //       label: item.tag,
+    //       backgroundColor: this.getColor(item.tag),
+    //       data: item.data,
+    //     })) as ChartDataset<'bar'>[],
+    //   }
+    // })
 
 
 
@@ -93,11 +117,11 @@ export class PerformanceByJobLevelComponent implements OnInit {
     switch (tag) {
       case "Not Evaluated":
         return colorObj.primaryLight;
-      case "Unsatisfatory":
+      case "Unsatisfactory":
         return colorObj.primaryLight1;
       case "Partially meet expectation":
         return colorObj.primary;
-      case "Meet expectation":  
+      case "Meet expectation":
         return colorObj.primaryLight4;
       case "Partially exceed expectation":
         return colorObj.primaryLight2;

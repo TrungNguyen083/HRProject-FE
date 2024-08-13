@@ -7,7 +7,7 @@ import {
   multipleHorizontalBarOptions,
 } from 'src/app/components/share/constants/chart.constant';
 import { colorObj } from 'src/app/components/share/hrms-chart/hrms-chart.component';
-import { CompetencyCycleStore } from '../../store/evaluate-cycle-store.service';
+import { EvaluateCycleStore } from '../../store/evaluate-cycle-store.service';
 import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 import { DonutChartOptions } from 'src/app/components/share/models/chart.model';
 @Component({
@@ -22,7 +22,7 @@ export class CompetencyReviewCycleComponent implements OnInit {
   pieData!: ChartData;
   pieOptions: DonutChartOptions = donutChartOptions;
   plugins = [ChartDataLabels];
-  cycleStatus$ = this.competencyCycleStore.cycleStatus$;
+  cycleStatus$ = this.evaluateCycleStore.cycleStatus$;
   barChartLabel: string[] = [];
   selfEvalData: number[] = [];
   managerEvalData: number[] = [];
@@ -30,18 +30,18 @@ export class CompetencyReviewCycleComponent implements OnInit {
   pieChartData: number[] = [];
   completionPercentage = 0;
   cycleId!: number;
-  loading$ = this.competencyCycleStore.loading$
+  loading$ = this.evaluateCycleStore.loading$
   loading = false;
 
   constructor(
-    private competencyCycleStore: CompetencyCycleStore,
+    private evaluateCycleStore: EvaluateCycleStore,
     private shareStore: HrDashboardShareStore,
   ) { }
 
   ngOnInit() {
-    this.shareStore.activeCycle$.subscribe(cycle => {
+    this.shareStore.currentCycle$.subscribe(cycle => {
       if (!cycle) return;
-      this.competencyCycleStore.getDepartmentIncomplete(cycle);
+      this.evaluateCycleStore.getDepartmentIncomplete(cycle);
     });
     this.loading$.subscribe(res => {
       this.loading = res

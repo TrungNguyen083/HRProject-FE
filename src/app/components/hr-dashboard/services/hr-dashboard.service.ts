@@ -10,13 +10,13 @@ import {
   GET_POTENTIAL_PERFORMANCE,
   GET_TOP_COMPETENCIES,
   GET_TOP_PERFORMERS,
-  GET_TOP_SKILL_SETS,
+  GET_TOP_SKILLS,
 } from '../constants/hr-dashboard.constants';
 import {
   IAvgCompetencyScoreApiResponse,
   ICompetencyByLevelAndPositionParams,
-  ICompetencyByUnitApiResponse,
-  ICompetencyByUnitParams,
+  ICompetencyRadarChartApiResponse,
+  ICompetencyRadarChartParams,
   ICompetencyIncompletionApiResponse,
   IEvaluateCycleTimelineApiResponse,
   IEvaluateCyclesApiResponse,
@@ -27,8 +27,8 @@ import {
   ITopCompetencyApiResponse,
   ITopPerformerApiResponse,
   ITopEmployeeParams,
-  ITopSkillsetApiResponse,
-  ITopskillsetParams,
+  ITopSkillApiResponse,
+  ITopSkillParams,
 } from '../models/hr-dashboard.model';
 import { Observable, map } from 'rxjs';
 
@@ -49,24 +49,24 @@ export class HrDashboardService {
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getTopSkillset(
-    params: ITopskillsetParams,
-  ): Observable<ITopSkillsetApiResponse> {
+  getTopSkills(
+    params: ITopSkillParams,
+  ): Observable<ITopSkillApiResponse> {
     return this.apollo
-      .watchQuery<ITopSkillsetApiResponse>({
-        query: GET_TOP_SKILL_SETS,
+      .watchQuery<ITopSkillApiResponse>({
+        query: GET_TOP_SKILLS,
         variables: { ...params },
       })
       .valueChanges.pipe(map(res => res.data));
   }
 
   getCompetencyIncompletionStatus(
-    competencyCycleId: number,
+    evaluateCycleId: number,
   ): Observable<ICompetencyIncompletionApiResponse> {
     return this.apollo
       .watchQuery<ICompetencyIncompletionApiResponse>({
         query: GET_DEPARTMENT_INCOMPLETE,
-        variables: { competencyCycleId },
+        variables: { evaluateCycleId },
       })
       .valueChanges.pipe(map(res => res.data));
   }
@@ -82,11 +82,11 @@ export class HrDashboardService {
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getCompetencyByUnit(
-    params: ICompetencyByUnitParams,
-  ): Observable<ICompetencyByUnitApiResponse> {
+  getCompetencyRadarChart(
+    params: ICompetencyRadarChartParams,
+  ): Observable<ICompetencyRadarChartApiResponse> {
     return this.apollo
-      .watchQuery<ICompetencyByUnitApiResponse>({
+      .watchQuery<ICompetencyRadarChartApiResponse>({
         query: GET_COMPETENCY_RADAR_CHART,
         variables: { ...params },
       })

@@ -44,7 +44,7 @@ export class TopPerformersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.shareStore.activeCycle$.subscribe(cycleId => {
+    this.shareStore.previousCycle$.subscribe(cycleId => {
       if (!cycleId) return;
       this.tableParams = { ...this.tableParams, cycleId: cycleId };
       this.topFigureScore.getTopPerformers(this.tableParams);
@@ -80,6 +80,6 @@ export class TopPerformersComponent implements OnInit {
       ...this.tableParams,
       pageNo: e.page + this.gapPageNumber,
     };
-    this.topFigureScore.getTopSkillsets(this.tableParams);
+    this.topFigureScore.getTopSkills(this.tableParams);
   }
 }

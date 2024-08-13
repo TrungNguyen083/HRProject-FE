@@ -73,9 +73,9 @@ export const GET_COMPETENCY_TIMELINE = gql`
   }
 `;
 
-export const GET_TOP_SKILL_SETS = gql`
-  query GetTopSkillset($evaluateCycleId: Int!, $pageNo: Int, $pageSize: Int) {
-    topSkillSet(evaluateCycleId: $evaluateCycleId, pageNo: $pageNo, pageSize: $pageSize) {
+export const GET_TOP_SKILLS = gql`
+  query GetTopSkill($evaluateCycleId: Int!, $pageNo: Int, $pageSize: Int) {
+    topSkill(evaluateCycleId: $evaluateCycleId, pageNo: $pageNo, pageSize: $pageSize) {
       data{
         label
         value
@@ -136,6 +136,12 @@ export const GET_EVALUATE_CYCLES = gql`
     evaluateCycles {
       id
       evaluateCycleName
+      description
+      startDate
+      dueDate
+      year
+      status
+      initialDate
     }
   }
 `;

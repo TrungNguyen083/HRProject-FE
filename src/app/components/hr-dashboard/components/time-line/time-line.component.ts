@@ -17,8 +17,7 @@ export class TimeLineComponent implements OnInit {
   constructor(private shareStore: HrDashboardShareStore) {}
 
   ngOnInit(): void {
-    // this.shareStore.getCompetencyTimeline(8);
-    this.shareStore.activeCycle$.subscribe(cycle => {
+    this.shareStore.currentCycle$.subscribe(cycle => {
       if (!cycle) return;
       this.shareStore.getEvaluateTimeline(cycle);
     });

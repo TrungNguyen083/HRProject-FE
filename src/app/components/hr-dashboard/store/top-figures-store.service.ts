@@ -5,14 +5,14 @@ import { PaginatedData } from 'src/app/models/global.model';
 import {
   ITopEmployee,
   ITopEmployeeParams,
-  ITopSkillset,
-  ITopskillsetParams,
+  ITopSkill,
+  ITopSkillParams,
 } from '../models/hr-dashboard.model';
 import { HrDashboardService } from '../services/hr-dashboard.service';
 
 export interface ITopFiguresState {
   topPerformers: PaginatedData<ITopEmployee>;
-  topSkillsets: PaginatedData<ITopSkillset>;
+  topSkills: PaginatedData<ITopSkill>;
   topCompetencies: PaginatedData<ITopEmployee>;
 }
 
@@ -34,7 +34,7 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
         },
         data: [],
       },
-      topSkillsets: {
+      topSkills: {
         pagination: {
           ...defaultPagination,
         },
@@ -51,7 +51,7 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
 
   //SELECTOR
   readonly topPerformers$ = this.select(state => state.topPerformers);
-  readonly topSkillsets$ = this.select(state => state.topSkillsets);
+  readonly topSkills$ = this.select(state => state.topSkills);
   readonly topCompetencies$ = this.select(state => state.topCompetencies);
   //UPDATER
   readonly setTopPerformers = this.updater(
@@ -62,11 +62,11 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
       };
     },
   );
-  readonly setTopSkillsets = this.updater(
-    (state: ITopFiguresState, topSkillsets: PaginatedData<ITopSkillset>) => {
+  readonly setTopSkills = this.updater(
+    (state: ITopFiguresState, topSkillsets: PaginatedData<ITopSkill>) => {
       return {
         ...state,
-        topSkillsets,
+        topSkills: topSkillsets,
       };
     },
   );
@@ -96,14 +96,14 @@ export class TopFiguresStore extends ComponentStore<ITopFiguresState> {
       ),
   );
 
-  readonly getTopSkillsets = this.effect(
-    (params$: Observable<ITopskillsetParams>) =>
+  readonly getTopSkills = this.effect(
+    (params$: Observable<ITopSkillParams>) =>
       params$.pipe(
         switchMap(params =>
-          this.hrDashboardService.getTopSkillset(params).pipe(
+          this.hrDashboardService.getTopSkills(params).pipe(
             tapResponse({
               next: res => {
-                this.setTopSkillsets(res.topSkillSet)
+                this.setTopSkills(res.topSkill)
               },
               error: error => console.log(error),
             }),
