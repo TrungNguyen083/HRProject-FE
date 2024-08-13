@@ -10,26 +10,35 @@ import { HrDashboardShareStore } from './store/hr-dashboard-share-store.service'
 })
 export class HrDashboardComponent implements OnInit {
   cycleOptions!: IDropdownItem[];
+  selectedCycle!: number;
   evaluateCycles$ = this.shareStore.evaluateCycles$;
 
-  constructor(private shareStore: HrDashboardShareStore) {}
+  constructor(private shareStore: HrDashboardShareStore) { }
 
   ngOnInit(): void {
     this.shareStore.getEvaluateCycles();
-    this.evaluateCycles$.subscribe(cycles => {
-      this.cycleOptions = cycles.map((c, i) => {
-        if (i === 0) {
-          this.shareStore.setActiveCycle(c.id);
-        }
-        return {
-          label: c.evaluateCycleName,
-          value: c.id,
-        };
-      });
+    this.evaluateCycles$.subscribe(evaluateCycles => {
+      if(!evaluateCycles.length) return;
+
+      const previousCycle = evaluateCycles.find(c => c.status === "Completed");
+      if (previousCycle) {
+        this.shareStore.setPreviousCycle(previousCycle.id);
+        this.selectedCycle = previousCycle.id;
+      }
+
+      const currentCycle = evaluateCycles.find(c => c.status === "In Progress");
+      if (currentCycle) {
+        this.shareStore.setCurrentCycle(currentCycle.id);
+      }
+
+      this.cycleOptions = evaluateCycles.map(c => ({
+        label: c.evaluateCycleName,
+        value: c.id,
+      }));
     });
   }
 
   onSelectCycle(e: SelectItem) {
-    this.shareStore.setActiveCycle(e.value);
+    this.shareStore.setPreviousCycle(e.value);
   }
 }

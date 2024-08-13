@@ -35,15 +35,15 @@ export interface IAvgCompetencyScoreApiResponse {
   avgCompetencyScore: IAvgCompetencyScore[];
 }
 
-export interface ICompetencyByUnitParams {
+export interface ICompetencyRadarChartParams {
   evaluateCycleIds: number[];
   departmentId: number;
 }
 
-export interface ICompetencyByUnitApiResponse {
-  competencyRadarChart: ICompetencyByUnit;
+export interface ICompetencyRadarChartApiResponse {
+  competencyRadarChart: ICompetencyRadarChart;
 }
-export interface ICompetencyByUnit {
+export interface ICompetencyRadarChart {
   labels: string[];
   datasets: {
     lineName: string;
@@ -62,22 +62,28 @@ export interface IEvaluateCycleTimelineApiResponse {
   evaluateTimeLine: ITimeline[];
 }
 
-export interface ITopSkillset {
+export interface ITopSkill {
   label: string;
   value: number;
 }
-export interface ITopskillsetParams {
+export interface ITopSkillParams {
   pageNo?: number;
   pageSize?: number;
   evaluateCycleId?: number;
 }
-export interface ITopSkillsetApiResponse {
-  topSkillSet: PaginatedData<ITopSkillset>;
+export interface ITopSkillApiResponse {
+  topSkill: PaginatedData<ITopSkill>;
 }
 
 export interface IEvaluateCycle {
   id: number;
   evaluateCycleName: string;
+  description: string
+  startDate: string
+  dueDate: string
+  year: string
+  status: string
+  initialDate: string
 }
 
 export interface IEvaluateCyclesApiResponse {

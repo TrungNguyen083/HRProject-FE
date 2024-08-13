@@ -21,7 +21,8 @@ export interface IHRDashboardShareState {
   positions: IPosition[];
   evaluateTimeline: ITimeline[];
   evaluateCycles: IEvaluateCycle[];
-  activeCycle: number | null;
+  previousCycle: number | null;
+  currentCycle: number | null;
   employeesPotentialPerformance: IPotentialPerformance[];
   performanceByJobLevel: IPerformanceByLevel | null;
 }
@@ -39,7 +40,8 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
       positions: [],
       evaluateTimeline: [],
       evaluateCycles: [],
-      activeCycle: null,
+      previousCycle: null,
+      currentCycle: null,
       employeesPotentialPerformance: [],
       performanceByJobLevel: null,
     });
@@ -50,7 +52,8 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
   readonly positions$ = this.select(state => state.positions);
   readonly evaluateTimeline$ = this.select(state => state.evaluateTimeline);
   readonly evaluateCycles$ = this.select(state => state.evaluateCycles);
-  readonly activeCycle$ = this.select(state => state.activeCycle);
+  readonly previousCycle$ = this.select(state => state.previousCycle);
+  readonly currentCycle$ = this.select(state => state.currentCycle);
   readonly employeesPotentialPerformance$ = this.select(state => state.employeesPotentialPerformance);
   readonly performanceByJobLevel$ = this.select(state => state.performanceByJobLevel);  
     
@@ -77,13 +80,20 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
     },
   );
   readonly setEvaluateCycles = this.updater(
-    (state: IHRDashboardShareState, competencyCycles: IEvaluateCycle[]) => {
-      return { ...state, competencyCycles };
+    (state: IHRDashboardShareState, evaluateCycles: IEvaluateCycle[]) => {
+      return { ...state, evaluateCycles };
     },
   );
-  readonly setActiveCycle = this.updater(
-    (state: IHRDashboardShareState, activeCycle: number | null) => {
-      return { ...state, activeCycle };
+  
+  readonly setPreviousCycle = this.updater(
+    (state: IHRDashboardShareState, previousCycle: number | null) => {
+      return { ...state, previousCycle: previousCycle };
+    },
+  );
+
+  readonly setCurrentCycle = this.updater(
+    (state: IHRDashboardShareState, currentCycle: number | null) => {
+      return { ...state, currentCycle: currentCycle };
     },
   );
 
@@ -143,6 +153,7 @@ export class HrDashboardShareStore extends ComponentStore<IHRDashboardShareState
       ),
     ),
   );
+
   readonly getEvaluateCycles = this.effect<void>(trigger$ =>
     trigger$.pipe(
       switchMap(() =>

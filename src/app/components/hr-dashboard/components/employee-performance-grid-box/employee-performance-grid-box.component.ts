@@ -50,12 +50,11 @@ export class EmployeePerformanceGridBoxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shareStore.activeCycle$.subscribe(cycleId => {
+    this.shareStore.previousCycle$.subscribe(cycleId => {
       if (!cycleId) return;
       this.params = { ...this.params, cycleId: cycleId };
       this.shareStore.getPotentialPerformance(this.params);
     });
-    // this.shareStore.getPotentialPerformance(this.params);
     this.shareStore.employeesPotentialPerformance$.subscribe(res => {
       this.labels = _.map(
         res,

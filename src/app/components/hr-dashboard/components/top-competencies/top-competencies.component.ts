@@ -42,7 +42,7 @@ export class TopCompetenciesComponent implements OnInit {
   constructor(private topFigureStore: TopFiguresStore, private shareStore: HrDashboardShareStore) {}
   
   ngOnInit(): void {
-    this.shareStore.activeCycle$.subscribe(cycleId => {
+    this.shareStore.previousCycle$.subscribe(cycleId => {
       if (!cycleId) return;
       this.tableParams = { ...this.tableParams, cycleId: cycleId };
       this.topFigureStore.getTopCompetencies(this.tableParams);
@@ -54,7 +54,7 @@ export class TopCompetenciesComponent implements OnInit {
         return {
           ...s,
           no: i + 1,
-          profileImgUrl: this.defaultImg,
+          profileImgUrl: s.profileImgUrl,
         };
       });
 

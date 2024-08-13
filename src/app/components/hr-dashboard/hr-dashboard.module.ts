@@ -15,7 +15,7 @@ import { HrDashboardRoutingModule } from './hr-dashboard-routing.module';
 import { HrDashboardComponent } from './hr-dashboard.component';
 import { HrOverviewComponent } from './components/hr-overview/hr-overview.component';
 import { CompetencyLevelComponent } from './components/competency-level-by-level-and-position/competency-level.component';
-import { CompetencyLevelByUnitComponent } from './components/competency-level-by-unit/competency-level-by-unit.component';
+import { CompetencyRadarChartComponent } from './components/competency-radar-chart/competency-radar-chart.component';
 import { TopSkillsComponent } from './components/top-skills/top-skills.component';
 import { ShareModule } from '../share/share.module';
 import { CompetencyReviewCycleComponent } from './components/competency-review-cycle/competency-review-cycle.component';
@@ -40,7 +40,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     CompetencyReviewCycleComponent,
     TimeLineComponent,
     CompetencyLevelComponent,
-    CompetencyLevelByUnitComponent,
+    CompetencyRadarChartComponent,
     TopSkillsComponent,
     TopPerformersComponent,
     TopCompetenciesComponent,

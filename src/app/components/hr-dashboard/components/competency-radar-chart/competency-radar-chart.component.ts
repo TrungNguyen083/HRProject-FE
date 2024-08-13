@@ -7,19 +7,21 @@ import { IDropdownItem } from 'src/app/models/global.model';
 import { mapToDropdownOptions } from 'src/app/utils/mapToDropdownOptions';
 import { CompetencyScoreStoreService as CompetencyScoreStore } from '../../store/competency-score-store.service';
 import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
+import { NotificationService } from 'src/app/shared/message/notification.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
-  selector: 'competency-level-by-unit',
-  templateUrl: './competency-level-by-unit.component.html',
-  styleUrls: ['./competency-level-by-unit.component.scss'],
+  selector: 'competency-radar-chart',
+  templateUrl: './competency-radar-chart.component.html',
+  styleUrls: ['./competency-radar-chart.component.scss'],
 })
-export class CompetencyLevelByUnitComponent implements OnInit {
+export class CompetencyRadarChartComponent implements OnInit {
   data!: ChartData;
   options: ChartOptions = radarChartOptions;
   filterForm!: FormGroup;
-  scoreByUnit$ = this.competencyScoreStore.scoreByUnit$;
+  competencyRadarChart$ = this.competencyScoreStore.competencyRadarChart$;
   lebels: string[] = [];
-  scoreParams = { evaluateCycleIds: [2, 3], departmentId: 2 };
+  scoreParams = { evaluateCycleIds: [3, 4], departmentId: 1 };
   cycleOptions!: IDropdownItem[];
   departmentOptions!: IDropdownItem[];
 
@@ -27,6 +29,7 @@ export class CompetencyLevelByUnitComponent implements OnInit {
     private fb: FormBuilder,
     private competencyScoreStore: CompetencyScoreStore,
     private shareStore: HrDashboardShareStore,
+    private notificationService: NotificationService,
   ) {
     this.initForm();
   }
@@ -35,15 +38,15 @@ export class CompetencyLevelByUnitComponent implements OnInit {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     this.shareStore.evaluateCycles$.subscribe(cycles => {
+      // if(!cycles.length) return;
       this.cycleOptions = mapToDropdownOptions(
         cycles,
         'evaluateCycleName',
         'id',
       );
-
       if (!this.cycleOptions.length) return;
       this.filterForm.patchValue({
-        competencyCyclesId: [
+        evaluateCyclesId: [
           this.cycleOptions[0].value,
           this.cycleOptions[1].value,
         ],
@@ -56,15 +59,18 @@ export class CompetencyLevelByUnitComponent implements OnInit {
         'departmentName',
         'id',
       );
-
       if (!this.departmentOptions.length) return;
       this.filterForm.patchValue({
         departmentId: this.departmentOptions[0].value,
       });
     });
 
-    this.competencyScoreStore.getScoreByUnit(this.scoreParams);
-    this.scoreByUnit$.subscribe(result => {
+    this.competencyScoreStore.getCompetencyRadarChart(this.scoreParams);
+    this.competencyRadarChart$.subscribe(result => {
+      if (!result || !result.datasets) {
+        this.notificationService.warnNotification("This department doesn't have any data");
+        return;
+      }
       const datasets = result.datasets.map((data, i) => {
         const colorObj = radarChartColors[i];
 
@@ -76,7 +82,7 @@ export class CompetencyLevelByUnitComponent implements OnInit {
           pointBorderColor: colorObj.borderColor,
           pointHoverBackgroundColor: textColor,
           pointHoverBorderColor: colorObj.borderColor,
-          data: data.dataset,
+          data: data.dataset, 
         };
       });
 
@@ -90,12 +96,14 @@ export class CompetencyLevelByUnitComponent implements OnInit {
   initForm(): void {
     this.filterForm = this.fb.group({
       departmentId: '',
-      competencyCyclesId: '',
+      evaluateCycleIds: '',
     });
   }
 
-  onFilter(): void {
+  onFilter(op: OverlayPanel): void {
     const params = this.filterForm.value;
-    this.competencyScoreStore.getScoreByUnit(params);
+    this.competencyScoreStore.getCompetencyRadarChart(params);
+
+    op.hide();
   }
 }

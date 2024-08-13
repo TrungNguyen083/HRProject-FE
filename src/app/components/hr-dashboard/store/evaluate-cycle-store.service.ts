@@ -17,7 +17,7 @@ export interface IEvaluateCyleState {
 @Injectable({
   providedIn: 'root',
 })
-export class CompetencyCycleStore extends ComponentStore<IEvaluateCyleState> {
+export class EvaluateCycleStore extends ComponentStore<IEvaluateCyleState> {
   constructor(private hrDashboardService: HrDashboardService) {
     super({
       loading: true,

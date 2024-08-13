@@ -4,6 +4,7 @@
     <p-dropdown
         [dropdownIcon]="'pi pi-filter'"
         [options]="cycleOptions"
+        [(ngModel)]="selectedCycle"
         (onChange)="onSelectCycle($event)"
     ></p-dropdown>
 </div>
@@ -19,7 +20,7 @@
         <competency-level></competency-level>
     </div>
     <div class="md:col-span-12 lg:col-span-4">
-        <competency-level-by-unit></competency-level-by-unit>
+        <competency-radar-chart></competency-radar-chart>
     </div>
     <div class="md:col-span-12 lg:col-span-4">
         <top-skills></top-skills>

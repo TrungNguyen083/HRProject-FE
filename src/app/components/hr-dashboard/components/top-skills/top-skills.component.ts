@@ -7,7 +7,7 @@ import { configPagination } from 'src/app/utils/configPagination';
 import { PageChangeEvent } from 'src/app/components/share/models/pagingInfo.model';
 import { defaultTablePagination } from '../../../../constants/app.constant';
 import { topSkillsTableCol } from '../../constants/hr-dashboard.constants';
-import { ITopskillsetParams } from '../../models/hr-dashboard.model';
+import { ITopSkillParams } from '../../models/hr-dashboard.model';
 import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 import { TopFiguresStore } from '../../store/top-figures-store.service';
 
@@ -29,11 +29,11 @@ export class TopSkillsComponent implements OnInit {
       body: [],
     },
   };
-  tableParams: ITopskillsetParams = {
+  tableParams: ITopSkillParams = {
     pageNo: 1,
     pageSize: 5,
   };
-  topSkillsets$ = this.topFigureStore.topSkillsets$;
+  topSkills$ = this.topFigureStore.topSkills$;
   isFullTableShown = false;
   gapPageNumber = 1;
 
@@ -43,13 +43,13 @@ export class TopSkillsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.shareStore.activeCycle$.subscribe(cycleId => {
+    this.shareStore.previousCycle$.subscribe(cycleId => {
       if (!cycleId) return;
       this.tableParams = { ...this.tableParams, evaluateCycleId: cycleId };
-      this.topFigureStore.getTopSkillsets(this.tableParams);
+      this.topFigureStore.getTopSkills(this.tableParams);
     });
     // this.topFigureStore.getTopSkillsets(this.tableParams);
-    this.topSkillsets$.subscribe(result => {
+    this.topSkills$.subscribe(result => {
       const pagination = configPagination(result.pagination);
       const topSkillsets = result.data.map((s, i) => {
         return {
@@ -78,6 +78,6 @@ export class TopSkillsComponent implements OnInit {
       ...this.tableParams,
       pageNo: e.page + this.gapPageNumber,
     };
-    this.topFigureStore.getTopSkillsets(this.tableParams);
+    this.topFigureStore.getTopSkills(this.tableParams);
   }
 }

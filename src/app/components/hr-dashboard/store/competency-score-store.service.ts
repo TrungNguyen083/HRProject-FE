@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   IAvgCompetencyScore,
   ICompetencyByLevelAndPositionParams,
-  ICompetencyByUnit,
-  ICompetencyByUnitParams,
+  ICompetencyRadarChart,
+  ICompetencyRadarChartParams,
 } from '../models/hr-dashboard.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap } from 'rxjs';
@@ -11,7 +11,7 @@ import { HrDashboardService } from '../services/hr-dashboard.service';
 
 interface ICompetencyScoreState {
   scoreByLevelAndPosition: IAvgCompetencyScore[];
-  scoreByUnit: ICompetencyByUnit;
+  competencyRadarChart: ICompetencyRadarChart;
 }
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class CompetencyScoreStoreService extends ComponentStore<ICompetencyScore
   constructor(private hrDashboardService: HrDashboardService) {
     super({
       scoreByLevelAndPosition: [],
-      scoreByUnit: {
+      competencyRadarChart: {
         labels: [],
         datasets: [],
       },
@@ -31,7 +31,7 @@ export class CompetencyScoreStoreService extends ComponentStore<ICompetencyScore
   readonly scoreByLevelAndPosition$ = this.select(
     state => state.scoreByLevelAndPosition,
   );
-  readonly scoreByUnit$ = this.select(state => state.scoreByUnit);
+  readonly competencyRadarChart$ = this.select(state => state.competencyRadarChart);
   //UPDATER
   readonly setScoreByLevelAndPosition = this.updater(
     (
@@ -44,11 +44,11 @@ export class CompetencyScoreStoreService extends ComponentStore<ICompetencyScore
       };
     },
   );
-  readonly setScoreByUnit = this.updater(
-    (state: ICompetencyScoreState, scoreByUnit: ICompetencyByUnit) => {
+  readonly setCompetencyRadarChart = this.updater(
+    (state: ICompetencyScoreState, competencyRadarChart: ICompetencyRadarChart) => {
       return {
         ...state,
-        scoreByUnit,
+        competencyRadarChart: competencyRadarChart,
       };
     },
   );
@@ -67,13 +67,13 @@ export class CompetencyScoreStoreService extends ComponentStore<ICompetencyScore
         ),
       ),
   );
-  readonly getScoreByUnit = this.effect(
-    (params$: Observable<ICompetencyByUnitParams>) =>
+  readonly getCompetencyRadarChart = this.effect(
+    (params$: Observable<ICompetencyRadarChartParams>) =>
       params$.pipe(
         switchMap(params =>
-          this.hrDashboardService.getCompetencyByUnit(params).pipe(
+          this.hrDashboardService.getCompetencyRadarChart(params).pipe(
             tapResponse({
-              next: res => this.setScoreByUnit(res.competencyRadarChart),
+              next: res => this.setCompetencyRadarChart(res.competencyRadarChart),
               error: error => console.log(error),
             }),
           ),
