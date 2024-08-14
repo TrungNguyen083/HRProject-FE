@@ -75,7 +75,7 @@ export class EmployeeSkillStatisticComponent implements OnInit {
     return data.map((s, i) => ({
       no: i + 1,
       score: s.value,
-      skillsetName: s.label,
+      skillName: s.label,
     }));
   }
 }

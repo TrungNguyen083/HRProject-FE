@@ -31,7 +31,7 @@ export const GET_EMPLOYEE_OVERVIEW = gql`
       profileImgUri
       position
       level
-      skillSets
+      skills
       certifications
   }
 }
