@@ -117,7 +117,7 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
           this.summaryService.getEmployeeHighestSkills(params).pipe(
             tapResponse({
               next: res =>
-                this.setEmployeeHighestSkills(res.topSkillSet),
+                this.setEmployeeHighestSkills(res.topSkill),
               error: error => console.log(error),
             }),
           ),
@@ -133,7 +133,7 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
             tapResponse({
               next: res =>
                 this.setEmployeeTargetSkills(
-                  res.topHighestSkillSetTargetEmployee,
+                  res.topHighestSkillTargetEmployee,
                 ),
               error: error => console.log(error),
             }),
@@ -149,7 +149,7 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
           this.summaryService.getEmployeeImproveSkills(params).pipe(
             tapResponse({
               next: res =>
-                this.setEmployeeImproveSkills(res.topKeenSkillSetEmployee),
+                this.setEmployeeImproveSkills(res.topKeenSkillEmployee),
               error: error => console.log(error),
             }),
           ),

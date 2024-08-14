@@ -4,7 +4,7 @@ import { TableHeader } from 'src/app/models/global.model';
 export const topSkillsetTableCol: TableHeader[] = [
   { col: 'No.', field: 'no' },
   { col: 'Score', field: 'score' },
-  { col: 'Skill sets', field: 'skillsetName' },
+  { col: 'Skills', field: 'skillName' },
 ];
 export const defaultTable = {
   pagination: {
@@ -17,7 +17,7 @@ export const defaultTable = {
 };
 export const GET_EMPLOYEE_HIGHEST_SKILL = gql`
   query GetHighestSkill($employeeId: Int!, $pageNo: Int, $pageSize: Int) {
-    topSkillSet(
+    topSkill(
       employeeId: $employeeId
       pageNo: $pageNo
       pageSize: $pageSize
@@ -38,7 +38,7 @@ export const GET_EMPLOYEE_HIGHEST_SKILL = gql`
 
 export const GET_EMPLOYEE_IMPROVE_SKILL = gql`
   query GetImproveSkill($employeeId: Int!, $pageNo: Int, $pageSize: Int) {
-    topKeenSkillSetEmployee(
+    topKeenSkillEmployee(
       employeeId: $employeeId
       pageNo: $pageNo
       pageSize: $pageSize
@@ -59,7 +59,7 @@ export const GET_EMPLOYEE_IMPROVE_SKILL = gql`
 
 export const GET_EMPLOYEE_TARGET_SKILL = gql`
   query GetTargetSkill($employeeId: Int!, $pageNo: Int, $pageSize: Int) {
-    topHighestSkillSetTargetEmployee(
+    topHighestSkillTargetEmployee(
       employeeId: $employeeId
       pageNo: $pageNo
       pageSize: $pageSize

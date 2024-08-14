@@ -3,7 +3,7 @@ import { PaginatedData } from 'src/app/models/global.model';
 export interface IEmployeeScoreTable {
   no: number;
   score: number;
-  skillsetName: string;
+  skillName: string;
 }
 
 export interface IEmployeeScoreParams {
@@ -18,14 +18,14 @@ export interface IEmployeeSkillScore {
 }
 
 export interface IEmployeeHighestSkillApiResponse {
-  topSkillSet: PaginatedData<IEmployeeSkillScore>;
+  topSkill: PaginatedData<IEmployeeSkillScore>;
 }
 
 export interface IEmployeeImproveSkillApiResponse {
-  topKeenSkillSetEmployee: PaginatedData<IEmployeeSkillScore>;
+  topKeenSkillEmployee: PaginatedData<IEmployeeSkillScore>;
 }
 export interface IEmployeeTargetSkillApiResponse {
-  topHighestSkillSetTargetEmployee: PaginatedData<IEmployeeSkillScore>;
+  topHighestSkillTargetEmployee: PaginatedData<IEmployeeSkillScore>;
 }
 
 export interface IEmployeeAtGlanceApiResponse {
