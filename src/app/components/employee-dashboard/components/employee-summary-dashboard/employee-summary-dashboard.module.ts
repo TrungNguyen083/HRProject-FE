@@ -8,7 +8,7 @@ import { EmployeeSummaryDashboardRoutingModule } from './employee-summary-dashbo
 import { EmployeeSummaryDashboardComponent } from './employee-summary-dashboard.component';
 import { ShareModule } from 'src/app/components/share/share.module';
 import { EmployeeAtGlanceComponent } from './components/employee-at-glance/employee-at-glance.component';
-import { EmployeeCompetencyOverallScoreComponent } from './components/employee-competency-overall-score/employee-competency-overall-score.component';
+import { EmployeeCompetencyOverallRadarChartComponent } from './components/employee-competency-overall-radar-chart/employee-competency-overall-radar-chart.component';
 import { EmployeePerformanceScoreChartComponent } from './components/employee-performance-score-chart/employee-performance-score-chart.component';
 import { EmployeeScoreTableComponent } from './components/employee-score-table/employee-score-table.component';
 import { EmployeeSkillStatisticComponent } from './components/employee-skill-statistic/employee-skill-statistic.component';
@@ -16,7 +16,7 @@ import { EmployeeCareerPathComponent } from './components/employee-career-path/e
 
 
 @NgModule({
-  declarations: [EmployeeSummaryDashboardComponent, EmployeeAtGlanceComponent, EmployeeCompetencyOverallScoreComponent, EmployeePerformanceScoreChartComponent, EmployeeScoreTableComponent, EmployeeSkillStatisticComponent, EmployeeCareerPathComponent],
+  declarations: [EmployeeSummaryDashboardComponent, EmployeeAtGlanceComponent, EmployeeCompetencyOverallRadarChartComponent, EmployeePerformanceScoreChartComponent, EmployeeScoreTableComponent, EmployeeSkillStatisticComponent, EmployeeCareerPathComponent],
   imports: [
     CommonModule,
     EmployeeSummaryDashboardRoutingModule,

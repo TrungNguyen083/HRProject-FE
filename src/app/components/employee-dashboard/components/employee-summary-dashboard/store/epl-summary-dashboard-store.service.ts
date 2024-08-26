@@ -4,10 +4,13 @@ import { Observable, switchMap } from 'rxjs';
 import { PaginatedData } from 'src/app/models/global.model';
 import { defaultTable as defaultTableData } from '../constants/employee-summary-dashboard.constant';
 import {
-  IEmployeeAtGlance,
-  IEmployeeCompetencyOverallScore,
+  IEmployeeAtGlanceParams,
+  IEmployeeCompetencyOverallRadarChart,
+  IEmployeeCompetencyOverallRadarChartParams,
+  IEmployeeCompetencyPieChart,
   IEmployeePerformanceRating,
   IEmployeeScoreParams,
+  IEmployeeSkillGapBarChart,
   IEmployeeSkillScore,
 } from '../models/employee-summary-dashboard';
 import { EmDashboardSummaryService } from '../services/epl-dashboard-summary.service';
@@ -16,9 +19,10 @@ interface EplSummaryDashboardState {
   employeeHighestSkills: PaginatedData<IEmployeeSkillScore>;
   employeeTargetSkills: PaginatedData<IEmployeeSkillScore>;
   employeeImproveSkills: PaginatedData<IEmployeeSkillScore>;
-  employeeAtGlance: IEmployeeAtGlance | null;
+  employeeSkillGapBarChart: IEmployeeSkillGapBarChart | null;
+  employeeCompetencyPieChart: IEmployeeCompetencyPieChart | null;
   employeePerformanceRating: IEmployeePerformanceRating;
-  employeeCompOverallScore: IEmployeeCompetencyOverallScore | null;
+  employeeCompOverallRadarChart: IEmployeeCompetencyOverallRadarChart;
 }
 @Injectable({
   providedIn: 'root',
@@ -29,9 +33,13 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       employeeHighestSkills: defaultTableData,
       employeeTargetSkills: defaultTableData,
       employeeImproveSkills: defaultTableData,
-      employeeAtGlance: null,
+      employeeSkillGapBarChart: null,
+      employeeCompetencyPieChart: null,
       employeePerformanceRating: { data: [] },
-      employeeCompOverallScore: null,
+      employeeCompOverallRadarChart: {
+        labels: [],
+        datasets: [],
+      },
     });
   }
 
@@ -39,9 +47,10 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
   readonly employeeHighestSkills$ = this.select(state => state.employeeHighestSkills);
   readonly employeeTargetSkills$ = this.select(state => state.employeeTargetSkills);
   readonly employeeImproveSkills$ = this.select(state => state.employeeImproveSkills);
-  readonly employeeAtGlance$ = this.select(state => state.employeeAtGlance);
+  readonly employeeSkillGapBarChart$ = this.select(state => state.employeeSkillGapBarChart);
+  readonly employeeCompetencyPieChart$ = this.select(state => state.employeeCompetencyPieChart);
   readonly employeePerformanceRating$ = this.select(state => state.employeePerformanceRating);
-  readonly employeeCompOverallScore$ = this.select(state => state.employeeCompOverallScore);
+  readonly employeeCompOverallRadarChart$ = this.select(state => state.employeeCompOverallRadarChart);
 
   //UPDATER
   readonly setEmployeeHighestSkills = this.updater(
@@ -78,11 +87,26 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       };
     },
   );
-  readonly setEmployeeAtGlance = this.updater(
-    (state: EplSummaryDashboardState, employeeAtGlance: IEmployeeAtGlance) => {
+  readonly setEmployeeSkillGapBarChart = this.updater(
+    (
+      state: EplSummaryDashboardState,
+      employeeSkillGapBarChart: IEmployeeSkillGapBarChart
+    ) => {
+      console.log("Updating State with skillGapBarChart: ", employeeSkillGapBarChart);
       return {
         ...state,
-        employeeAtGlance,
+        employeeSkillGapBarChart,
+      };
+    },
+  );
+  readonly setEmployeeCompetencyPieChart = this.updater(
+    (
+      state: EplSummaryDashboardState,
+      employeeCompetencyPieChart: IEmployeeCompetencyPieChart
+    ) => {
+      return {
+        ...state,
+        employeeCompetencyPieChart,
       };
     },
   );
@@ -97,14 +121,14 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       };
     },
   );
-  readonly setEmployeeCompOverallScore = this.updater(
+  readonly setEmployeeCompOverallRadarChart = this.updater(
     (
       state: EplSummaryDashboardState,
-      employeeCompOverallScore: IEmployeeCompetencyOverallScore,
+      employeeCompOverallRadarChart: IEmployeeCompetencyOverallRadarChart,
     ) => {
       return {
         ...state,
-        employeeCompOverallScore,
+        employeeCompOverallRadarChart: employeeCompOverallRadarChart,
       };
     },
   );
@@ -157,12 +181,25 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       ),
   );
 
-  readonly getEmployeeAtGlance = this.effect((params$: Observable<number>) =>
+  readonly getEmployeeSkillGapBarChart = this.effect((params$: Observable<IEmployeeAtGlanceParams>) =>
     params$.pipe(
       switchMap(params =>
-        this.summaryService.getEmployeeAtGlance(params).pipe(
+        this.summaryService.getEmployeeSkillGapBarChart(params).pipe(
           tapResponse({
-            next: res => this.setEmployeeAtGlance(res.getAtGlance),
+            next: res => this.setEmployeeSkillGapBarChart(res.skillGapBarChart),
+            error: error => console.log(error),
+          }),
+        ),
+      ),
+    ),
+  );
+
+  readonly getEmployeeCompetencyPieChart = this.effect((params$: Observable<IEmployeeAtGlanceParams>) =>
+    params$.pipe(
+      switchMap(params =>
+        this.summaryService.getEmployeeCompetencyPieChart(params).pipe(
+          tapResponse({
+            next: res => this.setEmployeeCompetencyPieChart(res.competencyPieChart),
             error: error => console.log(error),
           }),
         ),
@@ -187,15 +224,15 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       ),
   );
 
-  readonly getEmployeeOverallScore = this.effect(
-    (params$: Observable<number>) =>
+  readonly getEmployeeOverallRadarChart = this.effect(
+    (params$: Observable<IEmployeeCompetencyOverallRadarChartParams>) =>
       params$.pipe(
         switchMap(params =>
-          this.summaryService.getEmployeeCompetencyOverallScore(params).pipe(
+          this.summaryService.getEmployeeCompetencyOverallRadarChart(params).pipe(
             tapResponse({
               next: res =>
-                this.setEmployeeCompOverallScore(
-                  res.getOverallCompetencyScore,
+                this.setEmployeeCompOverallRadarChart(
+                  res.overallCompetencyRadarChart,
                 ),
               error: error => console.log(error),
             }),

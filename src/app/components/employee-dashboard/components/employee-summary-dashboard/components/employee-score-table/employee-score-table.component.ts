@@ -11,7 +11,7 @@ import {
   PageChangeEvent,
   PagingInfo,
 } from 'src/app/components/share/models/pagingInfo.model';
-import { topSkillsetTableCol } from '../../constants/employee-summary-dashboard.constant';
+import { topSkillsTableCol } from '../../constants/employee-summary-dashboard.constant';
 
 @Component({
   selector: 'employee-score-table',
@@ -45,7 +45,7 @@ export class EmployeeScoreTableComponent<IEmployeeScore> implements OnChanges {
     return {
       ...this.pagination,
       data: {
-        header: topSkillsetTableCol,
+        header: topSkillsTableCol,
         body: data,
       },
     };

@@ -1,23 +1,23 @@
 <div class="card-container h-full flex flex-col">
-    <p class="card-title">At glance</p>
+    <p class="card-title">At Glance</p>
     <div class="grid grid-cols-2 gap-4 flex-1">
         <div class="flex flex-col justify-center items-center gap-1">
             <div class="w-1/2">
                 <hrms-chart type="bar" [data]="barData" [options]="barOptions" [plugins]="plugins"></hrms-chart>
             </div>
             <div class="font-bold">
-                Skill gap
+                {{this.skillGapLable}}
             </div>
         </div>
         <div class="flex flex-col justify-center items-center gap-4">
             <div class="competency-pie-container">
-                <hrms-chart type="doughnut" [data]="pieData" [options]="pieOptions" height="195"></hrms-chart>
+                <hrms-chart type="doughnut" [data]="pieData" [options]="pieOptions" height="250"></hrms-chart>
                 <div class="text-center font-bold text-primary mt-4 text-2xl">
-                    93%
+                    {{this.completedLable}}
                 </div>
             </div>
             <div class="font-bold">
-                Competency level
+                Competency Level
             </div>
         </div>
     </div>

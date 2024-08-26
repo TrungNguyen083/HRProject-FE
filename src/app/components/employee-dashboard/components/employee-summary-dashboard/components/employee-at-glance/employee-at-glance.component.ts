@@ -7,12 +7,18 @@ import {
 } from 'src/app/components/share/constants/chart.constant';
 import { ChartOptions, ChartData } from 'chart.js';
 import { DonutChartOptions } from 'src/app/components/share/models/chart.model';
+import { IEmployeeAtGlanceParams } from '../../models/employee-summary-dashboard';
+import { EmployeeDashboardStore } from 'src/app/components/employee-dashboard/store/employee-dashboard-store.service';
+import { EplSummaryDashboardStore } from '../../store/epl-summary-dashboard-store.service';
 @Component({
   selector: 'employee-at-glance',
   templateUrl: './employee-at-glance.component.html',
   styleUrls: ['./employee-at-glance.component.scss'],
 })
 export class EmployeeAtGlanceComponent implements OnInit {
+  skillGapLable!: string;
+  competencyLable!: string;
+  completedLable!: string;
   barOptions: ChartOptions = verticalStackedBarOptions;
   barData!: ChartData;
   pieData!: ChartData;
@@ -25,36 +31,101 @@ export class EmployeeAtGlanceComponent implements OnInit {
     },
   };
   plugins = [ChartDataLabels];
+  params: IEmployeeAtGlanceParams = {
+    employeeId: 4,
+    cycleId: 0,
+  }
+
+  constructor(private summaryStore: EplSummaryDashboardStore,
+    private eDashboardStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-    this.barData = {
-      labels: ['Current', 'Target'],
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Current',
-          backgroundColor: colorObj.primaryLight4,
-          data: [4.2, 4.5],
-        },
+    this.eDashboardStore.previousCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.params = { ...this.params, cycleId }
 
-        {
-          type: 'bar',
-          label: 'Target',
-          backgroundColor: colorObj.primaryLight,
-          data: [0.8, 0.5],
-        },
-      ],
-    };
+      this.summaryStore.getEmployeeSkillGapBarChart(this.params);
+      this.summaryStore.employeeSkillGapBarChart$.subscribe(res => {
+        if (!res) return;
 
-    this.pieData = {
-      labels: ['Completed', 'Incompleted'],
-      datasets: [
-        {
-          data: [93, 7],
-          backgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
-          hoverBackgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
-        },
-      ],
-    };
+        this.skillGapLable = res.title;
+
+        const labels = res.items.map(item => item.label);
+        const values = res.items.map(item => item.value);
+
+        this.barData = {
+          labels: labels,
+          datasets: [
+            {
+              type: 'bar',
+              label: 'Current',
+              backgroundColor: colorObj.primaryLight4,
+              data: [values[0], values[1]],
+            },
+            {
+              type: 'bar',
+              label: 'Target',
+              backgroundColor: colorObj.primaryLight,
+              data: [values[1] - values[0], 0],
+            },
+          ],
+        };
+      })
+    });
+
+    this.eDashboardStore.currentCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.params = { ...this.params, cycleId }
+
+      this.summaryStore.getEmployeeCompetencyPieChart(this.params);
+      this.summaryStore.employeeCompetencyPieChart$.subscribe(res => {
+        if (!res) return;
+        const pieLabels = res.labels;
+        const pieChartData = res.datasets;
+        this.completedLable = pieChartData[0].toFixed(2).toString() + '%';
+
+        this.pieData = {
+          labels: pieLabels,
+          datasets: [
+            {
+              data: pieChartData,
+              backgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
+              hoverBackgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
+            },
+          ],
+        };
+      })
+    })
+
+
+    // this.barData = {
+    //   labels: ['Current', 'Target'],
+    //   datasets: [
+    //     {
+    //       type: 'bar',
+    //       label: 'Current',
+    //       backgroundColor: colorObj.primaryLight4,
+    //       data: [4.2, 4.5],
+    //     },
+
+    //     {
+    //       type: 'bar',
+    //       label: 'Target',
+    //       backgroundColor: colorObj.primaryLight,
+    //       data: [0.8, 0.5],
+    //     },
+    //   ],
+    // };
+
+    // this.pieData = {
+    //   labels: ['Completed', 'Incompleted'],
+    //   datasets: [
+    //     {
+    //       data: [93, 7],
+    //       backgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
+    //       hoverBackgroundColor: [colorObj.primaryLight4, colorObj.primaryLight],
+    //     },
+    //   ],
+    // };
   }
 }
