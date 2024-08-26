@@ -3,9 +3,13 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap } from 'rxjs';
 import { IEmployeeOverview } from '../models/employee-dashboard.model';
 import { EmployeeDashboardService } from '../services/employee-dashboard.service';
+import { IEvaluateCycle } from '../../hr-dashboard/models/hr-dashboard.model';
 
 interface EmployeeDashboardState {
   employeeOverview: IEmployeeOverview | null;
+  evaluateCycles: IEvaluateCycle[];
+  previousCycle: number | null;
+  currentCycle: number | null;
 }
 @Injectable({
   providedIn: 'root',
@@ -14,16 +18,41 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
   constructor(private employeeDashboardService: EmployeeDashboardService) {
     super({
       employeeOverview: null,
+      evaluateCycles: [],
+      previousCycle: null,
+      currentCycle: null,
     });
   }
 
   readonly employeeOverview$ = this.select(state => state.employeeOverview);
+  readonly evaluateCycles$ = this.select(state => state.evaluateCycles);
+  readonly previousCycle$ = this.select(state => state.previousCycle);
+  readonly currentCycle$ = this.select(state => state.currentCycle);
 
   readonly setEmployeeOverview = this.updater(
     (state: EmployeeDashboardState, employeeOverview: IEmployeeOverview) => {
       return { ...state, employeeOverview };
     },
   );
+
+  readonly setEvaluateCycles = this.updater(
+    (state: EmployeeDashboardState, evaluateCycles: IEvaluateCycle[]) => {
+      return { ...state, evaluateCycles };
+    },
+  );
+  
+  readonly setPreviousCycle = this.updater(
+    (state: EmployeeDashboardState, previousCycle: number | null) => {
+      return { ...state, previousCycle: previousCycle };
+    },
+  );
+
+  readonly setCurrentCycle = this.updater(
+    (state: EmployeeDashboardState, currentCycle: number | null) => {
+      return { ...state, currentCycle: currentCycle };
+    },
+  );
+
   readonly getEmployeeOverview = this.effect((params$: Observable<number>) =>
     params$.pipe(
       switchMap(params =>
@@ -32,6 +61,19 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
             next: res => {
               this.setEmployeeOverview(res.employeeOverview);
             },
+            error: error => console.log(error),
+          }),
+        ),
+      ),
+    ),
+  );
+
+  readonly getEvaluateCycles = this.effect<void>(trigger$ =>
+    trigger$.pipe(
+      switchMap(() =>
+        this.employeeDashboardService.getEvaluateCycles().pipe(
+          tapResponse({
+            next: res => this.setEvaluateCycles(res.evaluateCycles),
             error: error => console.log(error),
           }),
         ),

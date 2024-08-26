@@ -246,7 +246,7 @@ export const verticalStackedBarOptions: ChartOptions = {
       display: false,
     },
     datalabels: {
-      display: true,
+      display: false,
       align: 'top',
       anchor: 'end',
       color: 'black',

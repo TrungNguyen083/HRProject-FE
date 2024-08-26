@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmployeeCompetencyOverallScoreComponent } from './employee-competency-overall-score.component';
+import { EmployeeCompetencyOverallScoreComponent } from './employee-competency-overall-radar-chart.component';
 
 describe('EmployeeCompetencyOverallScoreComponent', () => {
   let component: EmployeeCompetencyOverallScoreComponent;

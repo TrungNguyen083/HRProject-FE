@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
 import { GET_EMPLOYEE_OVERVIEW } from '../constants/employee-dashboard.constant';
 import { IEmployeeOverviewApiResponse } from '../models/employee-dashboard.model';
+import { IEvaluateCyclesApiResponse } from '../../hr-dashboard/models/hr-dashboard.model';
+import { GET_EVALUATE_CYCLES } from '../../hr-dashboard/constants/hr-dashboard.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,14 @@ export class EmployeeDashboardService {
       .watchQuery<IEmployeeOverviewApiResponse>({
         query: GET_EMPLOYEE_OVERVIEW,
         variables: { employeeId },
+      })
+      .valueChanges.pipe(map(res => res.data));
+  }
+
+  getEvaluateCycles(): Observable<IEvaluateCyclesApiResponse> {
+    return this.apollo
+      .watchQuery<IEvaluateCyclesApiResponse>({
+        query: GET_EVALUATE_CYCLES,
       })
       .valueChanges.pipe(map(res => res.data));
   }

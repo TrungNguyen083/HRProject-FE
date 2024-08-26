@@ -9,6 +9,7 @@ import { PagingInfo } from 'src/app/components/share/models/pagingInfo.model';
 import { defaultTablePagination } from 'src/app/constants/app.constant';
 import { configPagination } from 'src/app/utils/configPagination';
 import { EplSummaryDashboardStore } from '../../store/epl-summary-dashboard-store.service';
+import { EmployeeDashboardStore } from 'src/app/components/employee-dashboard/store/employee-dashboard-store.service';
 
 interface IEmployeeScoreData {
   pagination: PagingInfo;
@@ -25,20 +26,22 @@ export class EmployeeSkillStatisticComponent implements OnInit {
     pageNo: 1,
     pageSize: 5,
   };
-  highestSkillsParams = { ...this.defaultParams };
-  targetSkillsParams = { ...this.defaultParams };
-  improveSkillsParams = { ...this.defaultParams };
 
   highestSkills: IEmployeeScoreData = this.initializeEmployeeScoreData();
   targetSkills: IEmployeeScoreData = this.initializeEmployeeScoreData();
   improveSkills: IEmployeeScoreData = this.initializeEmployeeScoreData();
 
-  constructor(private summaryStore: EplSummaryDashboardStore) {}
+  constructor(private summaryStore: EplSummaryDashboardStore,
+    private eDashboardStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-    this.summaryStore.getEmployeeHighestSkills(this.highestSkillsParams);
-    this.summaryStore.getEmployeeImproveSkills(this.improveSkillsParams);
-    this.summaryStore.getEmployeeTargetSkills(this.targetSkillsParams);
+    this.eDashboardStore.previousCycle$.subscribe(cycleId => {
+      if (!cycleId) return;
+      this.defaultParams = { ...this.defaultParams, evaluateCycleId: cycleId };
+      this.summaryStore.getEmployeeHighestSkills(this.defaultParams);
+      this.summaryStore.getEmployeeImproveSkills(this.defaultParams);
+      this.summaryStore.getEmployeeTargetSkills(this.defaultParams);
+    });
 
     this.summaryStore.employeeHighestSkills$.subscribe(res => {
       const { pagination, data } = res;

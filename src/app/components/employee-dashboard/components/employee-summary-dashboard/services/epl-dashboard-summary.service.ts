@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {
-  IEmployeeAtGlanceApiResponse,
-  IEmployeeCompetencyOverallScoreApiResponse,
+  ICompetencyPieChartApiResponse,
+  IEmployeeAtGlanceParams,
+  IEmployeeCompetencyOverallScoreApiResponse as IEmployeeCompetencyOverallRadarChartApiResponse,
+  IEmployeeCompetencyOverallRadarChartParams,
   IEmployeeHighestSkillApiResponse,
   IEmployeeImproveSkillApiResponse,
   IEmployeePerformanceRatingApiResponse,
   IEmployeeScoreParams,
+  IEmployeeSkillGapBarChartApiResponse,
   IEmployeeTargetSkillApiResponse,
 } from '../models/employee-summary-dashboard';
 import { Observable, map } from 'rxjs';
 import {
-  GET_EMPLOYEE_AT_GLANCE,
+  GET_EMPLOYEE_COMPETENCY_PIE_CHART,
   GET_EMPLOYEE_HIGHEST_SKILL,
   GET_EMPLOYEE_IMPROVE_SKILL,
   GET_EMPLOYEE_PERFORMANCE_RATING,
+  GET_EMPLOYEE_SKILL_GAP_BAR_CHART,
   GET_EMPLOYEE_TARGET_SKILL,
-  GET_OVERALL_COMPETENCY_SCORE,
+  GET_OVERALL_COMPETENCY_RADAR_CHART,
 } from '../constants/employee-summary-dashboard.constant';
 
 @Injectable({
@@ -58,13 +62,35 @@ export class EmDashboardSummaryService {
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getEmployeeAtGlance(
-    employeeId: number,
-  ): Observable<IEmployeeAtGlanceApiResponse> {
+  getEmployeeCompetencyOverallRadarChart(
+    params: IEmployeeCompetencyOverallRadarChartParams,
+  ): Observable<IEmployeeCompetencyOverallRadarChartApiResponse> {
     return this.apollo
-      .watchQuery<IEmployeeAtGlanceApiResponse>({
-        query: GET_EMPLOYEE_AT_GLANCE,
-        variables: { employeeId },
+      .watchQuery<IEmployeeCompetencyOverallRadarChartApiResponse>({
+        query: GET_OVERALL_COMPETENCY_RADAR_CHART,
+        variables: { ...params },
+      })
+      .valueChanges.pipe(map(res => res.data));
+  }
+
+  getEmployeeSkillGapBarChart(
+    params: IEmployeeAtGlanceParams,
+  ): Observable<IEmployeeSkillGapBarChartApiResponse> {
+    return this.apollo
+      .watchQuery<IEmployeeSkillGapBarChartApiResponse>({
+        query: GET_EMPLOYEE_SKILL_GAP_BAR_CHART,
+        variables: { ...params },
+      })
+      .valueChanges.pipe(map(res => res.data));
+  }
+
+  getEmployeeCompetencyPieChart(
+    params: IEmployeeAtGlanceParams,
+  ): Observable<ICompetencyPieChartApiResponse> {
+    return this.apollo
+      .watchQuery<ICompetencyPieChartApiResponse>({
+        query: GET_EMPLOYEE_COMPETENCY_PIE_CHART,
+        variables: { ...params },
       })
       .valueChanges.pipe(map(res => res.data));
   }
@@ -75,17 +101,6 @@ export class EmDashboardSummaryService {
     return this.apollo
       .watchQuery<IEmployeePerformanceRatingApiResponse>({
         query: GET_EMPLOYEE_PERFORMANCE_RATING,
-        variables: { employeeId },
-      })
-      .valueChanges.pipe(map(res => res.data));
-  }
-
-  getEmployeeCompetencyOverallScore(
-    employeeId: number,
-  ): Observable<IEmployeeCompetencyOverallScoreApiResponse> {
-    return this.apollo
-      .watchQuery<IEmployeeCompetencyOverallScoreApiResponse>({
-        query: GET_OVERALL_COMPETENCY_SCORE,
         variables: { employeeId },
       })
       .valueChanges.pipe(map(res => res.data));

@@ -10,11 +10,12 @@ export interface IEmployeeScoreParams {
   pageNo?: number;
   pageSize?: number;
   employeeId?: number;
+  evaluateCycleId?: number;
 }
 
 export interface IEmployeeSkillScore {
-    label: string;
-    value: number;
+  label: string;
+  value: number;
 }
 
 export interface IEmployeeHighestSkillApiResponse {
@@ -28,14 +29,30 @@ export interface IEmployeeTargetSkillApiResponse {
   topHighestSkillTargetEmployee: PaginatedData<IEmployeeSkillScore>;
 }
 
-export interface IEmployeeAtGlanceApiResponse {
-  getAtGlance: IEmployeeAtGlance;
+export interface IEmployeeSkillGapBarChart {
+  title: string;
+  items: {
+    label: string;
+    value: number;
+  }[]
 }
 
-export interface IEmployeeAtGlance {
-  skillGapTargetScore: number;
-  skillGapCurrentScore: number;
-  competencyLevelPercentage: number;
+export interface IEmployeeCompetencyPieChart {
+  labels: string[];
+  datasets: number[];
+}
+
+export interface IEmployeeSkillGapBarChartApiResponse {
+  skillGapBarChart: IEmployeeSkillGapBarChart;
+}
+
+export interface ICompetencyPieChartApiResponse {
+  competencyPieChart: IEmployeeCompetencyPieChart;
+}
+
+export interface IEmployeeAtGlanceParams {
+  employeeId: number;
+  cycleId: number;
 }
 
 export interface IEmployeePerformanceRatingApiResponse {
@@ -50,13 +67,18 @@ export interface IEmployeePerformanceRating {
 }
 
 export interface IEmployeeCompetencyOverallScoreApiResponse {
-  getOverallCompetencyScore: IEmployeeCompetencyOverallScore;
+  overallCompetencyRadarChart: IEmployeeCompetencyOverallRadarChart;
 }
 
-export interface IEmployeeCompetencyOverallScore {
+export interface IEmployeeCompetencyOverallRadarChart {
+  labels: string[];
   datasets: {
     lineName: string;
-    datasets: number[];
-  };
-  labels: string[];
+    dataset: number[];
+  }[];
+}
+
+export interface IEmployeeCompetencyOverallRadarChartParams {
+  employeeId?: number;
+  evaluateCycleId?: number;
 }
