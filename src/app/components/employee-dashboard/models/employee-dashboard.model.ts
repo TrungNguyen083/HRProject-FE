@@ -6,10 +6,15 @@ export interface IEmployeeOverview {
   profileImgUri: string;
   position: string;
   level: string;
-  skillSets: string[];
+  address: string;
+  skills: string[];
   certification: string[];
 }
 
 export interface IEmployeeOverviewApiResponse {
   employeeOverview: IEmployeeOverview;
+}
+
+export interface IEmployeeIdApiResponse {
+  employeeId: number;
 }

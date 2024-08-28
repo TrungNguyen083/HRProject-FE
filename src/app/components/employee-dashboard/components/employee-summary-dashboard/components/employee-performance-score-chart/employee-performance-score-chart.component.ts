@@ -4,6 +4,7 @@ import { ChartOptions, ChartData } from 'chart.js';
 import { barChartWithLineOptions } from 'src/app/components/share/constants/chart.constant';
 import { EplSummaryDashboardStore } from '../../store/epl-summary-dashboard-store.service';
 import _ from 'lodash';
+import { EmployeeDashboardStore } from 'src/app/components/employee-dashboard/store/employee-dashboard-store.service';
 @Component({
   selector: 'employee-performance-score-chart',
   templateUrl: './employee-performance-score-chart.component.html',
@@ -15,14 +16,18 @@ export class EmployeePerformanceScoreChartComponent implements OnInit {
   labels: string[] = [];
   values: number[] = [];
 
-  constructor(private eplSummaryStore: EplSummaryDashboardStore) {}
+  constructor(private eplSummaryStore: EplSummaryDashboardStore,
+    private employeeStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-    this.eplSummaryStore.getEmployeePerformanceRating(4);
-    this.eplSummaryStore.employeePerformanceRating$.subscribe(res => {
-      this.labels = _.map(res.data, 'label');
-      this.values = _.map(res.data, 'value');
-      this.initChartData();
+    this.employeeStore.employeeId$.subscribe(employeeId => {
+      if (!employeeId) return;
+      this.eplSummaryStore.getEmployeePerformanceRating(employeeId);
+      this.eplSummaryStore.employeePerformanceRating$.subscribe(res => {
+        this.labels = _.map(res.data, 'label');
+        this.values = _.map(res.data, 'value');
+        this.initChartData();
+      });
     });
   }
 

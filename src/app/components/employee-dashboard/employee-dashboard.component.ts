@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { employeeInfoLabelItems } from './constants/employee-dashboard.constant';
 import { EmployeeDashboardStore } from './store/employee-dashboard-store.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-employee-dashboard',
@@ -17,7 +18,8 @@ export class EmployeeDashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private employeeStore: EmployeeDashboardStore
+    private employeeStore: EmployeeDashboardStore,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,13 @@ export class EmployeeDashboardComponent implements OnInit {
         this.employeeStore.setCurrentCycle(currentCycle.id);
       }
     });
+
+    const email = this.authService.getEmail();
+    if (email) this.employeeStore.getEmployeeId(email);
+    this.employeeStore.employeeId$.subscribe(res => {
+      if(!res) return;
+      this.employeeStore.setEmployeeId(res);
+    })
 
     this.route.url.subscribe(url => {
     });

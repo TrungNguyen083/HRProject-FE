@@ -1,13 +1,13 @@
 <div class="card-container flex gap-2 items-center justify-between">
     <div class="flex gap-4 items-center">
-        <p class="text-primary font-bold text-xl">H2/2023</p>
+        <p class="text-primary font-bold text-xl">{{this.currentEval.cycleName}}</p>
         <div class="flex gap-2 items-center">
             <span class="font-bold text-sm">Status: </span>
-            <span class="status-tag">In Progress</span>
+            <span class="status-tag">{{this.currentEval.status}}</span>
         </div>
         <div class="flex gap-2 items-center">
             <span class="font-bold text-sm">Last Update: </span>
-            <span>30/09/2023</span>
+            <span>{{this.currentEval.lastUpdated | date:'dd-MM-yyyy'}}</span>
         </div>
     </div>
     <div>

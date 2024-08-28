@@ -14,25 +14,31 @@ export class EmployeeInfoCardComponent implements OnInit {
   profileImgUri!: string;
   position!: string;
   level!: string;
+  address!: string;
   defaultImg = 'assets/images/avatar-default.jpg';
-  skillSets!: string[];
+  skills!: string[];
   certification!: string[];
   employeeOverview$ = this.dashboardStore.employeeOverview$;
 
-  constructor(private dashboardStore: EmployeeDashboardStore) {}
+  constructor(private dashboardStore: EmployeeDashboardStore,
+    private employeeStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-    this.dashboardStore.getEmployeeOverview(4);
+    this.employeeStore.employeeId$.subscribe(res => {
+      if (!res) return;
+      this.dashboardStore.getEmployeeOverview(res);
 
-    this.employeeOverview$.subscribe(res => {
-      this.employeeId = res?.id ?? 0;
-      this.firstName = res?.firstName ?? '';
-      this.lastName = res?.lastName ?? '';
-      this.profileImgUri = res?.profileImgUri ?? '';
-      this.position = res?.position ?? '';
-      this.level = res?.level ?? '';
-      this.skillSets = res?.skillSets ?? [];
-      this.certification = res?.certification ?? [];
+      this.employeeOverview$.subscribe(res => {
+        this.employeeId = res?.id ?? 0;
+        this.firstName = res?.firstName ?? '';
+        this.lastName = res?.lastName ?? '';
+        this.profileImgUri = res?.profileImgUri ?? '';
+        this.position = res?.position ?? '';
+        this.level = res?.level ?? '';
+        this.address = res?.address ?? '';
+        this.skills = res?.skills ?? [];
+        this.certification = res?.certification ?? [];
+      });
     });
   }
 }

@@ -3,6 +3,7 @@ import { cloneDeep } from 'lodash';
 import { TreeNode } from 'primeng/api';
 import { EmployeeSkillsStore } from './store/employee-skills-store.service';
 import { IEmployeeSkillMatrix } from './models/employee-skills.model';
+import { EmployeeDashboardStore } from '../../store/employee-dashboard-store.service';
 
 interface Column {
   field: string;
@@ -22,44 +23,47 @@ export class EmployeeSkillsComponent implements OnInit {
   cols!: Column[];
   selectedColumns!: Column[];
 
-  constructor(private store: EmployeeSkillsStore){}
+  constructor(private store: EmployeeSkillsStore,
+    private employeeStore: EmployeeDashboardStore,){}
 
   ngOnInit(): void {
-    this.store.getEmployeeSkillsMatrix(4)
-    this.store.employeeSkillsMatrix$.subscribe(data => {
-      this.competencies = data
+    this.employeeStore.employeeId$.subscribe(res => {
+      if(!res) return;
+      this.store.getEmployeeSkillsMatrix(res)
+      this.store.employeeSkillsMatrix$.subscribe(data => {
+        this.competencies = data
+      })
+      this.cols = [
+        {
+          field: 'targetSkillLevel',
+          header: 'Target Skill Level',
+        },
+        {
+          field: 'skillLevelTotal',
+          header: 'Skill Level (Total)',
+          togglable: true,
+          toggleText: 'Average ratings',
+        },
+        {
+          field: 'skillLevelSelf',
+          header: 'Skill Level (Self)',
+          togglable: true,
+          toggleText: 'Self-assessment',
+        },
+        {
+          field: 'skillLevelManager',
+          header: 'Skill Level (Manager)',
+          togglable: true,
+          toggleText: 'Supervisor assessment',
+        },
+        {
+          field: 'competencyLevel',
+          header: 'Competency Level',
+          suffix: '%'
+        },
+      ];
+      this.selectedColumns = this.cols;
     })
-    this.cols = [
-      {
-        field: 'targetSkillLevel',
-        header: 'Target Skill Level',
-      },
-      {
-        field: 'skillLevelTotal',
-        header: 'Skill Level (Total)',
-        togglable: true,
-        toggleText: 'Average ratings',
-      },
-      {
-        field: 'skillLevelSelf',
-        header: 'Skill Level (Self)',
-        togglable: true,
-        toggleText: 'Self-assessment',
-      },
-      {
-        field: 'skillLevelManager',
-        header: 'Skill Level (Manager)',
-        togglable: true,
-        toggleText: 'Supervisor assessment',
-      },
-      {
-        field: 'competencyLevel',
-        header: 'Competency Level',
-        suffix: '%'
-      },
-    ];
-    this.selectedColumns = this.cols;
-
   }
 
   expandAllNodes(): void {

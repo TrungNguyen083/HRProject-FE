@@ -22,7 +22,7 @@ interface IEmployeeScoreData {
 })
 export class EmployeeSkillStatisticComponent implements OnInit {
   defaultParams: IEmployeeScoreParams = {
-    employeeId: 4,
+    employeeId: 0,
     pageNo: 1,
     pageSize: 5,
   };
@@ -35,37 +35,43 @@ export class EmployeeSkillStatisticComponent implements OnInit {
     private eDashboardStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-    this.eDashboardStore.previousCycle$.subscribe(cycleId => {
-      if (!cycleId) return;
-      this.defaultParams = { ...this.defaultParams, evaluateCycleId: cycleId };
-      this.summaryStore.getEmployeeHighestSkills(this.defaultParams);
-      this.summaryStore.getEmployeeImproveSkills(this.defaultParams);
-      this.summaryStore.getEmployeeTargetSkills(this.defaultParams);
+    this.eDashboardStore.employeeId$.subscribe(employeeId => {
+      if (!employeeId) return;
+      this.defaultParams = { ...this.defaultParams, employeeId };
+
+      this.eDashboardStore.previousCycle$.subscribe(cycleId => {
+        if (!cycleId) return;
+        this.defaultParams = { ...this.defaultParams, evaluateCycleId: cycleId };
+        this.summaryStore.getEmployeeHighestSkills(this.defaultParams);
+        this.summaryStore.getEmployeeImproveSkills(this.defaultParams);
+        this.summaryStore.getEmployeeTargetSkills(this.defaultParams);
+      });
+  
+      this.summaryStore.employeeHighestSkills$.subscribe(res => {
+        const { pagination, data } = res;
+        const customPagination = configPagination(pagination);
+  
+        this.highestSkills.data = this.mapSkillsTableData(data);
+        this.highestSkills.pagination = customPagination;
+      });
+  
+      this.summaryStore.employeeImproveSkills$.subscribe(res => {
+        const { pagination, data } = res;
+        const customPagination = configPagination(pagination);
+  
+        this.improveSkills.data = this.mapSkillsTableData(data);
+        this.improveSkills.pagination = customPagination;
+      });
+  
+      this.summaryStore.employeeTargetSkills$.subscribe(res => {
+        const { pagination, data } = res;
+        const customPagination = configPagination(pagination);
+  
+        this.targetSkills.data = this.mapSkillsTableData(data);
+        this.targetSkills.pagination = customPagination;
+      });
     });
-
-    this.summaryStore.employeeHighestSkills$.subscribe(res => {
-      const { pagination, data } = res;
-      const customPagination = configPagination(pagination);
-
-      this.highestSkills.data = this.mapSkillsTableData(data);
-      this.highestSkills.pagination = customPagination;
-    });
-
-    this.summaryStore.employeeImproveSkills$.subscribe(res => {
-      const { pagination, data } = res;
-      const customPagination = configPagination(pagination);
-
-      this.improveSkills.data = this.mapSkillsTableData(data);
-      this.improveSkills.pagination = customPagination;
-    });
-
-    this.summaryStore.employeeTargetSkills$.subscribe(res => {
-      const { pagination, data } = res;
-      const customPagination = configPagination(pagination);
-
-      this.targetSkills.data = this.mapSkillsTableData(data);
-      this.targetSkills.pagination = customPagination;
-    });
+    
   }
   private initializeEmployeeScoreData(): IEmployeeScoreData {
     return {
