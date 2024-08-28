@@ -4,6 +4,7 @@ import { defaultTablePagination } from 'src/app/constants/app.constant';
 import { evaluationHistoryTableCol } from '../../constants/employee-assessment.constant';
 import { MenuItem } from 'primeng/api';
 import { EmployeeAssessmentStore } from '../../store/employee-assessment-store.service';
+import { EmployeeDashboardStore } from 'src/app/components/employee-dashboard/store/employee-dashboard-store.service';
 
 @Component({
   selector: 'employee-evaluation-table',
@@ -11,6 +12,7 @@ import { EmployeeAssessmentStore } from '../../store/employee-assessment-store.s
   styleUrls: ['./employee-evaluation-table.component.scss'],
 })
 export class EmployeeEvaluationTableComponent implements OnInit {
+
   tableData: HrmsTable<unknown> = {
     ...defaultTablePagination,
     data: {
@@ -19,25 +21,22 @@ export class EmployeeEvaluationTableComponent implements OnInit {
     },
   };
 
-  menuItems: MenuItem[] = [
-    {
-      label: 'Edit',
-      icon: 'pi pi-pencil',
-      // routerLink: `detail/${newEmployee.id}`,
-      // queryParams: { mode: 'edit' },
-    },
-  ];
-  constructor(private store: EmployeeAssessmentStore){}
+  constructor(private store: EmployeeAssessmentStore,
+    private employeeStore: EmployeeDashboardStore) { }
   ngOnInit(): void {
-    this.store.getEmployeeEvaluation(4)
-    this.store.historyEvaluation$.subscribe(data => {
-      this.tableData = {
-        ...defaultTablePagination,
-        data: {
-          header: [...this.tableData.data.header],
-          body: data
+    this.employeeStore.employeeId$.subscribe(empId => {
+      if (!empId) return;
+      this.store.getEmployeeEvaluation(empId)
+      this.store.historyEvaluation$.subscribe(he => {
+        if (!he) return;
+        this.tableData = {
+          ...defaultTablePagination,
+          data: {
+            header: [...this.tableData.data.header],
+            body: he
+          }
         }
-      }
-    })
+      });
+    });
   }
 }

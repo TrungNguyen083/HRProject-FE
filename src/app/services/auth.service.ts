@@ -23,11 +23,19 @@ export class AuthService {
     });
   }
 
+  saveEmail(email: string) {
+    localStorage.setItem('email', email);
+  }
+
+  getEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+
   saveRole(role: string) {
     localStorage.setItem('role', role);
   }
 
-  gẻtRole(): string | null {
+  getRole(): string | null {
     return localStorage.getItem('role');
   }
 

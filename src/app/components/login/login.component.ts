@@ -67,6 +67,8 @@ export class LoginComponent {
 
               const decodedToken = this.helper.decodeToken(token);
               const role = decodedToken.authorities;
+              const email = decodedToken.sub;
+              this.authService.saveEmail(email);
               this.authService.saveRole(role);
 
               switch (true) {
@@ -75,7 +77,7 @@ export class LoginComponent {
                   this.notificationService.successNotification('Login Successful');
                   break;
                 case role.includes('HR'):
-                  this.router.navigate(['dashboard']);
+                  this.router.navigate(['evaluation-cycle-management']);
                   this.notificationService.successNotification('Login Successful');
                   break;
                 case role.includes('EMPLOYEE'):

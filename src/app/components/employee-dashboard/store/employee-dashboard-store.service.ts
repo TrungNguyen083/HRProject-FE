@@ -10,6 +10,7 @@ interface EmployeeDashboardState {
   evaluateCycles: IEvaluateCycle[];
   previousCycle: number | null;
   currentCycle: number | null;
+  employeeId: number | null;
 }
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
       evaluateCycles: [],
       previousCycle: null,
       currentCycle: null,
+      employeeId: null,
     });
   }
 
@@ -28,6 +30,7 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
   readonly evaluateCycles$ = this.select(state => state.evaluateCycles);
   readonly previousCycle$ = this.select(state => state.previousCycle);
   readonly currentCycle$ = this.select(state => state.currentCycle);
+  readonly employeeId$ = this.select(state => state.employeeId);
 
   readonly setEmployeeOverview = this.updater(
     (state: EmployeeDashboardState, employeeOverview: IEmployeeOverview) => {
@@ -53,6 +56,12 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
     },
   );
 
+  readonly setEmployeeId = this.updater(
+    (state: EmployeeDashboardState, employeeId: number | null) => {
+      return { ...state, employeeId: employeeId };
+    },
+  );
+
   readonly getEmployeeOverview = this.effect((params$: Observable<number>) =>
     params$.pipe(
       switchMap(params =>
@@ -74,6 +83,21 @@ export class EmployeeDashboardStore extends ComponentStore<EmployeeDashboardStat
         this.employeeDashboardService.getEvaluateCycles().pipe(
           tapResponse({
             next: res => this.setEvaluateCycles(res.evaluateCycles),
+            error: error => console.log(error),
+          }),
+        ),
+      ),
+    ),
+  );
+
+  readonly getEmployeeId = this.effect((params$: Observable<string>) =>
+    params$.pipe(
+      switchMap(params =>
+        this.employeeDashboardService.getEmployeeId(params).pipe(
+          tapResponse({
+            next: res => {
+              this.setEmployeeId(res.employeeId);
+            },
             error: error => console.log(error),
           }),
         ),

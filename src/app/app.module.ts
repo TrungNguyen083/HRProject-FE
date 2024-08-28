@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppLayoutModule } from './layout/app-layout.module';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -19,6 +18,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { filterDataReducer } from './store/reducers/filter-data.reducer';
 import { FilterDataEffects } from './store/effects/filter-data.effect';
 import { TokenExpiryInterceptor } from './services/token-expiry.interceptor';
+import { AppLayoutModule } from './layout/app-layout.module';
 
 @NgModule({
   declarations: [AppComponent],

@@ -4,7 +4,9 @@
         <hrms-table [table]="tableData" [contentRef]="contentRef">
             <ng-template #contentRef let-rowData>
                 <tr>
-                    <td>{{rowData.completedDate}}</td>
+                    <td>
+                        {{ rowData.completedDate !== 'Incomplete' ? (rowData.completedDate | date: 'dd-MM-yyyy') : rowData.completedDate }}
+                    </td>
                     <td>{{rowData.nameOfEvaluation}}</td>
                     <td>
                         <evaluation-status-tag [status]="rowData.status"></evaluation-status-tag>

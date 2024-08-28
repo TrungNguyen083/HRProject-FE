@@ -10,7 +10,7 @@ export const evaluationHistoryTableCol = [
 export const GET_EMPPLOYEE_EVALUATION = gql`
   query GetEmployeeEvaluation($employeeId: Int!) {
     currentEvaluation(employeeId: $employeeId) {
-      competencyCycleName
+      cycleName
       status
       lastUpdated
     }

@@ -92,7 +92,6 @@ export class EplSummaryDashboardStore extends ComponentStore<EplSummaryDashboard
       state: EplSummaryDashboardState,
       employeeSkillGapBarChart: IEmployeeSkillGapBarChart
     ) => {
-      console.log("Updating State with skillGapBarChart: ", employeeSkillGapBarChart);
       return {
         ...state,
         employeeSkillGapBarChart,

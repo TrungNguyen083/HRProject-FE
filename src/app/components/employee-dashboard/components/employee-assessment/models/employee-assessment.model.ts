@@ -1,6 +1,6 @@
 export enum EvaluationStatus {
-  InProgress = 1,
-  Completed = 2,
+  InProgress = "In Progress",
+  Completed = "Completed",
 }
 
 export interface IEmployeeEvaluationApiResponse {
@@ -9,7 +9,7 @@ export interface IEmployeeEvaluationApiResponse {
 }
 
 export interface ICurrentEvaluation {
-  competencyCycleName: string;
+  cycleName: string;
   status: string;
   lastUpdated: string;
 }

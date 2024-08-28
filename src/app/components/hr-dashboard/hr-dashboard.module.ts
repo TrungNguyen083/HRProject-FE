@@ -31,6 +31,7 @@ import { HrOverviewStarEmployeesComponent } from './components/hr-overview/compo
 import { HrOverviewPerformanceComponent } from './components/hr-overview/components/hr-overview-performance/hr-overview-performance.component';
 import { HrOverviewCompetencyComponent } from './components/hr-overview/components/hr-overview-competency/hr-overview-competency.component';
 import { SkeletonModule } from 'primeng/skeleton';
+import { AppSidebarHrComponent } from 'src/app/layout/app-sidebar-hr.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     HrOverviewStarEmployeesComponent,
     HrOverviewPerformanceComponent,
     HrOverviewCompetencyComponent,
+    AppSidebarHrComponent
   ],
   imports: [
     CommonModule,

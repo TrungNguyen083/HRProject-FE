@@ -31,8 +31,15 @@ export const GET_EMPLOYEE_OVERVIEW = gql`
       profileImgUri
       position
       level
+      address
       skills
       certifications
   }
+}
+`;
+
+export const GET_EMPLOYEE_ID = gql`
+query GetEmployeeIdByEmail($email: String!) {
+  employeeId(email: $email)
 }
 `;
