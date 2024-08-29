@@ -17,7 +17,7 @@
 
       <a [routerLink]="routerLink" class="w-8 h-8">
         <img
-          src="assets/images/app-logo.jpg"
+        [src]="profileImage ? profileImage : 'assets/images/avatar-default.jpg'" alt="Profile Image"
           alt="Avatar"
           class="object-cover w-full h-full rounded-full"
         />

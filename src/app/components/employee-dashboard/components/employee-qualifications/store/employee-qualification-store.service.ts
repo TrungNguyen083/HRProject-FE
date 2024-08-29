@@ -5,7 +5,7 @@ import { IQualificationFile } from '../models/employee-qualification.model';
 import { EmployeeQualificationService } from '../services/employee-qualification-service.service';
 
 interface IEmployeeQualificationState {
-  employeeQualifications: IQualificationFile[];
+  qualifications: IQualificationFile[];
 }
 @Injectable({
   providedIn: 'root',
@@ -13,27 +13,30 @@ interface IEmployeeQualificationState {
 export class EmployeeQualificationStore extends ComponentStore<IEmployeeQualificationState> {
   constructor(private eplQualificationService: EmployeeQualificationService) {
     super({
-      employeeQualifications: [],
+      qualifications: [],
     });
   }
 
   readonly employeeQualifications$: Observable<IQualificationFile[]> =
-    this.select(state => state.employeeQualifications);
+    this.select(state => state.qualifications);
 
   readonly setEmployeeQualifications = this.updater(
     (
       state: IEmployeeQualificationState,
-      employeeQualifications: IQualificationFile[],
+      qualifications: IQualificationFile[],
     ) => {
-      return { ...state, employeeQualifications };
+      return { ...state, qualifications };
     },
   );
-  readonly getEmployeeOverview = this.effect((params$: Observable<number>) =>
+
+  readonly getEmployeeQualifications = this.effect((params$: Observable<number>) =>
     params$.pipe(
       switchMap(params =>
         this.eplQualificationService.getEmployeeQualifications(params).pipe(
           tapResponse({
-            next: res => this.setEmployeeQualifications(res.getQualifications),
+            next: res => {
+              this.setEmployeeQualifications(res.qualifications)
+            },
             error: error => console.log(error),
           }),
         ),

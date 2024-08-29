@@ -6,45 +6,25 @@ import { LayoutService } from './services/app.layout.service';
 
 const dummies: MenuItem[] = [
   {
-    name: 'Dashboard',
-    icon: '',
-    path: 'dashboard',
-  },
-  {
     name: 'My Dashboard',
-    icon: '',
+    icon: 'pi pi-chart-line',
     path: 'my-dashboard',
   },
   {
-    name: 'User Management',
-    icon: '',
-    path: 'user-management',
+    name: 'Dashboard',
+    icon: 'fa-solid fa-chart-pie',
+    path: 'dashboard',
   },
   {
-    name: 'Employee Management',
-    icon: '',
-    path: 'employee-management',
+    name: 'Competency Evaluate',
+    icon: 'pi pi-chart-pie',
+    path: 'competency-evaluate',
   },
   {
-    name: 'Competency Management',
-    icon: '',
-    path: 'competency-management',
+    name: 'Performance Evaluate',
+    icon: 'fa-solid fa-gauge-high',
+    path: 'performance-evaluate',
   },
-  {
-    name: 'Performance Management',
-    icon: '',
-    path: 'performance-management',
-  },
-  {
-    name: 'System Admin',
-    icon: '',
-    path: 'system-admin',
-  },
-  {
-    name: 'Evaluation Cycle Management',
-    icon: '',
-    path: 'evaluation-cycle-management'
-  }
 ];
 
 @Component({
@@ -84,6 +64,7 @@ export class AppSidebarEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.getNavbarState();
   }
+
   getNavbarState(): void {
     this.layoutService.currentNavbarState
       .pipe(

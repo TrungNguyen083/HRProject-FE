@@ -3,6 +3,7 @@ import { MenuItem } from './models/menu.model';
 import { LayoutService } from './services/app.layout.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { EmployeeDashboardStore } from '../components/employee-dashboard/store/employee-dashboard-store.service';
 
 @Component({
   selector: 'app-topbar',
@@ -10,6 +11,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class AppTopbarComponent implements OnInit {
   items!: MenuItem[];
+  profileImage!: string;
+  routerLink!: string;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -20,8 +23,6 @@ export class AppTopbarComponent implements OnInit {
   titles: string | undefined;
   isNavbarOn: boolean | undefined;
   navbarState: boolean | undefined;
-
-  routerLink = '/user/detail';
 
   user = {
     avatar: '',
@@ -38,6 +39,7 @@ export class AppTopbarComponent implements OnInit {
     public layoutService: LayoutService,
     private route: ActivatedRoute,
     private router: Router,
+    private employeeStore: EmployeeDashboardStore,
   ) { }
 
   ngOnInit() {
@@ -46,22 +48,21 @@ export class AppTopbarComponent implements OnInit {
     );
     this.titles = this.route.snapshot.data['title'];
 
-    this.initUser();
+    this.getProfileImage();
   }
 
-  initUser(): void {
-    // this.userService
-    //   .getUser()
-    //   .pipe(
-    //     tap(res => {
-    //       let { userDetail: user } = res;
-
-    //       user = this.userService.refactorUser(user);
-
-    //       this.user = user;
-    //     })
-    //   )
-    //   .subscribe();
+  private getProfileImage() {
+    const email = this.authService.getEmail();
+    if (email) this.employeeStore.getProfileImage(email);
+    this.employeeStore.profileImage$.subscribe(profileImg => {
+      if (!profileImg) return;
+      this.profileImage = profileImg;
+    });
+    if (email) this.employeeStore.getEmployeeId(email);
+    this.employeeStore.employeeId$.subscribe(employeeId => {
+      this.routerLink = '/employee-management/detail/' + employeeId;
+    })
+    
   }
 
   logOut() {

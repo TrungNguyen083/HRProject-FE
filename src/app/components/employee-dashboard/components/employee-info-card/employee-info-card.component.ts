@@ -17,7 +17,7 @@ export class EmployeeInfoCardComponent implements OnInit {
   address!: string;
   defaultImg = 'assets/images/avatar-default.jpg';
   skills!: string[];
-  certification!: string[];
+  qualifications!: string[];
   employeeOverview$ = this.dashboardStore.employeeOverview$;
 
   constructor(private dashboardStore: EmployeeDashboardStore,
@@ -37,7 +37,9 @@ export class EmployeeInfoCardComponent implements OnInit {
         this.level = res?.level ?? '';
         this.address = res?.address ?? '';
         this.skills = res?.skills ?? [];
-        this.certification = res?.certification ?? [];
+        this.qualifications = res?.qualifications ?? [];
+
+        console.log("Qualifications: ", res?.qualifications);
       });
     });
   }

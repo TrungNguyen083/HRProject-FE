@@ -8,7 +8,7 @@ export interface IEmployeeOverview {
   level: string;
   address: string;
   skills: string[];
-  certification: string[];
+  qualifications: string[];
 }
 
 export interface IEmployeeOverviewApiResponse {
@@ -17,4 +17,8 @@ export interface IEmployeeOverviewApiResponse {
 
 export interface IEmployeeIdApiResponse {
   employeeId: number;
+}
+
+export interface IEmployeeProfileImageApiResponse {
+  profileImage: string;
 }
