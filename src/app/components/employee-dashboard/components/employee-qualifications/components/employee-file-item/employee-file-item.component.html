@@ -1,19 +1,20 @@
-<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div
     class="h-full w-full rounded-md flex flex-col justify-between border-solid border-2 file-item shadow-sm cursor-pointer hover:shadow-md">
     <div class="px-6 pt-6 pb-3 flex justify-center file-preview rounded-t-lg h-full">
         <div class="w-2/3">
-            <img [src]="qualification.fileType.iconUrl" [alt]="qualification.fileName">
+            <img [src]="qualification.url" [alt]="qualification.fileName">
         </div>
     </div>
     <div class="px-6 py-6 flex justify-between items-center gap-2 bg-white rounded-b-lg">
-        <div class="flex items-center gap-2">
-            <div class="w-4 h-4">
-                <img [src]="qualification.fileType.iconUrl" [alt]="qualification.fileName">
+        <div class="">
+            <div>
+                <span class="text-primary">{{qualification.title}}</span>
             </div>
             <div>
-                <span class="text-sm font-medium">{{qualification.fileName}}.{{qualification.fileType.name}}</span>
+                <span class="text-sm font-medium">File path: {{qualification.fileName}}</span>
+            </div>
+            <div>
+                <span class="text-sm font-medium">Upload date: {{qualification.uploadAt| date: 'dd-MM-yyyy'}}</span>
             </div>
         </div>
         <div class="flex items-center">
@@ -22,19 +23,9 @@
         </div>
     </div>
 </div>
-<p-dialog header="File Detail" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
-    <div class="grid grid-cols-2 gap-2">
-        <div>
-            <p class="font-bold">File Name</p>
-            <p>University degree</p>
-        </div>
-        <div>
-            <p class="font-bold">Issuer</p>
-            <p>University degree</p>
-        </div>
-        <div>
-            <p class="font-bold">Qualification Type</p>
-            <p>Certificate</p>
-        </div>
+<p-dialog header="File Detail" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <div>
+        <img [src]="qualification.url" [alt]="qualification.fileName" style="width: 100%; height: auto;">
     </div>
 </p-dialog>

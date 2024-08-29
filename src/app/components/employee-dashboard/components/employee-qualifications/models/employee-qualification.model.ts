@@ -1,15 +1,12 @@
-export interface IEmployeeQualificationsApiResponse {
-  getQualifications: IQualificationFile[];
-}
+
 
 export interface IQualificationFile {
+  title: string;
   fileName: string;
-  filePath: string;
-  fileType: IFileType;
+  url: string;
+  uploadAt: string;
 }
 
-export interface IFileType {
-  id: number;
-  name: string;
-  iconUrl: string;
+export interface IQualificationApiResponse {
+  qualifications: IQualificationFile[];
 }

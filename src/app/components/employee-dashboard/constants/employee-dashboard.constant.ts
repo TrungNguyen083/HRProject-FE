@@ -33,7 +33,7 @@ export const GET_EMPLOYEE_OVERVIEW = gql`
       level
       address
       skills
-      certifications
+      qualifications
   }
 }
 `;
@@ -41,5 +41,11 @@ export const GET_EMPLOYEE_OVERVIEW = gql`
 export const GET_EMPLOYEE_ID = gql`
 query GetEmployeeIdByEmail($email: String!) {
   employeeId(email: $email)
+}
+`;
+
+export const GET_PROFILE_IMAGE = gql`
+query GetEmployeeProfileImageByEmail($email: String!) {
+  profileImage(email: $email)
 }
 `;

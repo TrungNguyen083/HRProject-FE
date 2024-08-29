@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
-import { GET_EMPLOYEE_ID, GET_EMPLOYEE_OVERVIEW } from '../constants/employee-dashboard.constant';
-import { IEmployeeIdApiResponse, IEmployeeOverviewApiResponse } from '../models/employee-dashboard.model';
+import { GET_EMPLOYEE_ID, GET_EMPLOYEE_OVERVIEW, GET_PROFILE_IMAGE } from '../constants/employee-dashboard.constant';
+import { IEmployeeIdApiResponse, IEmployeeOverviewApiResponse, IEmployeeProfileImageApiResponse } from '../models/employee-dashboard.model';
 import { IEvaluateCyclesApiResponse } from '../../hr-dashboard/models/hr-dashboard.model';
 import { GET_EVALUATE_CYCLES } from '../../hr-dashboard/constants/hr-dashboard.constants';
 
@@ -35,6 +35,15 @@ export class EmployeeDashboardService {
     return this.apollo
       .watchQuery<IEmployeeIdApiResponse>({
         query: GET_EMPLOYEE_ID,
+        variables: { email },
+      })
+      .valueChanges.pipe(map(res => res.data));
+  }
+
+  getProfileImage(email: string): Observable<IEmployeeProfileImageApiResponse> {
+    return this.apollo
+      .watchQuery<IEmployeeProfileImageApiResponse>({
+        query: GET_PROFILE_IMAGE,
         variables: { email },
       })
       .valueChanges.pipe(map(res => res.data));
