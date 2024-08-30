@@ -313,6 +313,15 @@ export const donutChartOptions: DonutChartOptions = {
   },
 };
 
+export const pieChartOptions: ChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+};
+
 export const barChartWithLineOptions: ChartOptions = {
   responsive: true,
   maintainAspectRatio: false,

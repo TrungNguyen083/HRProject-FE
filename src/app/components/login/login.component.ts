@@ -77,7 +77,7 @@ export class LoginComponent {
                   this.notificationService.successNotification('Login Successful');
                   break;
                 case role.includes('HR'):
-                  this.router.navigate(['evaluation-cycle-management']);
+                  this.router.navigate(['dashboard']);
                   this.notificationService.successNotification('Login Successful');
                   break;
                 case role.includes('EMPLOYEE'):

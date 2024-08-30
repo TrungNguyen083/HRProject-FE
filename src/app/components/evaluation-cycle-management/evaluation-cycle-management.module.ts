@@ -9,7 +9,7 @@ import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 @NgModule({
   declarations: [
-    EvaluationCycleManagementComponent
+    EvaluationCycleManagementComponent,
   ],
   imports: [
     CommonModule,

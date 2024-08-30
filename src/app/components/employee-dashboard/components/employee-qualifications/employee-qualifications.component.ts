@@ -5,36 +5,6 @@ import { IQualificationFile } from './models/employee-qualification.model';
 import { EmployeeQualificationStore } from './store/employee-qualification-store.service';
 import { EmployeeDashboardStore } from '../../store/employee-dashboard-store.service';
 
-// const dummies: IQualificationFile[] = [
-//   {
-//     "fileName": "PhucUdemy",
-//     "filePath": "ex.path.2",
-//     "fileType": {
-//       "id": 2,
-//       "name": "pdf",
-//       "iconUrl": "https://www.svgrepo.com/show/144578/pdf.svg"
-//     }
-//   },
-//   {
-//     "fileName": "PhucTOEIC",
-//     "filePath": "ex.path.1",
-//     "fileType": {
-//       "id": 1,
-//       "name": "docx",
-//       "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png"
-//     }
-//   },
-//   {
-//     "fileName": "PhucEdx",
-//     "filePath": "ex.path.3",
-//     "fileType": {
-//       "id": 2,
-//       "name": "pdf",
-//       "iconUrl": "https://www.svgrepo.com/show/144578/pdf.svg"
-//     }
-//   }
-// ]
-
 
 @Component({
   selector: 'app-employee-qualifications',
@@ -66,6 +36,17 @@ export class EmployeeQualificationsComponent implements OnInit {
       header: 'Upload Qualification',
       contentStyle: { overflow: 'auto' },
       width: '40vw',
-    })
+    });
+
+    this.ref.onClose.subscribe(() => {
+      this.reloadQualifications();
+    });
+  }
+
+  private reloadQualifications() {
+    this.eDashboardStore.employeeId$.subscribe(employeeId => {
+      if (!employeeId) return;
+      this.eQualificationStore.getEmployeeQualifications(employeeId);
+    });
   }
 }
