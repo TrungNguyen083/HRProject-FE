@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CycleOverallStore } from './stores/evaluation-cycle.store';
+import { ICycleOverall } from './models/evaluation-cycle.model';
 
 const cycleStatusOptions = [
   {
-    label: 'On track',
+    label: 'In Progress',
     value: 1,
   },
   {
@@ -13,9 +15,8 @@ const cycleStatusOptions = [
 const evaluations = [
   {
     name: 'Review Cycle H1/2023',
-    status: 'On Track',
+    status: 'In Progress',
     period: '01/07/2023 - 31/07/2023',
-    type: 'Competencies evaluation',
     completionStatus: {
       completed: 0,
       selfReview: 20,
@@ -26,7 +27,6 @@ const evaluations = [
     name: 'Review Cycle H1/2023',
     status: 'Completed',
     period: '01/07/2023 - 31/07/2023',
-    type: 'Performance evaluation',
     completionStatus: {
       completed: 100,
       selfReview: 100,
@@ -37,7 +37,6 @@ const evaluations = [
     name: 'Review Cycle H1/2023',
     status: 'Completed',
     period: '01/07/2023 - 31/07/2023',
-    type: 'Performance evaluation',
     completionStatus: {
       completed: 100,
       selfReview: 100,
@@ -50,7 +49,18 @@ const evaluations = [
   templateUrl: './evaluation-cycle.component.html',
   styleUrls: ['./evaluation-cycle.component.scss'],
 })
-export class EvaluationCycleComponent {
+export class EvaluationCycleComponent implements OnInit {
+  
   cycleStatusOptions = cycleStatusOptions;
-  evaluations = evaluations;
+  cyclesOverall!: ICycleOverall[];
+
+  constructor(private cycleOverallStore: CycleOverallStore) {}
+
+  ngOnInit(): void {
+    this.cycleOverallStore.getCyclesOverall();
+    this.cycleOverallStore.cyclesOverall$.subscribe(res => {
+      if (!res) return;
+      this.cyclesOverall = res;
+    })
+  }
 }

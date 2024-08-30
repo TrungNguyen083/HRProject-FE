@@ -45,6 +45,7 @@ export const colorObj = {
   success: colors.success,
   danger: colors.danger,
   lightGreen: colors.lightGreen,
+  whiteGreen: colors.whiteGreen,
 };
 @Component({
   selector: 'hrms-chart',

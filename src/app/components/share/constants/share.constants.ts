@@ -23,5 +23,6 @@ export const themeColors = {
   datalessRegion: '#DEE1E6',
   nude: '#FFF9EE',
   brightOrange: '#FCA310',
-  lightGreen: '#82c45a'
+  lightGreen: '#82c45a',
+  whiteGreen: '#d7f4f5'
 };

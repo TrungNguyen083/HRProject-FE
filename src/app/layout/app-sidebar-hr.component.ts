@@ -7,42 +7,27 @@ import { LayoutService } from './services/app.layout.service';
 const dummies: MenuItem[] = [
   {
     name: 'Dashboard',
-    icon: '',
+    icon: 'fa-solid fa-chart-pie',
     path: 'dashboard',
   },
   {
-    name: 'My Dashboard',
-    icon: '',
-    path: 'my-dashboard',
-  },
-  {
-    name: 'User Management',
-    icon: '',
-    path: 'user-management',
-  },
-  {
     name: 'Employee Management',
-    icon: '',
+    icon: 'pi pi-users',
     path: 'employee-management',
   },
   {
     name: 'Competency Management',
-    icon: '',
+    icon: 'pi pi-chart-pie',
     path: 'competency-management',
   },
   {
     name: 'Performance Management',
-    icon: '',
+    icon: 'fa-solid fa-gauge-high',
     path: 'performance-management',
   },
   {
-    name: 'System Admin',
-    icon: '',
-    path: 'system-admin',
-  },
-  {
     name: 'Evaluation Cycle Management',
-    icon: '',
+    icon: 'fa-solid fa-clock-rotate-left',
     path: 'evaluation-cycle-management'
   }
 ];

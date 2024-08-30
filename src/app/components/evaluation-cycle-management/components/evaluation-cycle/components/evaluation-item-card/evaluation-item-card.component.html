@@ -1,52 +1,60 @@
-<div class="p-8 rounded-lg evaluation-card md:w-full lg:w-4/5 hover:shadow-md">
-  <div class="flex gap-4 items-center font-bold">
-    <div class="text-2xl"><i class="pi pi-file text-2xl"></i></div>
-    <p class="text-2xl">{{ evaluation.name }}</p>
+<div class="flex justify-between items-center p-8 rounded-lg evaluation-card w-full hover:shadow-md">
+
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-4 items-center font-bold">
+      <div class="text-2xl"><i class="pi pi-file text-2xl"></i></div>
+      <p class="text-2xl">{{ cycleOverall.name }}</p>
+    </div>
+
+    <div class="flex gap-2 items-center">
+      <span class="font-bold">Status</span>
+      <span class="evaluation-status-tag inline-flex items-center rounded-md px-3 py-1 text-sm font-medium ring-1 ring-inset" [ngClass]="{
+          'text-primary ring-primaryLight1': cycleOverall.status === 'Completed',
+          'text-yellow-800 ring-yellow-600/20': cycleOverall.status === 'In Progress'
+        }">
+        {{ cycleOverall.status }}
+      </span>
+    </div>
+
+    <div class="flex gap-2 items-center">
+      <span class="font-bold">Period</span>
+      <span>{{ cycleOverall.startDate | date: 'dd/MM/yyyy'}} - {{ cycleOverall.dueDate | date: 'dd/MM/yyyy'}}</span>
+    </div>
   </div>
-  <div class="flex justify-between items-end mt-4">
-    <div class="flex flex-col gap-2">
-      <div class="flex gap-2 items-center">
-        <span class="font-bold text-sm">Status</span>
-        <span
-          class="evaluation-status-tag inline-flex items-center rounded-md bg-primaryLight px-3 py-1 text-sm font-medium text-primary ring-1 ring-inset ring-primaryLight1"
-          >{{ evaluation.status }}</span
-        >
-      </div>
-      <div class="flex gap-2 items-center">
-        <span class="font-bold text-sm">Period</span>
-        <span>{{ evaluation.period }}</span>
-      </div>
-      <div class="flex gap-2">
-        <span class="font-bold text-sm">Type of evaluation</span>
-        <span class="text-primary font-bold">{{ evaluation.type }}</span>
+
+  <div class="flex items-center">
+
+    <div class="relative md:mt-8 lg:mt-0">
+      <hrms-chart id="completion-progress" type="doughnut" [data]="donutData" [options]="donutOptions" [height]="'150'">
+      </hrms-chart>
+      <div class="completion-percentage">
+        <span class="font-bold text-primary text-sm">
+          {{ completionPercentage !== undefined ? completionPercentage.toFixed(1) + '%' : '0%' }}
+        </span>
       </div>
     </div>
-    <div class="flex gap-2 items-end w-6/12">
-      <ng-container
-        [ngTemplateOutlet]="completionStatus"
-        [ngTemplateOutletContext]="{
-          label: 'Completed',
-          value: evaluation.completionStatus.completed
-        }"
-      >
-      </ng-container>
-      <ng-container
-        [ngTemplateOutlet]="completionStatus"
-        [ngTemplateOutletContext]="{
-          label: 'Self Review',
-          value: evaluation.completionStatus.selfReview
-        }"
-      >
-      </ng-container>
-      <ng-container
-        [ngTemplateOutlet]="completionStatus"
-        [ngTemplateOutletContext]="{
-          label: 'Manager Review',
-          value: evaluation.completionStatus.managerReview
-        }"
-      >
-      </ng-container>
+
+    <div class="flex flex-col gap-4 lg:mt-0 h-full">
+      <div>
+        <p class="completion-status font-bold text-primary text-center">Competency</p>
+      </div>
+      <div class="item-end">
+        <hrms-chart id="competency" type="pie" [data]="pieData" [options]="pieOptions" [height]="'115'">
+        </hrms-chart>
+      </div>
     </div>
+
+    <div class="flex flex-col gap-4 lg:mt-0 h-full">
+      <div>
+        <p class="completion-status font-bold text-primary text-center">Performance</p>
+      </div>
+      <div class="item-end">
+        <hrms-chart id="performance" type="pie" [data]="piePerData" [options]="piePerOptions" [height]="'115'">
+        </hrms-chart>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
