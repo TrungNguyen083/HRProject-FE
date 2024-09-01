@@ -17,9 +17,9 @@ export const topCompetenciesTableCol: TableHeader[] = [
   { col: 'Employee', field: 'firstName' },
 ];
 
-export const GET_DEPARTMENT_INCOMPLETE = gql`
+export const GET_DEPARTMENT_COMPLETE = gql`
   query GetDepartmentInComplete($evaluateCycleId: Int!) {
-    departmentInCompleteComp(evaluateCycleId: $evaluateCycleId) {
+    departmentCompleteComp(evaluateCycleId: $evaluateCycleId) {
       labels
       datasets{
         label

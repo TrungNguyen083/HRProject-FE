@@ -61,7 +61,7 @@ export class EvaluateCycleStore extends ComponentStore<IEvaluateCyleState> {
     (params$: Observable<number>) =>
       params$.pipe(
         switchMap(params =>
-          this.hrDashboardService.getCompetencyIncompletionStatus(params).pipe(
+          this.hrDashboardService.getCompetencyCompletionStatus(params).pipe(
             $o => {
               this.setLoading(true);
               return $o;
@@ -70,7 +70,7 @@ export class EvaluateCycleStore extends ComponentStore<IEvaluateCyleState> {
               next: res => {
                 this.setLoading(false);
                 return this.setCycleStatus({
-                  departmentInCompleteComp: res.departmentInCompleteComp,
+                  departmentInCompleteComp: res.departmentCompleteComp,
                   competencyEvalProgress: res.competencyEvalProgress,
                 });
               },

@@ -7,12 +7,16 @@ import { ShareModule } from 'src/app/components/share/share.module';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { EvaluationTemplateCardComponent } from './components/evaluation-template-card/evaluation-template-card.component';
+import { EvaluationTemplateListComponent } from './components/evaluation-template-list/evaluation-template-list.component';
+import { EvaluationTemplateFormComponent } from './components/evaluation-template-form/evaluation-template-form.component';
 
 
 @NgModule({
   declarations: [
     EvaluationTemplateComponent,
-    EvaluationTemplateCardComponent
+    EvaluationTemplateCardComponent,
+    EvaluationTemplateListComponent,
+    EvaluationTemplateFormComponent
   ],
   imports: [
     CommonModule,

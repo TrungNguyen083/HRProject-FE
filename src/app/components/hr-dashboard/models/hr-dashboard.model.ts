@@ -18,7 +18,7 @@ export interface ICompanyCompletion {
   datasets: number[];
 }
 export interface ICompetencyIncompletionApiResponse {
-  departmentInCompleteComp: ICompetencyIncompletionStatus;
+  departmentCompleteComp: ICompetencyIncompletionStatus;
   competencyEvalProgress: ICompanyCompletion;
 }
 
