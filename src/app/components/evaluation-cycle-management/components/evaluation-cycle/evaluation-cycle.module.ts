@@ -10,6 +10,8 @@ import { EvaluationCycleInfoFormComponent } from './components/evaluation-cycle-
 import { ShareModule } from "../../../share/share.module";
 import { EvaluateCycleOverallService } from './services/evaluation-cycle.service';
 import { CycleOverallStore } from './stores/evaluation-cycle.store';
+import { RouterModule } from '@angular/router';
+import { EvaluationListComponent } from './components/evaluation-list/evaluation-list.component';
 
 
 @NgModule({
@@ -17,14 +19,17 @@ import { CycleOverallStore } from './stores/evaluation-cycle.store';
 
     EvaluationCycleComponent,
     EvaluationItemCardComponent,
-    EvaluationCycleInfoFormComponent
+    EvaluationCycleInfoFormComponent,
+    EvaluationListComponent
   ],
   imports: [
     CommonModule,
     EvaluationCycleRoutingModule,
     ButtonModule,
     DropdownModule,
-    ShareModule
+    ShareModule,
+    RouterModule,
+    
   ],
   providers: [CycleOverallStore, EvaluateCycleOverallService]
 })

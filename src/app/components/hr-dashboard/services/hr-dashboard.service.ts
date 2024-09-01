@@ -3,8 +3,8 @@ import { Apollo } from 'apollo-angular';
 import {
   GET_AVG_COMPETENCY_SCORE,
   GET_COMPETENCY_RADAR_CHART,
+  GET_DEPARTMENT_COMPLETE,
   GET_EVALUATE_CYCLES,
-  GET_DEPARTMENT_INCOMPLETE,
   GET_COMPETENCY_TIMELINE as GET_EVALUATE_TIMELINE,
   GET_PERFORMANCE_BY_JOB_LEVEL,
   GET_POTENTIAL_PERFORMANCE,
@@ -60,12 +60,12 @@ export class HrDashboardService {
       .valueChanges.pipe(map(res => res.data));
   }
 
-  getCompetencyIncompletionStatus(
+  getCompetencyCompletionStatus(
     evaluateCycleId: number,
   ): Observable<ICompetencyIncompletionApiResponse> {
     return this.apollo
       .watchQuery<ICompetencyIncompletionApiResponse>({
-        query: GET_DEPARTMENT_INCOMPLETE,
+        query: GET_DEPARTMENT_COMPLETE,
         variables: { evaluateCycleId },
       })
       .valueChanges.pipe(map(res => res.data));
