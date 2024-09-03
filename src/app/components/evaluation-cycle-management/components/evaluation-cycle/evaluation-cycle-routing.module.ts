@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EvaluationCycleComponent } from './evaluation-cycle.component';
 import { EvaluationCycleInfoFormComponent } from './components/evaluation-cycle-info-form/evaluation-cycle-info-form.component';
 import { EvaluationListComponent } from './components/evaluation-list/evaluation-list.component';
+import { EvaluationCycleInfoForm2Component } from './components/evaluation-cycle-info-form2/evaluation-cycle-info-form2.component';
+
 
 const routes: Routes = [{
   path: '',
@@ -13,9 +15,15 @@ const routes: Routes = [{
       component: EvaluationListComponent,
     },
     {
-      path: 'new-cycle',
+      path: 'create-cycle-step1',
       component: EvaluationCycleInfoFormComponent
-    }
+    },
+    {
+      path: 'create-cycle-step2',
+      component: EvaluationCycleInfoForm2Component
+    },
+
+
   ]
 }];
 
