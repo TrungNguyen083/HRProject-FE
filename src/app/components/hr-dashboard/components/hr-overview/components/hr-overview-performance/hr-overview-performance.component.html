@@ -2,16 +2,18 @@
     <p class="font-bold text-lg">Performance</p>
     <div class="flex gap-2 items-end">
         <p class="text-gray-950 font-bold">
-            <span class="text-4xl text-primary">3.7</span> <span class="text-2xl text-primary">/5.0</span>
+            <span class="text-4xl text-primary">{{ this.performanceDiff.first | number:'1.2-2' }}</span> 
+            <span class="text-2xl text-primary">/{{ this.performanceDiff.second | number:'1.2-2' }}</span>
         </p>
     </div>
     <div class="relative">
         <div class="employee-difference flex gap-1">
-            <div class="percentage font-bold text-danger">
+            <div [ngClass]="{'text-success': this.performanceDiff.isIncreased, 'text-danger': !this.performanceDiff.isIncreased}" class="percentage font-bold flex items-center">
                 <span>
-                    <i class="pi pi-angle-down"></i>
+                    <i *ngIf="this.performanceDiff.isIncreased" class="pi pi-angle-up"></i>
+                    <i *ngIf="!this.performanceDiff.isIncreased" class="pi pi-angle-down"></i>
                 </span>
-                <span class="ml-1">5%</span>
+                <span class="ml-1">{{ this.performanceDiff.diffPercent | number:'1.1-1' }}%</span>
             </div>
             <div>Over previous cycle</div>
         </div>
