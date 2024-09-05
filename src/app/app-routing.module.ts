@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'competency-management',
-        loadChildren: () => import('./components/competency-management/competency-management.module').then(m => m.CompetencyManagementModule)
+        loadChildren: () => import('./components/competency-framework/competency-framework.module').then(m => m.CompetencyFrameworkModule)
       },
       {
         path: 'evaluation-cycle-management',
