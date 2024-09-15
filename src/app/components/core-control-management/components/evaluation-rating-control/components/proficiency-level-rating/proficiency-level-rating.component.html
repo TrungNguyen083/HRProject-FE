@@ -1,0 +1,21 @@
+<div>
+    <p class="font-bold text-lg text-primary">Proficiency Level</p>
+    <div class="mt-4">
+        <hrms-table
+            [table]="table"
+            [contentRef]="contentRef"
+            >
+            <ng-template #contentRef let-rowData>
+                <tr>
+                    <td>{{rowData.score}}</td>
+                    <td>{{rowData.proficiencyLevelName}}</td>
+                    <td>{{rowData.proficiencyLevelDescription}}</td>
+                    <td class="flex gap-2">
+                        <p-button styleClass="p-button-text" icon="pi pi-pencil"></p-button>
+                        <p-button styleClass="p-button-text" icon="pi pi-trash"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </hrms-table>
+    </div>
+</div>

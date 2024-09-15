@@ -71,6 +71,9 @@ import { AppSidebarHrComponent } from 'src/app/layout/app-sidebar-hr.component';
     DialogModule,
     MultiSelectModule,
     SkeletonModule
+  ],
+  exports: [
+    AppSidebarHrComponent,
   ]
 })
 export class HrDashboardModule { }

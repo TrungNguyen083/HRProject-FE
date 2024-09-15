@@ -45,8 +45,8 @@ const routes: Routes = [
         loadChildren: () => import('./components/competency-framework/competency-framework.module').then(m => m.CompetencyFrameworkModule)
       },
       {
-        path: 'evaluation-cycle-management',
-        loadChildren: () => import('./components/evaluation-cycle-management/evaluation-cycle-management.module').then(m => m.EvaluationCycleManagementModule)
+        path: 'core-rating-management',
+        loadChildren: () => import('./components/core-control-management/core-control-management.module').then(m => m.CoreControlManagementModule)
       }
     ],
   },
