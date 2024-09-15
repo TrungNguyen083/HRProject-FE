@@ -26,9 +26,9 @@ const dummies: MenuItem[] = [
     path: 'performance-management',
   },
   {
-    name: 'Evaluation Cycle Management',
+    name: 'Core Rating Management',
     icon: 'fa-solid fa-clock-rotate-left',
-    path: 'evaluation-cycle-management'
+    path: 'core-rating-management'
   }
 ];
 
