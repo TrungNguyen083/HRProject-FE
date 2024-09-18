@@ -15,6 +15,6 @@ export class CoreControlManagementComponent {
   constructor(private router: Router){}
 
   onActiveItemChange(item: MenuItem): void {
-    this.router.navigate([`core-rating-management/${item.label}`]);
+    this.router.navigate([`core-control-management/${item.label}`]);
   }
 }

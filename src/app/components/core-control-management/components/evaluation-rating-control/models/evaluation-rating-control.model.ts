@@ -21,3 +21,17 @@ export interface IPerformanceRange {
 export interface IPerformanceRangeApiResponse {
     performanceRanges: IPerformanceRange[];
 }
+
+export interface IProficiencyLevelInput {
+    name: string
+    description: string
+    score: number
+}
+
+export interface IPerformanceRangeInput {
+    text: string
+    description: string
+    minValue: number
+    maxValue: number
+    ordered: number
+}

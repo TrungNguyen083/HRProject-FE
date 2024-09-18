@@ -39,7 +39,6 @@ export class UpdaterUserFormComponent implements OnInit {
 
   initForm() {
     this.updateUserForm = this.fb.group({
-      // name: [''],
       username: ['', [Validators.required, Validators.maxLength(100)]],
       password: ['', [Validators.required, Validators.maxLength(100)]],
     });

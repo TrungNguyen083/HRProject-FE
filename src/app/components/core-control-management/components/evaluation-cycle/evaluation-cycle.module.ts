@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { EvaluationCycleRoutingModule } from './evaluation-cycle-routing.module';
 import { EvaluationCycleComponent } from './evaluation-cycle.component';
@@ -13,6 +13,12 @@ import { RouterModule } from '@angular/router';
 import { EvaluationListComponent } from './components/evaluation-list/evaluation-list.component';
 import { EvaluationCycleInfoFormComponent } from './components/evaluation-cycle-info-form/evaluation-cycle-info-form.component';
 import { EvaluationCycleInfoForm2Component } from './components/evaluation-cycle-info-form2/evaluation-cycle-info-form2.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -31,8 +37,12 @@ import { EvaluationCycleInfoForm2Component } from './components/evaluation-cycle
     DropdownModule,
     ShareModule,
     RouterModule,
-
+    ReactiveFormsModule,
+    CalendarModule,
+    InputTextModule,
+    InputTextareaModule,
+    ConfirmDialogModule
   ],
-  providers: [CycleOverallStore, EvaluateCycleOverallService]
+  providers: [DatePipe, CycleOverallStore, EvaluateCycleOverallService, ConfirmationService]
 })
 export class EvaluationCycleModule { }
