@@ -10,6 +10,15 @@ import { EvaluationRatingControlItemComponent } from './components/evaluation-ra
 import { ButtonModule } from 'primeng/button';
 import { RatingControlService } from './services/evaluation-rating-control.service';
 import { RatingControlStore } from './stores/evaluation-rating-control.store';
+import { ProficiencyLevelFormComponent } from './components/proficiency-level-form/proficiency-level-form.component';
+import { PerformanceRankingFormComponent } from './components/performance-ranking-form/performance-ranking-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SliderModule } from 'primeng/slider';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -17,14 +26,23 @@ import { RatingControlStore } from './stores/evaluation-rating-control.store';
     EvaluationRatingControlComponent,
     ProficiencyLevelRatingComponent,
     PerformanceRankingRatingComponent,
-    EvaluationRatingControlItemComponent
+    EvaluationRatingControlItemComponent,
+    ProficiencyLevelFormComponent,
+    PerformanceRankingFormComponent
   ],
   imports: [
     CommonModule,
     EvaluationRatingControlRoutingModule,
     ShareModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    InputNumberModule,
+    ButtonModule,
+    InputTextareaModule,
+    SliderModule,
+    ConfirmDialogModule
   ],
-  providers: [RatingControlStore, RatingControlService]
+  providers: [RatingControlStore, RatingControlService, ConfirmationService]
 })
 export class EvaluationRatingControlModule { }

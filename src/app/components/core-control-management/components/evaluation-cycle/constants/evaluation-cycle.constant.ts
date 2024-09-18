@@ -22,3 +22,9 @@ export const GET_EVALUATE_CYCLE_OVERALL = gql`
     }
   }
 `;
+
+export const CREATE_EVALUATION_CYCLE = gql`
+  mutation CreateEvaluationCycle($input: EvaluateCycleInput!) {
+    createEvaluationCycle(input: $input)
+  }
+`;

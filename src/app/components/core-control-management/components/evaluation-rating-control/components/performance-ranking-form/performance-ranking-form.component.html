@@ -1,0 +1,28 @@
+<form [formGroup]="performanceRangeForm" action="" (ngSubmit)="onSubmit()">
+    <div class="mt-4">
+        <label class="block font-bold" for="text">Performance Range Name</label>
+        <input class="w-full" pInputText type="text" id="text" placeholder="Enter proficiency name"
+            formControlName="text" />
+    </div>
+    <div class="mt-4">
+        <label class="block font-bold" for="description">Description</label>
+        <textarea class="w-full" rows="3" cols="30" pInputTextarea formControlName="description"
+            placeholder="Enter description"></textarea>
+    </div>
+    
+    <div class="mt-4">
+        <label class="block font-bold" for="rangeValue">Range Value: {{ rangeValue[0] }} - {{ rangeValue[1] }}</label>
+        <p-slider [(ngModel)]="rangeValue" [range]="true" formControlName="rangeValue" [step]="0.1" [max]="5" [min]="0" />
+    </div>
+
+    <div class="mt-4">
+        <label class="block font-bold" for="ordered">Odered Value: {{ ordered }}</label>
+        <p-slider [(ngModel)]="ordered" formControlName="ordered" [step]="1" [max]="5" [min]="1" />
+    </div>
+
+    <div class="mt-16 flex justify-end">
+        <p-button styleClass="p-button-link" (onClick)="onCloseModal()">Cancel</p-button>
+        <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+            [disabled]="performanceRangeForm.invalid">Save</p-button>
+    </div>
+</form>

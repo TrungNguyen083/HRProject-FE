@@ -41,11 +41,11 @@ const routes: Routes = [
         loadChildren: () => import('./components/employee-dashboard/employee-dashboard.module').then(m => m.EmployeeDashboardModule)
       },
       {
-        path: 'competency-management',
+        path: 'competency-framework',
         loadChildren: () => import('./components/competency-framework/competency-framework.module').then(m => m.CompetencyFrameworkModule)
       },
       {
-        path: 'core-rating-management',
+        path: 'core-control-management',
         loadChildren: () => import('./components/core-control-management/core-control-management.module').then(m => m.CoreControlManagementModule)
       }
     ],

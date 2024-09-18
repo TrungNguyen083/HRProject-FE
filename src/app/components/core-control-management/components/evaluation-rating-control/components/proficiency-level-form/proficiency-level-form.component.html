@@ -1,0 +1,23 @@
+<form [formGroup]="proficiencyLevelForm" action="" (ngSubmit)="onSubmit()">
+    <div class="mt-4">
+        <label class="block font-bold" for="name">Proficiency Name</label>
+        <input class="w-full" pInputText type="text" id="name" placeholder="Enter proficiency name"
+            formControlName="name" />
+    </div>
+    <div class="mt-4">
+        <label class="block font-bold" for="description">Description</label>
+        <textarea class="w-full" rows="3" cols="30" pInputTextarea formControlName="description"
+            placeholder="Enter description"></textarea>
+    </div>
+    <div class="mt-4">
+        <label class="block font-bold" for="score">Score</label>
+        <p-inputNumber formControlName="score" [max]="10" [min]="1" [showButtons]="true" buttonLayout="horizontal"
+            inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus" />
+    </div>
+    <div class="mt-16 flex justify-end">
+        <p-button styleClass="p-button-link" (onClick)="onCloseModal()">Cancel</p-button>
+        <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+            [disabled]="proficiencyLevelForm.invalid">Save</p-button>
+    </div>
+</form>

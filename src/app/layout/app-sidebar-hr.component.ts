@@ -16,19 +16,19 @@ const dummies: MenuItem[] = [
     path: 'employee-management',
   },
   {
-    name: 'Competency Management',
+    name: 'Competency Framework',
     icon: 'pi pi-chart-pie',
-    path: 'competency-management',
+    path: 'competency-framework',
   },
   {
-    name: 'Performance Management',
+    name: 'Performance Framework',
     icon: 'fa-solid fa-gauge-high',
-    path: 'performance-management',
+    path: 'performance-framework',
   },
   {
-    name: 'Core Rating Management',
+    name: 'Core Control Management',
     icon: 'fa-solid fa-clock-rotate-left',
-    path: 'core-rating-management'
+    path: 'core-control-management'
   }
 ];
 
