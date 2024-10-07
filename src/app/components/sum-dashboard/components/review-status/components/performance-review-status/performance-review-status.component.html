@@ -1,0 +1,28 @@
+<p-dataView [value]="esReviewStatus" [paginator]="true" [rows]="5">
+    <ng-template let-employee pTemplate="listItem" class="dataView-container">
+        <div class="col-12" style="border-bottom: none; padding-bottom: 18px !important;">
+            <div class="flex align-items-center justify-between">
+                <div class="flex items-center justify-start pl-6">
+                    <p-avatar [image]="employee.profileImg" styleClass="mr-2" shape="circle"></p-avatar>
+                    <div class="flex-1 flex flex-col">
+                        <p>{{employee.firstName}} {{employee.lastName}}</p>
+                        <div class="flex align-items-center gap-2">
+                            <span class="text-sm">BA - Dev</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center pr-6">
+                    <span
+                        class="employment-tag h-10 font-medium inline-flex items-center rounded-md px-3 py-1 text-sm mr-1"
+                        [ngClass]="{
+                        'bg-red-50 text-red-700': employee.status === 'In Progress',
+                        'bg-yellow-50 text-yellow-700': employee.status === 'Not Evaluate',
+                        'bg-primaryLight text-primary': employee.status === 'Completed'
+                    }">
+                        {{ employee.status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

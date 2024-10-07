@@ -1,0 +1,24 @@
+<div class="overview-card h-full flex flex-col gap-4 justify-between shadow-md border-2">
+    <p class="font-bold text-lg">Current Headcounts</p>
+    <div class="flex gap-2 items-end">
+        <p class="text-4xl text-primary font-bold">{{ this.currentHeadCount.data | number:'1.0' }}</p>
+        <div class="employee-difference flex gap-1">
+            <div [ngClass]="{'text-success': this.currentHeadCount.isIncreased, 'text-danger': !this.currentHeadCount.isIncreased}" class="percentage font-bold flex items-center">
+                <span>
+                    <i *ngIf="this.currentHeadCount.isIncreased" class="pi pi-angle-up"></i>
+                    <i *ngIf="!this.currentHeadCount.isIncreased" class="pi pi-angle-down"></i>
+                </span>
+                <span class="ml-1">{{ this.currentHeadCount.diffPercent | number:'1.1-1' }}%</span>
+            </div>
+            <div>Over previous month</div>
+        </div>
+    </div>
+    <div>
+        <hrms-chart
+            type="bar"
+            [data]="data"
+            [options]="options"
+            height="20"
+        ></hrms-chart>
+    </div>
+</div>

@@ -38,7 +38,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputTextModule,
     ReactiveFormsModule,
     InputNumberModule,
-    ButtonModule,
     InputTextareaModule,
     SliderModule,
     ConfirmDialogModule

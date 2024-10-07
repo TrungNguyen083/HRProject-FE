@@ -22,16 +22,6 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
-// export function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
-//   return {
-//     link: httpLink.create({ uri, withCredentials: true }),
-//     cache: new InMemoryCache({
-//       addTypename: false
-//     }),
-//     defaultOptions: defaultOptions,
-//   };
-// }
-
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
   const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem('token');

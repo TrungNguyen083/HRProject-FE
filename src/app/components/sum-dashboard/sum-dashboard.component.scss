@@ -1,0 +1,12 @@
+:host ::ng-deep {
+    .dashboard-row {
+        @apply mt-2 grid grid-cols-12 gap-2;
+    
+        > div {
+            @apply h-full;
+        }
+    }
+    .p-dropdown {
+        @apply border-gray-300 bg-white;
+    }
+}

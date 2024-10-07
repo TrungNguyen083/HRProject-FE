@@ -1,0 +1,17 @@
+<div class="card-container h-full pl-2 pr-2">
+  <div>
+    <hrms-tab-menu [labelItems]="labelItems" [activeItem]="activeItem"
+      (handleActiveItemChange)="onActiveItemChange($event)">
+    </hrms-tab-menu>
+  </div>
+
+  <div class="mt-4">
+    <ng-container *ngIf="activeItem?.label === 'competency-review-status'">
+      <competency-review-status></competency-review-status>
+    </ng-container>
+
+    <ng-container *ngIf="activeItem?.label === 'performance-review-status'">
+      <performance-review-status></performance-review-status>
+    </ng-container>
+  </div>
+</div>
