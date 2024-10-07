@@ -56,9 +56,9 @@ import { AppSidebarHrComponent } from 'src/app/layout/app-sidebar-hr.component';
     AppSidebarHrComponent
   ],
   imports: [
+    AppTopbarModule,
     CommonModule,
     HrDashboardRoutingModule,
-    AppTopbarModule,
     CalendarModule,
     FormsModule,
     TimelineModule,

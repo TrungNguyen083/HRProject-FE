@@ -1,0 +1,37 @@
+<div class="card-container h-full">
+    <div class="card-title mb-4 flex items-center">
+        <span>Employee's Goals</span>
+    </div>
+    <p-dataView [value]="eGoals" [paginator]="true" [rows]="5" class="flex justify-center items-center">
+        <ng-template let-employee pTemplate="listItem" class="dataView-container">
+            <div class="col-12" style="border-bottom: none; padding-bottom: 18px !important;">
+                <div class="flex items-center justify-start gap-4">
+                    <p-avatar [image]="employee.profileImage" styleClass="mr-2" shape="circle"></p-avatar>
+                    <div>
+                        <p>{{employee.goalName}}</p>
+                        <div class="flex align-items-center gap-4">
+                            <div class="relative w-full">
+                                <progress id="goalProgress" [value]="employee.goalProgress" max="100"
+                                    class="rounded-md h-4 w-full" [ngClass]="{
+                                  'bg-red': employee.goalProgress <= 20,
+                                  'bg-yellow': employee.goalProgress > 20 && employee.goalProgress <= 40,
+                                  'bg-green': employee.goalProgress > 40 && employee.goalProgress < 100,
+                                  'bg-primary': employee.goalProgress == 100,
+                                }">
+                                </progress>
+                            </div>
+                            <div>
+                                <span class="font-bold" [ngClass]="{
+                                      'text-red-700': employee.goalProgress <= 20,
+                                      'text-yellow-700': employee.goalProgress > 20 && employee.goalProgress <= 40,
+                                      'text-green-700': employee.goalProgress > 40 && employee.goalProgress < 100,
+                                      'text-primary': employee.goalProgress == 100,
+                                    }">{{ employee.goalProgress }}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

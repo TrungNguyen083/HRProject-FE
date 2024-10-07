@@ -47,7 +47,6 @@ export class TopCompetenciesComponent implements OnInit {
       this.tableParams = { ...this.tableParams, cycleId: cycleId };
       this.topFigureStore.getTopCompetencies(this.tableParams);
     });
-    //this.topFigureStore.getTopCompetencies(this.tableParams);
     this.topCompetencies$.subscribe(res => {
       const pagination = configPagination(res.pagination);
       const topCompetencies = res.data.map((s, i) => {

@@ -37,8 +37,9 @@ export class CompetencyRadarChartComponent implements OnInit {
   ngOnInit(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
+
     this.shareStore.evaluateCycles$.subscribe(cycles => {
-      // if(!cycles.length) return;
+      if(!cycles.length) return;
       this.cycleOptions = mapToDropdownOptions(
         cycles,
         'evaluateCycleName',
@@ -54,6 +55,7 @@ export class CompetencyRadarChartComponent implements OnInit {
     });
 
     this.shareStore.departments$.subscribe(departments => {
+      if(!departments) return;
       this.departmentOptions = mapToDropdownOptions(
         departments,
         'departmentName',

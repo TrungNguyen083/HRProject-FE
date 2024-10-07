@@ -1,0 +1,23 @@
+<div class="overview-card h-full flex flex-col gap-4 justify-between shadow-md">
+    <p class="font-bold text-lg">Star Employees</p>
+    <div class="flex gap-2 items-end">
+        <p class="text-4xl font-bold text-primary">60</p>
+        <div class="employee-difference flex gap-1">
+            <div class="percentage font-bold text-danger">
+                <span>
+                    <i class="pi pi-angle-down"></i>
+                </span>
+                <span class="ml-1">5%</span>
+            </div>
+            <div>Over previous cycle</div>
+        </div>
+    </div>
+    <div>
+        <hrms-chart
+            type="bar"
+            [data]="data"
+            [options]="options"
+            height="20"
+        ></hrms-chart>
+    </div>
+</div>

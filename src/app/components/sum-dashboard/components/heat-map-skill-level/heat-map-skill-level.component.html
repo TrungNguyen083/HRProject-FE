@@ -1,0 +1,71 @@
+<div class="card-container h-full">
+  <div>
+    <div>
+      <p class="card-title">Skill Level</p>
+      <p class="text-sm">by Position</p>
+
+      <div class="flex justify-between mt-4">
+        <div class="flex gap-2 items-center">
+          <p>Period</p>
+          <p-dropdown [options]="cycleOptions" [(ngModel)]="selectedCycle" optionLabel="label" placeholder="Cycle"
+            [dropdownIcon]="'pi pi-filter'" (onChange)="onSelectItem()">
+          </p-dropdown>
+        </div>
+
+        <div class="flex gap-2">
+          <p-multiSelect [options]="competencies" [(ngModel)]="selectedCompetencies" placeholder="Select Competencies"
+            optionLabel="name" (onChange)="onCompetencySelectionChange($event)">
+            <ng-template let-value pTemplate="selectedItems">
+              <div *ngIf="value && value.length > 0">
+                {{ value.length }} selected
+              </div>
+              <div *ngIf="!value || value.length === 0">Select Competencies</div>
+            </ng-template>
+            <ng-template let-competency pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ competency.competencyName }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="footer">
+              <div class="py-2 px-3">
+                <b>{{ selectedCompetencies ? selectedCompetencies.length : 0 }}</b>
+                item{{ (selectedCompetencies ? selectedCompetencies.length : 0) > 1 ? 's' : '' }} selected.
+              </div>
+            </ng-template>
+          </p-multiSelect>
+
+          <p-multiSelect [options]="employees" [(ngModel)]="selectedEmployees" placeholder="Select Employees"
+            optionLabel="name" (onChange)="onEmployeeSelectionChange($event)">
+            <ng-template let-value pTemplate="selectedItems">
+              <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
+                <p-avatar [image]="option.profileImgUrl" styleClass="mr-2, width: 18px" shape="circle"></p-avatar>
+                <div>{{ option.name }}</div>
+              </div>
+              <div *ngIf="!value || value.length === 0">Select Employees</div>
+            </ng-template>
+            <ng-template let-employee pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <p-avatar [image]="employee.profileImgUrl" styleClass="mr-2, width: 18px" shape="circle"></p-avatar>
+                <div>{{ employee.firstName }} {{ employee.lastName }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="footer">
+              <div class="py-2 px-3">
+                <b>
+                  {{ selectedEmployees ? selectedEmployees.length : 0 }}
+                </b>
+                item{{ (selectedEmployees ? selectedEmployees.length : 0) > 1 ? 's' : '' }} selected.
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+  <div id="chart">
+    <hrms-chart [apexOptions]="chartOptions" [type]="'heatmap'"></hrms-chart>
+  </div>
+</div>

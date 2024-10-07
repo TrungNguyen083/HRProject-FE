@@ -37,6 +37,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'sum-dashboard',
+        loadChildren: () =>
+          import('./components/sum-dashboard/sum-dashboard.module').then(
+            m => m.SumDashboardModule,
+          ),
+      },
+      {
         path: 'my-dashboard',
         loadChildren: () => import('./components/employee-dashboard/employee-dashboard.module').then(m => m.EmployeeDashboardModule)
       },

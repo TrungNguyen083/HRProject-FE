@@ -1,0 +1,31 @@
+:host ::ng-deep {
+    p-chart {
+        div {
+            height: 25rem;
+            @apply flex justify-center;
+        }
+    }
+
+    .p-overlaypanel .p-overlaypanel-content {
+        padding: 0.5rem !important;
+    }
+
+    .p-overlaypanel {
+        left: 1300px !important;
+    }
+
+    p-multiSelect label {
+        min-width: 150px;
+    }
+
+    .p-button {
+        background-color: #f8f9faff;
+        color: #495057;
+        border: 1px solid #ced4da;
+    }
+    .p-button:enabled:hover {
+        @apply border-primary;
+        background-color: #f8f9faff;
+        color: #495057;
+    }
+}

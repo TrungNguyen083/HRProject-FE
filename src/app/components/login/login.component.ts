@@ -84,6 +84,10 @@ export class LoginComponent {
                   this.router.navigate(['my-dashboard']);
                   this.notificationService.successNotification('Login Successful');
                   break;
+                  case role.includes('SUM'):
+                  this.router.navigate(['sum-dashboard']);
+                  this.notificationService.successNotification('Login Successful');
+                  break;
                 // Add more cases as needed for other roles
                 default:
                   this.router.navigate(['home']); // Default navigation

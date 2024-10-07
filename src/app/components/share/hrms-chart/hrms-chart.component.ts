@@ -17,6 +17,7 @@ export const pieChartColors: string[] = [
   colors.primaryLight2,
   colors.primaryLight3,
 ];
+
 export const radarChartColors = [
   {
     borderColor: colors.primaryLight3,
@@ -26,7 +27,40 @@ export const radarChartColors = [
     borderColor: colors.lightGreen,
     backgroundColor: 'rgba(130, 196, 90, 0.2)',
   },
+  {
+    borderColor: '#FF6384', // Pinkish Red
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  },
+  {
+    borderColor: '#36A2EB', // Light Blue
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+  },
+  {
+    borderColor: '#FFCE56', // Yellow
+    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+  },
+  {
+    borderColor: '#4BC0C0', // Teal
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+  },
+  {
+    borderColor: '#9966FF', // Purple
+    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+  },
+  {
+    borderColor: '#FF9F40', // Orange
+    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+  },
+  {
+    borderColor: '#FF6384', // Deep Red
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  },
+  {
+    borderColor: '#8E44AD', // Violet
+    backgroundColor: 'rgba(142, 68, 173, 0.2)',
+  },
 ];
+
 
 export const colorObj = {
   primary: colors.primary,

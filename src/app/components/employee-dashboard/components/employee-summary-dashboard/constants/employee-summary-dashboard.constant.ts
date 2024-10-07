@@ -1,6 +1,17 @@
 import { gql } from 'apollo-angular';
 import { TableHeader } from 'src/app/models/global.model';
 
+const mockData = [
+  {
+    data: "Self Competencies",
+    children: ["Problem Solving", "Willing to learn"]
+  },
+  {
+    data: "Social Competencies",
+    children: ["Communication", "Team Spirit", "Customer orientation"]
+  }
+]
+
 export const topSkillsTableCol: TableHeader[] = [
   { col: 'No.', field: 'no' },
   { col: 'Score', field: 'score' },
@@ -16,7 +27,7 @@ export const defaultTable = {
   data: [],
 };
 export const GET_EMPLOYEE_HIGHEST_SKILL = gql`
-  query GetHighestSkill($employeeId: Int!, $pageNo: Int, $pageSize: Int, $evaluateCycleId: Int) {
+  query GetHighestSkill($employeeId: Int, $pageNo: Int, $pageSize: Int, $evaluateCycleId: Int!) {
     topSkill(
       employeeId: $employeeId
       pageNo: $pageNo
