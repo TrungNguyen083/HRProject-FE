@@ -5,7 +5,7 @@ import { EmployeeSkillsStore } from './store/employee-skills-store.service';
 import { IEmployeeSkillMatrix } from './models/employee-skills.model';
 import { EmployeeDashboardStore } from '../../store/employee-dashboard-store.service';
 
-interface Column {
+export interface Column {
   field: string;
   header: string;
   togglable?: boolean;
