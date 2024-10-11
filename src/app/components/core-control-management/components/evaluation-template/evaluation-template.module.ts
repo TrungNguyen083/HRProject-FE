@@ -11,6 +11,7 @@ import { EvaluationTemplateListComponent } from './components/evaluation-templat
 import { EvaluationTemplateFormComponent } from './components/evaluation-template-form/evaluation-template-form.component';
 import { EvaluationTemplateStore } from './stores/evaluation-template.store';
 import { EvaluationTemplateService } from './services/evaluation-template.service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { EvaluationTemplateService } from './services/evaluation-template.servic
     EvaluationTemplateRoutingModule,
     ShareModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule
   ],
   providers: [EvaluationTemplateStore, EvaluationTemplateService]
 })

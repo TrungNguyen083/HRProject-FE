@@ -1,1 +1,98 @@
-<p>evaluation-template-form works!</p>
+<div class="flex">
+  <div class="w-1/4 p-4 bg-gray-100">
+    <h2 class="text-lg font-semibold mb-4">Category</h2>
+    <ul>
+      <li
+        *ngFor="let category of categories"
+        (click)="selectCategory(category)"
+        (keydown.enter)="selectCategory(category)"
+        (keydown.space)="selectCategory(category)"
+        tabindex="0"
+        class="cursor-pointer p-2 bg-white mb-2 rounded-md shadow-md hover:bg-gray-200 focus:bg-blue-500 focus:text-white"
+        [ngClass]="{
+          'bg-blue-500 text-white': selectedCategory.id === category.id
+        }"
+      >
+        {{ category.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="w-2/4 p-4">
+    <h2 class="text-xl font-semibold">{{ selectedCategory.name }}</h2>
+    <p class="text-gray-500">
+      Rate the overall job performance during the past year of the individual
+      being reviewed
+    </p>
+
+    <div class="mt-6">
+      <div class="mb-4">
+        <label for="question1" class="block text-gray-700">
+          Question 1
+        </label>
+        <input
+          id="question1"
+          type="text"
+          class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+          placeholder="Type your question here"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="weight" class="block text-gray-700">Weight</label>
+        <input
+          id="weight"
+          type="number"
+          [(ngModel)]="selectedCategory.weight"
+          class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+          placeholder="Input weight"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700">Description (Optional)</label>
+        <textarea
+          id="description"
+          [(ngModel)]="selectedCategory.description"
+          class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+          placeholder="Description"
+        ></textarea>
+      </div>
+
+      <p-button label="Add question"></p-button>
+    </div>
+  </div>
+
+  <div class="w-1/4 p-4 bg-gray-100">
+    <h2 class="text-lg font-semibold mb-4">{{ selectedCategory.name }}</h2>
+
+    <div class="mb-4">
+      <label for="weight-right" class="block text-gray-700">Weight</label>
+      <input
+        id="weight-right"
+        type="number"
+        [(ngModel)]="selectedCategory.weight"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+        placeholder="Input weight"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="rating-scheme" class="block text-gray-700">Choose rating scheme</label>
+      <select
+        id="rating-scheme"
+        [(ngModel)]="selectedCategory.ratingScheme"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+      >
+        <option value="Rating scheme">Rating scheme</option>
+        <option value="Numeric scale">Numeric scale</option>
+        <option value="Descriptive scale">Descriptive scale</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Buttons Section -->
+<div class="flex justify-between mt-4">
+  <p-button label="Cancel"></p-button>
+  <p-button label="Create template"></p-button>
+</div>
