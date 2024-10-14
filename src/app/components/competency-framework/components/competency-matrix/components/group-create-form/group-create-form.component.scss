@@ -1,0 +1,12 @@
+:host ::ng-deep {
+
+    input,
+    label {
+        display: block;
+        @apply w-full;
+    }
+
+    .control-label {
+        @apply mb-1 font-bold;
+    }
+}

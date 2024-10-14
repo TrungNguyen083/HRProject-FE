@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompetencyFrameworkComponent } from './competency-framework.component';
-import { CompetencyTreeComponent } from './components/competency-tree/competency-tree.component';
-import { CompetencyCreateFormComponent } from './components/competency-create-form/competency-create-form.component';
-import { GroupCreateFormComponent } from './components/group-create-form/group-create-form.component';
 
 
 const routes: Routes = [
@@ -14,15 +11,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: CompetencyTreeComponent,
+        redirectTo: 'competency-matrix',
+        pathMatch: 'full',
       },
       {
-        path: 'add-group',
-        component: CompetencyCreateFormComponent
+        path: 'competency-matrix',
+        loadChildren: () =>
+          import('./components/competency-matrix/competency-matrix.module').then(
+            m => m.CompetencyMatrixModule,
+          ),
       },
       {
-        path: 'add-competency',
-        component: GroupCreateFormComponent
+        path: 'competency-baseline',
+        loadChildren: () =>
+          import('./components/competency-baseline/competency-baseline.module').then(
+            m => m.CompetencyBaselineModule,
+          ),
       },
 
     ]

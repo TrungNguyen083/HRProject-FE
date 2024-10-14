@@ -2,28 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationService } from 'src/app/shared/message/notification.service';
-import { CompetencyCreateFormComponent } from '../competency-create-form/competency-create-form.component';
 import { GroupCreateFormComponent } from '../group-create-form/group-create-form.component';
 import { Column } from 'src/app/components/employee-dashboard/components/employee-skills/employee-skills.component';
 import { cloneDeep } from 'lodash';
+import { CompetencyMatrixStore } from '../../stores/competency-matrix.store';
+import { CompetencyCreateFormComponent } from '../competency-create-form/competency-create-form.component';
 
-const mockData = [
-  {
-    data: { name: 'Self Competencies' },
-    children: [
-      { data: { name: 'Problem Solving' } },
-      { data: { name: 'Willing to learn' } }
-    ]
-  },
-  {
-    data: { name: 'Social Competencies' },
-    children: [
-      { data: { name: 'Communication' } },
-      { data: { name: 'Team Spirit' } },
-      { data: { name: 'Customer orientation' } }
-    ]
-  }
-];
 
 @Component({
   selector: 'app-competency-tree',
@@ -40,15 +24,28 @@ export class CompetencyTreeComponent implements OnInit {
 
   constructor(
     public dialogService: DialogService,
-    private notificationService: NotificationService
-  ) {}
+    private notificationService: NotificationService,
+    private competencyMatrixStore: CompetencyMatrixStore,
+  ) { }
 
   ngOnInit(): void {
-    this.competencies = this.transformToTreeNode(mockData);
-    this.cols = [
-      { field: 'name', header: 'Competency Name' }
-    ];
-    this.selectedColumns = this.cols;
+    this.competencyMatrixStore.getCompetencyTree();
+    this.competencyMatrixStore.competencyMatrixTree$.subscribe(res => {
+      if (!res) return;
+
+      const formattedData = res.map(item => ({
+        data: { name: item.data },
+        children: item.children?.map(child => ({ data: { name: child } }))
+      }));
+
+      this.competencies = this.transformToTreeNode(formattedData);
+      this.cols = [
+        { field: 'name', header: 'Competency Name' }
+      ];
+      this.selectedColumns = this.cols;
+    })
+
+
   }
 
   transformToTreeNode(data: any[]): TreeNode[] {
@@ -85,7 +82,7 @@ export class CompetencyTreeComponent implements OnInit {
 
   onAddCompetency(): void {
     this.modalRef = this.dialogService.open(CompetencyCreateFormComponent, {
-      header: 'Add Competency',
+      header: 'Competency Form',
       contentStyle: { overflow: 'visible' },
       width: '30vw',
     });
@@ -100,7 +97,7 @@ export class CompetencyTreeComponent implements OnInit {
 
   onAddGroup(): void {
     this.modalRef = this.dialogService.open(GroupCreateFormComponent, {
-      header: 'Add Group',
+      header: 'Competency Group Form',
       contentStyle: { overflow: 'visible' },
       width: '30vw',
     });
@@ -114,7 +111,7 @@ export class CompetencyTreeComponent implements OnInit {
   }
 
   loadCompetencies(): void {
-    this.competencies = this.transformToTreeNode(mockData);
+    this.competencyMatrixStore.getCompetencyTree();
   }
 
   // Add the isNumber method here

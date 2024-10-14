@@ -1,0 +1,35 @@
+<div class="card-container">
+  <div class="flex justify-between space-x-4 mb-8">
+    <p class="font-bold text-primary text-2xl">Competency Framework</p>
+    <div class="flex gap-2">
+      <p-button icon="pi pi-plus" label="Add group" (click)="onAddGroup()"></p-button>
+      <p-button icon="pi pi-plus" label="Add competency" (click)="onAddCompetency()"></p-button>
+    </div>
+  </div>
+  <div>
+    <p-treeTable [value]="competencies" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}"
+      styleClass="p-treetable-sm" [columns]="selectedColumns" columnResizeMode="expand">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 300px;">
+            <div class="flex gap-1">
+              <p-button (onClick)="expandAllNodes()" icon="pi pi-folder-open" label="Open all"
+                styleClass="p-button-outlined"></p-button>
+              <p-button (onClick)="collapseAllNodes()" icon="pi pi-folder" label="Close all"
+                styleClass="p-button-outlined"></p-button>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowNode let-columns="columns" let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+          <td style="width: 300px;">
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{ rowData.name }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+</div>

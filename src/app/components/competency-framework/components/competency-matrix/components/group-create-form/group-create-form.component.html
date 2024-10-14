@@ -1,0 +1,19 @@
+<form [formGroup]="competencyForm" (ngSubmit)="onSubmit()">
+  <div class="mt-4">
+    <label class="control-label font-semibold" for="groupName">Group Name</label>
+    <input pInputText formControlName="groupName" placeholder="Group Name" />
+  </div>
+  <div class="mt-4">
+    <label for="description" class="control-label font-semibold">Description</label>
+    <textarea class="w-full" rows="3" cols="30" pInputTextarea formControlName="description"
+      placeholder="Description"></textarea>
+  </div>
+  <div class="flex justify-end mt-6">
+    <button type="button" class="text-gray-600 mr-4" (click)="onCancel()">
+      Cancel
+    </button>
+    <p-button type="submit" [disabled]="competencyForm.invalid || isLoading" label="Save"
+      class="p-button-primary p-button-sm">
+    </p-button>
+  </div>
+</form>
