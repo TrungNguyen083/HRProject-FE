@@ -40,7 +40,8 @@ export class CompetencyTreeComponent implements OnInit {
 
   constructor(
     public dialogService: DialogService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private
   ) {}
 
   ngOnInit(): void {
