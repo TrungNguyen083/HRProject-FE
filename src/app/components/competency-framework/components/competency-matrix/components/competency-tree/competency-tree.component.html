@@ -26,7 +26,15 @@
         <tr [ttRow]="rowNode">
           <td style="width: 300px;">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-            {{ rowData.name }}
+            {{ rowData.competencyGroupName || rowData.competencyName }}
+          </td>
+          <td class="flex gap-2 justify-end">
+            <p-button styleClass="p-button-text" icon="pi pi-pencil"
+              (click)="rowData.competencyGroupName ? onUpdateGroup(rowData) : onUpdateCompetency(rowData)">
+            </p-button>
+            <p-button styleClass="p-button-text" icon="pi pi-trash"
+              (click)="rowData.competencyGroupName ? onDeleteGroup(rowData.id) : onDeleteCompetency(rowData.id)">
+            </p-button>
           </td>
         </tr>
       </ng-template>

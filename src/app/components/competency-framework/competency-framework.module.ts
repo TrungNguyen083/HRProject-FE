@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { ShareModule } from '../share/share.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -38,7 +40,9 @@ import { ShareModule } from '../share/share.module';
     ReactiveFormsModule,
     InputTextModule,
     InputTextareaModule,
-    DropdownModule
+    DropdownModule,
+    ConfirmDialogModule
   ],
+  providers: [ConfirmationService]
 })
 export class CompetencyFrameworkModule { }
