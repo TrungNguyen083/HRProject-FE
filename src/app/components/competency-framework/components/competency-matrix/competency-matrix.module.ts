@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompetencyMatrixComponent } from './competency-matrix.component';
 import { CompetencyMatrixRoutingModule } from './competency-matrix-routing.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -11,7 +12,8 @@ import { CompetencyMatrixRoutingModule } from './competency-matrix-routing.modul
   ],
   imports: [
     CommonModule,
-    CompetencyMatrixRoutingModule
+    CompetencyMatrixRoutingModule,
+    ConfirmDialogModule
   ]
 })
 export class CompetencyMatrixModule { }

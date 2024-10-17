@@ -1,7 +1,7 @@
-<form [formGroup]="competencyForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
   <div class="mt-4">
-    <label class="control-label font-semibold" for="groupName">Group Name</label>
-    <input pInputText formControlName="groupName" placeholder="Group Name" />
+    <label class="control-label font-semibold" for="competencyGroupName">Group Name</label>
+    <input pInputText formControlName="competencyGroupName" placeholder="Group Name" />
   </div>
   <div class="mt-4">
     <label for="description" class="control-label font-semibold">Description</label>
@@ -9,10 +9,10 @@
       placeholder="Description"></textarea>
   </div>
   <div class="flex justify-end mt-6">
-    <button type="button" class="text-gray-600 mr-4" (click)="onCancel()">
+    <button type="button" class="text-gray-600 mr-4" (click)="onCloseModal()">
       Cancel
     </button>
-    <p-button type="submit" [disabled]="competencyForm.invalid || isLoading" label="Save"
+    <p-button type="submit" [disabled]="groupForm.invalid || isLoading" label="Save"
       class="p-button-primary p-button-sm">
     </p-button>
   </div>

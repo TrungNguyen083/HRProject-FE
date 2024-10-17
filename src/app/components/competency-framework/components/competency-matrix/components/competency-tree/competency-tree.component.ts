@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { ConfirmationService, TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationService } from 'src/app/shared/message/notification.service';
 import { GroupCreateFormComponent } from '../group-create-form/group-create-form.component';
@@ -7,6 +7,8 @@ import { Column } from 'src/app/components/employee-dashboard/components/employe
 import { cloneDeep } from 'lodash';
 import { CompetencyMatrixStore } from '../../stores/competency-matrix.store';
 import { CompetencyCreateFormComponent } from '../competency-create-form/competency-create-form.component';
+import { CompetencyMatrixService } from '../../services/competency-matrix.service';
+import { ICompetency, ICompetencyGroup, ICompetencyTree } from '../../models/competency-matrix.model';
 
 
 @Component({
@@ -18,40 +20,44 @@ import { CompetencyCreateFormComponent } from '../competency-create-form/compete
 export class CompetencyTreeComponent implements OnInit {
   competencies: TreeNode[] = [];
   modalRef!: DynamicDialogRef;
-
   cols!: Column[];
   selectedColumns!: Column[];
+  isLoading = false;
 
   constructor(
     public dialogService: DialogService,
     private notificationService: NotificationService,
     private competencyMatrixStore: CompetencyMatrixStore,
+    private confirmationService: ConfirmationService,
+    private competencyMatrixService: CompetencyMatrixService,
   ) { }
 
   ngOnInit(): void {
+    this.loadMatrix();
+  }
+
+  loadMatrix() {
     this.competencyMatrixStore.getCompetencyTree();
     this.competencyMatrixStore.competencyMatrixTree$.subscribe(res => {
       if (!res) return;
 
-      const formattedData = res.map(item => ({
-        data: { name: item.data },
-        children: item.children?.map(child => ({ data: { name: child } }))
-      }));
+      this.competencies = this.transformToTreeNode(res);
 
-      this.competencies = this.transformToTreeNode(formattedData);
       this.cols = [
         { field: 'name', header: 'Competency Name' }
       ];
       this.selectedColumns = this.cols;
     })
-
-
   }
 
-  transformToTreeNode(data: any[]): TreeNode[] {
-    return data.map(item => ({
+  transformToTreeNode(data: ICompetencyTree[]): TreeNode[] {
+    return data.map((item: ICompetencyTree) => ({
       data: item.data,
-      children: item.children ? this.transformToTreeNode(item.children) : []
+      children: item.children?.map((child: ICompetency) => ({
+        data: child,
+        expanded: false,
+      })),
+      expanded: false,
     }));
   }
 
@@ -89,8 +95,7 @@ export class CompetencyTreeComponent implements OnInit {
 
     this.modalRef.onClose.subscribe((result) => {
       if (result && result.success) {
-        this.notificationService.successNotification('Competency added successfully');
-        this.loadCompetencies();
+        window.location.reload();
       }
     });
   }
@@ -104,18 +109,97 @@ export class CompetencyTreeComponent implements OnInit {
 
     this.modalRef.onClose.subscribe((result) => {
       if (result && result.success) {
-        this.notificationService.successNotification('Group added successfully');
-        this.loadCompetencies();
+        window.location.reload();
       }
     });
   }
 
-  loadCompetencies(): void {
-    this.competencyMatrixStore.getCompetencyTree();
+  onUpdateGroup(group: ICompetencyGroup) {
+    this.modalRef = this.dialogService.open(GroupCreateFormComponent, {
+      header: 'Competency Group Form',
+      contentStyle: { overflow: 'visible' },
+      width: '30vw',
+      data: {
+        group: group,
+      },
+    });
+
+    this.modalRef.onClose.subscribe((result) => {
+      if (result && result.success) {
+        window.location.reload();
+      }
+    });
   }
 
-  // Add the isNumber method here
-  isNumber(value: any): boolean {
-    return !isNaN(parseFloat(value)) && isFinite(value);
+  onDeleteGroup(id: number) {
+    this.isLoading = true;
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this group?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.competencyMatrixService.deleteCompetencyGroup(id)
+          .subscribe({
+            next: () => {
+              this.isLoading = false;
+              this.notificationService.successNotification('Competenty group deleted successfully');
+              window.location.reload();
+            },
+            error: () => {
+              this.isLoading = false;
+              this.notificationService.errorNotification('Failed to delete comeptency group');
+            }
+          });
+      },
+      reject: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  onUpdateCompetency(competency: ICompetency) {
+    this.modalRef = this.dialogService.open(CompetencyCreateFormComponent, {
+      header: 'Competency Form',
+      contentStyle: { overflow: 'visible' },
+      width: '30vw',
+      data: {
+        competency: competency,
+      },
+    });
+
+    this.modalRef.onClose.subscribe((result) => {
+      if (result && result.success) {
+        window.location.reload();
+        // this.loadMatrix();
+      }
+    });
+  }
+
+  onDeleteCompetency(id: number) {
+    this.isLoading = true;
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this competency?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.competencyMatrixService.deleteCompetency(id)
+          .subscribe({
+            next: () => {
+              this.isLoading = false;
+              this.notificationService.successNotification('Competenty deleted successfully');
+              window.location.reload();
+            },
+            error: () => {
+              this.isLoading = false;
+              this.notificationService.errorNotification('Failed to delete comeptency');
+            }
+          });
+      },
+      reject: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }
