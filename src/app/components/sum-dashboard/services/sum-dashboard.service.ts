@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { Observable, map } from "rxjs";
-import { GET_COMPETENCIES, GET_COMPETENCY_DIFF, GET_COMPETENCY_GAP_RADAR_CHART, GET_COMPETENCY_OVERVIEW, GET_COMPETENCY_REVIEW_PROGRESS, GET_COMPETENCY_STATUS, GET_DEPARTMENT_EMPLOYEE, GET_DEPARTMENT_HEADCOUNT, GET_DEPARTMENT_HEADCOUNT_CHART, GET_DEPARTMENT_ID, GET_EVALUATE_CYCLES, GET_HEAT_MAP_SKILL_LEVEL, GET_PERFORMANCE_DIFF, GET_PERFORMANCE_OVERVIEW, GET_PERFORMANCE_REVIEW_PROGRESS, GET_PERFORMANCE_STATUS, GET_POTENTIAL_PERFORMANCE, GET_TOP_COMPETENCIES, GET_TOP_PERFORMERS, GET_TOP_SKILLS } from "../constants/sum-dashbaord.constant";
-import { ICompetencyApiResponse, ICompetencyDiffApiResponse, ICompetencyGapRadarChartApiResponse, ICompetencyGapRadarChartParams, ICompetencyOverviewApiResponse, ICompetencyReviewProgressApiResponse, ICompetencyReviewStatusApiResponse, ICycleDepartmentParams, IDepartmentEmployeeApiResponse, IDepartmentHeadcountApiResponse, IDepartmentHeadcountChartApiResponse, IDepartmentIdApiResponse, IEvaluateCyclesApiResponse, IHeatMapSkillLevelApiResponse, IHeatMapSkillLevelParams, IPerformanceDiffApiResponse, IPerformanceOverviewApiResponse, IPerformanceReviewProgressApiResponse, IPerformanceReviewStatusApiResponse, IPotentialPerformanceApiResponse, ITopCompetencyApiResponse, ITopPerformerApiResponse, ITopReviewParams, ITopSkillApiResponse, ITopSkillParams } from "../models/sum-dashboard.model";
+import { GET_COMPETENCIES, GET_COMPETENCY_DIFF, GET_COMPETENCY_GAP_RADAR_CHART, GET_COMPETENCY_OVERVIEW, GET_COMPETENCY_REVIEW_PROGRESS, GET_COMPETENCY_STATUS, GET_DEPARTMENT_EMPLOYEE, GET_DEPARTMENT_GOAL_PROGRESS, GET_DEPARTMENT_HEADCOUNT, GET_DEPARTMENT_HEADCOUNT_CHART, GET_DEPARTMENT_ID, GET_EVALUATE_CYCLES, GET_HEAT_MAP_SKILL_LEVEL, GET_PERFORMANCE_DIFF, GET_PERFORMANCE_OVERVIEW, GET_PERFORMANCE_REVIEW_PROGRESS, GET_PERFORMANCE_STATUS, GET_POTENTIAL_PERFORMANCE, GET_TOP_COMPETENCIES, GET_TOP_PERFORMERS, GET_TOP_SKILLS } from "../constants/sum-dashbaord.constant";
+import { ICompetencyApiResponse, ICompetencyDiffApiResponse, ICompetencyGapRadarChartApiResponse, ICompetencyGapRadarChartParams, ICompetencyOverviewApiResponse, ICompetencyReviewProgressApiResponse, ICompetencyReviewStatusApiResponse, ICycleDepartmentParams, IDepartmentEmployeeApiResponse, IDepartmentGoalProgressApiResponse, IDepartmentHeadcountApiResponse, IDepartmentHeadcountChartApiResponse, IDepartmentIdApiResponse, IEvaluateCyclesApiResponse, IHeatMapSkillLevelApiResponse, IHeatMapSkillLevelParams, IPerformanceDiffApiResponse, IPerformanceOverviewApiResponse, IPerformanceReviewProgressApiResponse, IPerformanceReviewStatusApiResponse, IPotentialPerformanceApiResponse, ITopCompetencyApiResponse, ITopPerformerApiResponse, ITopReviewParams, ITopSkillApiResponse, ITopSkillParams } from "../models/sum-dashboard.model";
 
 @Injectable({
     providedIn: 'root',
@@ -218,6 +218,17 @@ export class SumDashboardService {
             .watchQuery<IDepartmentHeadcountChartApiResponse>({
                 query: GET_DEPARTMENT_HEADCOUNT_CHART,
                 variables: { departmentId },
+            })
+            .valueChanges.pipe(map(res => res.data));
+    }
+
+    getDepartmentGoalProgress(
+        params: ICycleDepartmentParams
+    ): Observable<IDepartmentGoalProgressApiResponse> {
+        return this.apollo
+            .watchQuery<IDepartmentGoalProgressApiResponse>({
+                query: GET_DEPARTMENT_GOAL_PROGRESS,
+                variables: { ...params },
             })
             .valueChanges.pipe(map(res => res.data));
     }

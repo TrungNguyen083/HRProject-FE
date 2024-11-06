@@ -89,7 +89,7 @@ export class ProficiencyLevelRatingComponent implements OnInit {
     this.isLoading = true;
   
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this proficiency level?',
+      message: 'Are you sure to delete this proficiency level?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

@@ -58,10 +58,12 @@ export class CompetencyReviewProgressComponent implements OnInit {
       this.pieLabels = competencyEvaluationProgressPieChart.labels;
       this.pieChartData = competencyEvaluationProgressPieChart.datasets;
       this.completionPercentage = competencyEvaluationProgressPieChart.datasets[0];
+
+      this.initBarChartData();
+      this.initPieChartData();
     })
 
-    this.initBarChartData();
-    this.initPieChartData();
+
   }
 
   private initBarChartData(): void {

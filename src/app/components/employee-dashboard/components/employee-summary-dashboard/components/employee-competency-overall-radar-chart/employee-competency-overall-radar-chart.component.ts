@@ -22,7 +22,6 @@ export class EmployeeCompetencyOverallRadarChartComponent implements OnInit {
     private eDashboardStore: EmployeeDashboardStore) { }
 
   ngOnInit(): void {
-
     this.eDashboardStore.employeeId$.subscribe(employeeId => {
       if (!employeeId) return;
       this.params = {...this.params, employeeId};
@@ -30,7 +29,6 @@ export class EmployeeCompetencyOverallRadarChartComponent implements OnInit {
       this.eDashboardStore.previousCycle$.subscribe(evaluateCycleId => {
         if (!evaluateCycleId) return;
         this.params = {...this.params, evaluateCycleId}
-  
         this.initEmployeeOverallRadarChart();
       });
     });

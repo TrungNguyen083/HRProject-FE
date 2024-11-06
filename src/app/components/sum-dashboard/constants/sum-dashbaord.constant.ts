@@ -258,3 +258,14 @@ query GetDepartmentHeadcountChart($departmentId: Int!) {
   }
 }
 `
+
+export const GET_DEPARTMENT_GOAL_PROGRESS = gql`
+query GetDepartmentGoalProgress($departmentId: Int!, $cycleId: Int!) {
+  departmentGoalProgress(departmentId: $departmentId, cycleId: $cycleId) {
+    employeeId
+    goalName
+    profileImage
+    goalProgress
+  }
+}
+`
