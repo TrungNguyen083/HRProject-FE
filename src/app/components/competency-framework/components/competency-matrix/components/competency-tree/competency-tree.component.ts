@@ -15,7 +15,7 @@ import { ICompetency, ICompetencyGroup, ICompetencyTree } from '../../models/com
   selector: 'app-competency-tree',
   templateUrl: './competency-tree.component.html',
   styleUrls: ['./competency-tree.component.scss'],
-  providers: [DialogService] // Ensure DialogService is provided
+  providers: [DialogService]
 })
 export class CompetencyTreeComponent implements OnInit {
   competencies: TreeNode[] = [];
@@ -171,7 +171,6 @@ export class CompetencyTreeComponent implements OnInit {
     this.modalRef.onClose.subscribe((result) => {
       if (result && result.success) {
         window.location.reload();
-        // this.loadMatrix();
       }
     });
   }

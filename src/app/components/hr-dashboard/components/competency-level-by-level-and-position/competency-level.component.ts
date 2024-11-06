@@ -6,6 +6,7 @@ import { IDropdownItem } from 'src/app/models/global.model';
 import { CompetencyScoreStoreService as CompetencyScoreStore } from '../../store/competency-score-store.service';
 import { HrDashboardShareStore } from '../../store/hr-dashboard-share-store.service';
 import { ApexChartOptions } from 'src/app/components/share/models/chart.model';
+import { ICompetencyByLevelAndPositionParams } from '../../models/hr-dashboard.model';
 @Component({
   selector: 'competency-level',
   templateUrl: './competency-level.component.html',
@@ -16,7 +17,7 @@ export class CompetencyLevelComponent implements OnInit {
   public chartOptions: ApexChartOptions = heatmapChartOptions;
   scoreByLevelAndPosition$ = this.competencyScoreStore.scoreByLevelAndPosition$;
   dataSeries: { name: string; data: { x: string; y: number }[] }[] = [];
-  params = { positionId: -1, evaluateCycleId: 100  };
+  params!: ICompetencyByLevelAndPositionParams;
 
   constructor(
     private competencyScoreStore: CompetencyScoreStore,
@@ -27,6 +28,7 @@ export class CompetencyLevelComponent implements OnInit {
     this.shareStore.previousCycle$.subscribe(cycleId => {
       if (!cycleId) return;
       this.params = { ...this.params, evaluateCycleId: cycleId };
+      this.params = { ...this.params, positionId: -1}
       this.competencyScoreStore.getScoreByLevelAndPosition(this.params);
     });
 

@@ -54,6 +54,14 @@ const routes: Routes = [
       {
         path: 'core-control-management',
         loadChildren: () => import('./components/core-control-management/core-control-management.module').then(m => m.CoreControlManagementModule)
+      },
+      {
+        path: 'competency-evaluation',
+        loadChildren: () => import('./components/competency-evaluation/competency-evaluation.module').then(m => m.CompetencyEvaluationModule)
+      },
+      {
+        path: 'performance-evaluation',
+        loadChildren: () => import('./components/performance-evaluation/performance-evaluation.module').then(m => m.PerformanceEvaluationModule)
       }
     ],
   },

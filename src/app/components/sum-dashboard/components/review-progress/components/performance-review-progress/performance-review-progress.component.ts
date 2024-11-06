@@ -57,10 +57,11 @@ export class PerformanceReviewProgressComponent implements OnInit {
       this.pieLabels = performanceEvaluationProgressPieChart.labels;
       this.pieChartData = performanceEvaluationProgressPieChart.datasets;
       this.completionPercentage = performanceEvaluationProgressPieChart.datasets[0];
+      
+      this.initBarChartData();
+      this.initPieChartData();
     })
 
-    this.initBarChartData();
-    this.initPieChartData();
   }
 
   private initBarChartData(): void {

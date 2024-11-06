@@ -44,9 +44,6 @@ export class EmployeeDashboardComponent implements OnInit {
       if(!res) return;
       this.employeeStore.setEmployeeId(res);
     })
-
-    this.route.url.subscribe(url => {
-    });
   }
 
   onActiveItemChange(item: MenuItem): void {

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ComponentStore, tapResponse } from "@ngrx/component-store";
 import { SumDashboardService } from "../services/sum-dashboard.service";
 import { Observable, switchMap } from "rxjs";
-import { IBarChartDTO, ICompetency, ICompetencyGapRadarChartParams, ICycleDepartmentParams, IDepartmentEmployee, IDiffPercentDTO, IEmployeePotentialPerformanceDTO, IEvaluateCycle, IHeatMapDTO, IHeatMapSkillLevelParams, IMultiBarChartDTO, IPieChartDTO, IRadarChartDTO, IReviewStatus, ITopReview, ITopReviewParams, ITopSkill, ITopSkillParams } from "../models/sum-dashboard.model";
+import { IBarChartDTO, ICompetency, ICompetencyGapRadarChartParams, ICycleDepartmentParams, IDepartmentEmployee, IDiffPercentDTO, IEmployeePotentialPerformanceDTO, IEvaluateCycle, IGoalProgress, IHeatMapDTO, IHeatMapSkillLevelParams, IMultiBarChartDTO, IPieChartDTO, IRadarChartDTO, IReviewStatus, ITopReview, ITopReviewParams, ITopSkill, ITopSkillParams } from "../models/sum-dashboard.model";
 import { PaginatedData } from "src/app/models/global.model";
 import { IPercentageChangeDTO } from "../../hr-dashboard/components/hr-overview/models/hr-overview.model";
 
@@ -35,6 +35,7 @@ interface SumDashboardState {
   performanceDiffPercent: IDiffPercentDTO | null;
   departmentHeadcount: IPercentageChangeDTO | null;
   departmentHeadcountChart: IBarChartDTO | null;
+  departmentGoalProgress: IGoalProgress[];
 }
 
 const defaultPagination = {
@@ -107,7 +108,8 @@ export class SumDashboardStore extends ComponentStore<SumDashboardState> {
       performanceOverviewChart: null,
       performanceDiffPercent: null,
       departmentHeadcount: null,
-      departmentHeadcountChart: null
+      departmentHeadcountChart: null,
+      departmentGoalProgress: []
     });
   }
 
@@ -133,6 +135,7 @@ export class SumDashboardStore extends ComponentStore<SumDashboardState> {
   readonly performanceDiffPercent$ = this.select(state => state.performanceDiffPercent);
   readonly departmentHeadcount$ = this.select(state => state.departmentHeadcount);
   readonly departmentHeadcountChart$ = this.select(state => state.departmentHeadcountChart);
+  readonly departmentGoalProgress$ = this.select(state => state.departmentGoalProgress);
 
 
 
@@ -318,6 +321,15 @@ export class SumDashboardStore extends ComponentStore<SumDashboardState> {
       return {
         ...state,
         departmentHeadcountChart,
+      };
+    },
+  );
+
+  readonly setDepartmentGoalProgress = this.updater(
+    (state: SumDashboardState, departmentGoalProgress: IGoalProgress[]) => {
+      return {
+        ...state,
+        departmentGoalProgress,
       };
     },
   );
@@ -608,6 +620,20 @@ export class SumDashboardStore extends ComponentStore<SumDashboardState> {
           this.sumDashboardService.getDepartmentHeadcountChart(params).pipe(
             tapResponse({
               next: res => this.setDepartmentHeadcountChart(res.departmentHeadcountChart),
+              error: error => console.log(error),
+            }),
+          ),
+        ),
+      ),
+  );
+
+  readonly getDepartmentGoalProgress = this.effect(
+    (params$: Observable<ICycleDepartmentParams>) =>
+      params$.pipe(
+        switchMap(params =>
+          this.sumDashboardService.getDepartmentGoalProgress(params).pipe(
+            tapResponse({
+              next: res => this.setDepartmentGoalProgress(res.departmentGoalProgress),
               error: error => console.log(error),
             }),
           ),

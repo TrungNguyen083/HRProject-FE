@@ -11,19 +11,14 @@ const dummies: MenuItem[] = [
     path: 'my-dashboard',
   },
   {
-    name: 'Dashboard',
-    icon: 'fa-solid fa-chart-pie',
-    path: 'dashboard',
-  },
-  {
-    name: 'Competency Evaluate',
+    name: 'Competency Evaluation',
     icon: 'pi pi-chart-pie',
-    path: 'competency-evaluate',
+    path: 'competency-evaluation',
   },
   {
-    name: 'Performance Evaluate',
+    name: 'Performance Evaluation',
     icon: 'fa-solid fa-gauge-high',
-    path: 'performance-evaluate',
+    path: 'performance-evaluation',
   },
 ];
 

@@ -23,6 +23,9 @@ import { AppSidebarEmployeeComponent } from 'src/app/layout/app-sidebar-employee
     ShareModule,
     AppTopbarModule,
     ButtonModule,
+  ],
+  exports: [
+    AppSidebarEmployeeComponent
   ]
 })
 export class EmployeeDashboardModule { }

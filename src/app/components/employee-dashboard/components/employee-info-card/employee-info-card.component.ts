@@ -38,8 +38,6 @@ export class EmployeeInfoCardComponent implements OnInit {
         this.address = res?.address ?? '';
         this.skills = res?.skills ?? [];
         this.qualifications = res?.qualifications ?? [];
-
-        console.log("Qualifications: ", res?.qualifications);
       });
     });
   }

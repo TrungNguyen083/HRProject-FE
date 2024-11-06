@@ -67,6 +67,13 @@ export interface IHeatMapDTO {
   score: number;
 }
 
+export interface IGoalProgress {
+  employeeId: number
+  goalName: string
+  profileImage: string
+  goalProgress: number
+}
+
 export interface IReviewStatus {
   id: number;
   firstName: string;
@@ -214,4 +221,8 @@ export interface IDepartmentHeadcountApiResponse {
 
 export interface IDepartmentHeadcountChartApiResponse {
   departmentHeadcountChart: IBarChartDTO
+}
+
+export interface IDepartmentGoalProgressApiResponse {
+  departmentGoalProgress: IGoalProgress[]
 }
