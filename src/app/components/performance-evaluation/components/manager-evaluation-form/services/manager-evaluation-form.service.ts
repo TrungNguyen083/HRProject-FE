@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Apollo } from "apollo-angular";
-import { IEvaluationFormParams } from "../../self-evaluation-form/models/self-evaluation-form.model";
+import { Apollo, MutationResult } from "apollo-angular";
+import { IEvaluationFormParams, IPerformanceEvaluationInput } from "../../self-evaluation-form/models/self-evaluation-form.model";
 import { map, Observable } from "rxjs";
 import { IManagerCategoryRatingApiResponse, IManagerPerformanceOverallApiResponse, IManagerQuestionRatingApiResponse } from "../models/manager-evaluation-form.model";
-import { GET_MANAGER_CATEGORY_RATING, GET_MANAGER_OVERALL, GET_MANAGER_QUESTION_RATING } from "../constants/manager-evaluation-form.constant";
+import { CREATE_MANAGER_EVALUATION, GET_MANAGER_CATEGORY_RATING, GET_MANAGER_OVERALL, GET_MANAGER_QUESTION_RATING } from "../constants/manager-evaluation-form.constant";
 import { IEmployeeFeedbackApiResponse } from "src/app/components/competency-evaluation/components/manager-evaluation-form/models/manager-evaluation-form.model";
 import { GET_EMPLOYEE_FEEDBACK } from "src/app/components/competency-evaluation/components/manager-evaluation-form/constants/manager-evaluation-form.constant";
 
@@ -55,5 +55,14 @@ export class ManagerEvaluationFormService {
                 variables: { ...params },
             })
             .valueChanges.pipe(map(res => res.data));
+    }
+
+    createSelfEvaluation(
+        input: IPerformanceEvaluationInput,
+    ): Observable<MutationResult<boolean>> {
+        return this.apollo.mutate<boolean>({
+            mutation: CREATE_MANAGER_EVALUATION,
+            variables: { input: input },
+        })
     }
 }

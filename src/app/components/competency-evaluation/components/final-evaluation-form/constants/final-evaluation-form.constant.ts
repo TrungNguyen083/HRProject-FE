@@ -45,3 +45,9 @@ export const GET_FINAL_COMPETENCY_OVERALL = gql`
         }
     }
 `
+
+export const CREATE_FINAL_EVALUATION = gql`
+    mutation CreateFinalCompetencyEvaluation($input: CompetencyEvaluationInput!) {
+        finalCompetencyEvaluation(input: $input)
+    }
+`

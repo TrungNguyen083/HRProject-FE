@@ -57,3 +57,9 @@ query GetEmployeeFeedback($employeeId: Int!, $cycleId: Int!) {
     }
 }
 `
+
+export const CREATE_MANAGER_EVALUATION = gql`
+    mutation CreateManagerCompetencyEvaluation($input: CompetencyEvaluationInput!) {
+        managerCompetencyEvaluation(input: $input)
+    }
+`

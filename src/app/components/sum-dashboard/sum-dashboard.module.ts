@@ -76,7 +76,7 @@ import { HeatMapSkillLevelComponent } from './components/heat-map-skill-level/he
     RadioButtonModule,
     MultiSelectModule,
     ProgressBarModule,
-    
-  ]
+  ],
+  exports: [AppSidebarSumComponent]
 })
 export class SumDashboardModule { }

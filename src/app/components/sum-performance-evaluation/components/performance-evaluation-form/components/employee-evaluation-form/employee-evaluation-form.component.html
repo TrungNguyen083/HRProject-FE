@@ -1,0 +1,114 @@
+<form [formGroup]="evaluationForm">
+    <div>
+        <div class="flex justify-between space-x-4 mb-8">
+            <p class="font-bold text-primary text-2xl"> {{ cycleName }} </p>
+        </div>
+        <div class="content-row">
+            <div class="md:col-span-12 lg:col-span-12">
+                <div class="flex justify-between">
+                    <div class="flex gap-4 w-full">
+                        <div class="w-24 h-24">
+                            <img class="avatar-img w-full h-full"
+                                style="background: #CDE9EAFF; border-radius: 50%; object-fit: cover;"
+                                [src]="profileImage" [alt]="'default-image'">
+                        </div>
+
+                        <div class="flex-1">
+                            <div class="personal-info mb-8 flex flex-col gap-1">
+                                <p class="font-bold text-2xl">{{firstName}}
+                                    {{lastName}}</p>
+                                <p>{{level}}
+                                    {{position}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="items-center">
+                        <span class="text-xl font-bold">Overall rating</span>
+                        <span
+                            class="inline-flex items-center rounded-full bg-primaryLight px-3 py-1 text-xl font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                            rating }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 lg:col-span-9 mt-6">
+                <div class="card flex flex-col gap-8">
+                    <p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-chevron-circle-right"
+                        collapseIcon="pi pi-chevron-circle-down">
+                        <p-accordionTab *ngFor="let question of questionRating; let i = index">
+                            <ng-template pTemplate="header">
+                                <div class="flex justify-between items-center w-full">
+                                    <span class="font-bold">{{ question.questionName }}</span>
+                                    <div class="flex items-center gap-4" [formGroup]="getQuestionFormGroup(i)">
+                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="4"
+                                            [min]="1"></p-slider>
+                                        <span class="text-primary">{{ getQuestionFormGroup(i).get('rating')?.value
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <div class="flex" [formGroup]="getQuestionFormGroup(i)">
+                                <div class="mr-8">
+                                    <label class="block font-bold" for="comment">Manager Comment</label>
+                                    <textarea class="w-full" rows="3" cols="60" pInputTextarea formControlName="comment"
+                                        placeholder="Enter your comment"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block font-bold" for="skills">Description</label>
+                                    <span>
+                                        {{question.questionDescription}}
+                                    </span>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 lg:col-span-3 card-container mt-6">
+                <div class="flex gap-2 items-center">
+                    <i class="pi pi-list text-primary"></i>
+                    <span class="text-primary font-bold text-xl">Total score</span>
+                </div>
+                <div *ngFor="let category of categoryRating"
+                    [ngClass]="{'selected-category': selectedCategory === category}">
+                    <div class="score-item flex justify-between items-center p-3 border rounded-md mt-3">
+                        <div class="flex flex-col gap-2">
+                            <span class="font-bold">{{ category.categoryName }}</span>
+                            <div class="bg-primaryLight"
+                                style="border-radius: 20px; padding: 5px 10px; max-width: fit-content;">
+                                <p class="flex justify-center text-primary text-sm">{{ category.weight }}%</p>
+                            </div>
+                        </div>
+                        <span class="pr-2 text-primary font-bold text-2xl">{{ category.rating | number:'1.1-1'
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 flex justify-end">
+            <div class="flex gap-2">
+                <ng-container *ngIf="selectedCategory === categoryRating[0]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" [disabled]="true"
+                        (onClick)="onBack()">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
+                        (onClick)="onNext()">Next</p-button>
+                </ng-container>
+                <ng-container *ngIf="selectedCategory !== categoryRating[categoryRating.length - 1] && selectedCategory !== categoryRating[0]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
+                        (onClick)="onBack()">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
+                        (onClick)="onNext()">Next</p-button>
+                </ng-container>
+                <ng-container *ngIf="selectedCategory === categoryRating[categoryRating.length - 1]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
+                        (onClick)="onBack()">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" [disabled]="true"
+                        (onClick)="onNext()">Next</p-button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</form>

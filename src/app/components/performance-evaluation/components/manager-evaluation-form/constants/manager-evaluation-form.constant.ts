@@ -40,3 +40,9 @@ export const GET_MANAGER_OVERALL = gql`
         }
     }
 `
+
+export const CREATE_MANAGER_EVALUATION = gql`
+    mutation CreateManagerPerformanceEvaluation($input: PerformanceEvaluationInput!) {
+        managerPerformanceEvaluation(input: $input)
+    }
+`
