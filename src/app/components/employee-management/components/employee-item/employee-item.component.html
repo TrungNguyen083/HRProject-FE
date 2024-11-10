@@ -1,51 +1,30 @@
 <tr class="mt-3 p-selectable-row">
   <td>
     <div class="flex items-center pl-2">
+      <img *ngIf="employeeInfo.imageUrl" class="avatar-img" style="background: #cde9eaff; border-radius: 60px"
+        [src]="employeeInfo.imageUrl" [alt]="employeeInfo.employee.firstName" />
 
-      <img
-        *ngIf="employeeInfo.imageUrl"
-        class="avatar-img"
-        style="background: #cde9eaff; border-radius: 60px"
-        [src]="employeeInfo.imageUrl"
-        [alt]="employeeInfo.employee.firstName"
-      />
-
-      <img
-        *ngIf="!employeeInfo.imageUrl"
-        class="avatar-img"
-        style="background: #cde9eaff; border-radius: 60px"
-        [src]="defaultImg"
-        [alt]="employeeInfo.employee.firstName"
-      />
-      <a class="text-black ml-2 name" [routerLink]="['detail', employeeInfo.employee.id]"
-        >{{ employeeInfo.employee.firstName }} {{ employeeInfo.employee.lastName }}</a
-      >
+      <img *ngIf="!employeeInfo.imageUrl" class="avatar-img" style="background: #cde9eaff; border-radius: 60px"
+        [src]="defaultImg" [alt]="employeeInfo.employee.firstName" />
+      <a class="text-black ml-2 name" [routerLink]="['detail', employeeInfo.employee.id]">{{
+        employeeInfo.employee.firstName }} {{ employeeInfo.employee.lastName }}</a>
     </div>
   </td>
   <td>{{ employeeInfo.employee.position?.positionName }}</td>
   <td>
-    <a
-      class="ml-1 text-primary underline"
-      [href]="'mailto:' + employeeInfo.employee.email"
-      >{{ employeeInfo.employee.email }}</a
-    >
+    <a class="ml-1 text-primary underline" [href]="'mailto:' + employeeInfo.employee.email">{{
+      employeeInfo.employee.email }}</a>
     <span *ngIf="!employeeInfo.employee.email"></span>
   </td>
   <td>{{ employeeInfo.employee.department?.departmentName ?? 'Not belong to department' }}</td>
   <td>
-    <contract-badge
-      *ngIf="
+    <contract-badge *ngIf="
         employeeInfo.employee.currentContract !== undefined &&
         employeeInfo.employee.currentContract !== null
-      "
-      [currentContract]="employeeInfo.employee.currentContract"
-    ></contract-badge>
+      " [currentContract]="employeeInfo.employee.currentContract"></contract-badge>
   </td>
-  <td
-    class="user-item-row"
-    [class.text-success]="employeeInfo.employee.status === true"
-    [class.text-danger]="employeeInfo.employee.status === false || !employeeInfo.employee.status"
-  >
+  <td class="user-item-row" [class.text-success]="employeeInfo.employee.status === true"
+    [class.text-danger]="employeeInfo.employee.status === false || !employeeInfo.employee.status">
     <div class="flex gap-2 items-center">
       <i class="pi-circle-fill pi"></i>
       <span>
@@ -54,12 +33,7 @@
     </div>
   </td>
   <td class="action-col">
-    <p-button
-      type="button"
-      (click)="menu.toggle($event)"
-      icon="pi pi-ellipsis-v"
-      styleClass="p-button-link"
-    ></p-button>
+    <p-button type="button" (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" styleClass="p-button-link"></p-button>
     <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body"></p-menu>
   </td>
 </tr>

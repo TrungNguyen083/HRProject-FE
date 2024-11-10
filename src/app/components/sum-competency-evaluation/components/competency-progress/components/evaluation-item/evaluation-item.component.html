@@ -1,0 +1,48 @@
+<tr class="mt-3 p-selectable-row">
+    <td>
+        <div class="flex items-center pl-2 gap-3">
+            <img *ngIf="competencyEvaItem.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="competencyEvaItem.profileImage"
+                [alt]="competencyEvaItem.firstName" />
+
+            <img *ngIf="!competencyEvaItem.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="defaultImg"
+                [alt]="competencyEvaItem.firstName" />
+            <a class="text-black font-bold ml-2 name">{{ competencyEvaItem.firstName }} {{ competencyEvaItem.lastName }}</a>
+        </div>
+    </td>
+    <td>{{ competencyEvaItem.level }} {{ competencyEvaItem.position }}</td>
+    <td>
+        <ng-container [ngSwitch]="competencyEvaItem.employeeStatus">
+            <span *ngSwitchCase="'Completed'"
+                class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                competencyEvaItem.employeeStatus }}</span>
+            <span *ngSwitchCase="'In Progress'"
+                class="employment-tag inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{{
+                competencyEvaItem.finalStatus }}</span>
+        </ng-container>
+    </td>
+    <td>
+        <ng-container [ngSwitch]="competencyEvaItem.evaluatorStatus">
+            <span *ngSwitchCase="'Completed'"
+                class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                competencyEvaItem.evaluatorStatus }}</span>
+            <span *ngSwitchCase="'In Progress'"
+                class="employment-tag inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{{
+                competencyEvaItem.finalStatus }}</span>
+        </ng-container>
+    </td>
+    <td>
+        <ng-container [ngSwitch]="competencyEvaItem.finalStatus">
+            <span *ngSwitchCase="'Completed'"
+                class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                competencyEvaItem.finalStatus }}</span>
+            <span *ngSwitchCase="'In Progress'"
+                class="employment-tag inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{{
+                competencyEvaItem.finalStatus }}</span>
+        </ng-container>
+    </td>
+    <td class="action-col">
+        <p-button type="button" (onClick)="viewDetail(competencyEvaItem.employeeId)">View Details</p-button>
+    </td>
+</tr>

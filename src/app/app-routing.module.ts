@@ -62,6 +62,14 @@ const routes: Routes = [
       {
         path: 'performance-evaluation',
         loadChildren: () => import('./components/performance-evaluation/performance-evaluation.module').then(m => m.PerformanceEvaluationModule)
+      },
+      {
+        path: 'sum-competency-evaluation',
+        loadChildren: () => import('./components/sum-competency-evaluation/sum-competency-evaluation.module').then(m => m.SumCompetencyEvaluationModule)
+      },
+      {
+        path: 'sum-performance-evaluation',
+        loadChildren: () => import('./components/sum-performance-evaluation/sum-performance-evaluation.module').then(m => m.SumPerformanceEvaluationModule)
       }
     ],
   },

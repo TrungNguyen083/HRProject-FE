@@ -9,7 +9,17 @@ const dummies: MenuItem[] = [
     name: 'Dashboard',
     icon: 'fa-solid fa-chart-pie',
     path: 'sum-dashboard',
-  }
+  },
+  {
+    name: 'Competency Evaluation',
+    icon: 'pi pi-chart-pie',
+    path: 'sum-competency-evaluation',
+  },
+  {
+    name: 'Performance Evaluation',
+    icon: 'fa-solid fa-gauge-high',
+    path: 'sum-performance-evaluation',
+  },
 ];
 
 @Component({

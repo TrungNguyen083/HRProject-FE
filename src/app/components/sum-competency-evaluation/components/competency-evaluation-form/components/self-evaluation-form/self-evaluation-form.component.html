@@ -1,0 +1,152 @@
+<p-confirmDialog />
+
+<form [formGroup]="evaluationForm">
+    <div>
+        <div class="flex justify-between space-x-4 mb-8">
+            <p class="font-bold text-primary text-2xl"> {{ cycleName }} </p>
+        </div>
+        <div class="content-row">
+            <div class="md:col-span-12 lg:col-span-12">
+                <div class="flex justify-between">
+                    <div class="flex gap-4 w-full">
+                        <div class="w-24 h-24">
+                            <img class="avatar-img w-full h-full"
+                                style="background: #CDE9EAFF; border-radius: 50%; object-fit: cover;"
+                                [src]="profileImage" [alt]="'default-image'">
+                        </div>
+
+                        <div class="flex-1">
+                            <div class="personal-info mb-8 flex flex-col gap-1">
+                                <p class="font-bold text-2xl">{{firstName}}
+                                    {{lastName}}</p>
+                                <p>{{level}}
+                                    {{position}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="items-center">
+                        <span class="text-xl font-bold">Overall rating</span>
+                        <span
+                            class="inline-flex items-center rounded-full bg-primaryLight px-3 py-1 text-xl font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                            rating }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 lg:col-span-9 mt-6">
+                <div class="card flex flex-col gap-8">
+                    <p-accordion class="w-full" [activeIndex]="0" expandIcon="pi pi-chevron-circle-right"
+                        collapseIcon="pi pi-chevron-circle-down">
+                        <p-accordionTab *ngFor="let form of competencyForm; let i = index">
+                            <ng-template pTemplate="header">
+                                <div class="flex justify-between items-center w-full">
+                                    <span class="font-bold">{{ form.competency.competencyName }}</span>
+                                    <div class="flex items-center gap-4" [formGroup]="getCompetencyFormGroup(i)">
+                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="4"
+                                            [min]="1"></p-slider>
+                                        <span class="text-primary">{{ getCompetencyFormGroup(i).get('rating')?.value
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <div class="flex" [formGroup]="getCompetencyFormGroup(i)">
+                                <div class="mr-8">
+                                    <label class="block font-bold" for="comment">Self Comment</label>
+                                    <textarea class="w-full" rows="3" cols="60" pInputTextarea formControlName="comment"
+                                        placeholder="Enter your comment"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block font-bold" for="skills">Skills</label>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span *ngFor="let skill of form.skills"
+                                            class="inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2 mr-1">{{
+                                            skill.skillName }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
+
+                    <div *ngIf="feedbacks && feedbacks.length > 0; else noFeedback">
+                        <div *ngFor="let feedback of feedbacks">
+                            <div class="flex gap-2 items-center">
+                                <i class="pi pi-send text-primary"></i>
+                                <span class="text-primary font-bold text-xl">Feedback</span>
+                            </div>
+
+                            <div class="card-container mt-4 w-fit">
+                                <div class="flex gap-4 w-full">
+                                    <div class="w-8 h-8">
+                                        <img class="avatar-img w-full h-full" [src]="feedback.feedBackerProfileImage"
+                                            [alt]="'Profile Image'"
+                                            style="background: #CDE9EAFF; border-radius: 50%; object-fit: cover;">
+                                    </div>
+
+                                    <div class="flex-1">
+                                        <div class="personal-info mb-8 flex flex-col gap-1">
+                                            <p class="font-bold text-lg">{{feedback.feedBackerFirstName}}
+                                                {{feedback.feedBackerLastName}}</p>
+                                            <p>{{feedback.content}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-template #noFeedback>
+                        <p class="text-center text-gray-500 mt-4">No feedback available.</p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 lg:col-span-3 card-container mt-6">
+                <div class="flex gap-2 items-center">
+                    <i class="pi pi-list text-primary"></i>
+                    <span class="text-primary font-bold text-xl">Total score</span>
+                </div>
+                <div *ngFor="let group of groups" [ngClass]="{'selected-group': selectedGroup === group}">
+                    <div class="score-item flex justify-between items-center p-3 border rounded-md mt-3">
+                        <div class="flex flex-col gap-2">
+                            <span class="font-bold">{{ group.competencyGroupName }}</span>
+                            <div class="bg-primaryLight"
+                                style="border-radius: 20px; padding: 5px 10px; max-width: fit-content;">
+                                <p class="flex justify-center text-primary text-sm">{{ group.weight }}%</p>
+                            </div>
+                        </div>
+                        <span class="pr-2 text-primary font-bold text-2xl">{{ group.rating | number:'1.1-1'
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="mt-16 flex justify-between">
+            <div>
+                <p-button (onClick)="onCancel()">Cancel</p-button>
+            </div>
+            <div class="flex gap-2">
+                <ng-container *ngIf="selectedGroup === groups[0]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Next')">Next</p-button>
+                </ng-container>
+                <ng-container *ngIf="selectedGroup !== groups[groups.length - 1] && selectedGroup !== groups[0]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        (onClick)="onSubmit('Back')">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Next')">Next</p-button>
+                </ng-container>
+                <ng-container *ngIf="selectedGroup === groups[groups.length - 1]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        (onClick)="onSubmit('Back')">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Draft')" [disabled]="isSubmit">Save Draft</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Submit')" [disabled]="isSubmit">Save</p-button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</form>
