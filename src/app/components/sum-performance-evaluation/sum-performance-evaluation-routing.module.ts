@@ -32,11 +32,11 @@ const routes: Routes = [{
         },
         {
           path: 'self-form',
-          component: EmployeeEvaluationFormComponent
+          component: SelfEvaluationFormComponent
         },
         {
           path: 'employee-form',
-          component: SelfEvaluationFormComponent
+          component: EmployeeEvaluationFormComponent
         },
         {
           path: 'final-form',

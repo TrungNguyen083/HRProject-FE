@@ -41,7 +41,7 @@
                                 <div class="flex justify-between items-center w-full">
                                     <span class="font-bold">{{ question.questionName }}</span>
                                     <div class="flex items-center gap-4" [formGroup]="getQuestionFormGroup(i)">
-                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="4"
+                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="5"
                                             [min]="1"></p-slider>
                                         <span class="text-primary">{{ getQuestionFormGroup(i).get('rating')?.value
                                             }}</span>
@@ -50,7 +50,7 @@
                             </ng-template>
                             <div class="flex" [formGroup]="getQuestionFormGroup(i)">
                                 <div class="mr-8">
-                                    <label class="block font-bold" for="comment">Manager Comment</label>
+                                    <label class="block font-bold" for="comment">Employee Comment</label>
                                     <textarea class="w-full" rows="3" cols="60" pInputTextarea formControlName="comment"
                                         placeholder="Enter your comment"></textarea>
                                 </div>

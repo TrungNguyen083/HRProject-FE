@@ -39,13 +39,13 @@ export class SelfEvaluationFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private notificationService: NotificationService,
     private managerEvaluationFormStore: ManagerEvaluationFormStore,
     private sumPerformanceEvaluationStore: SumPerformanceEvaluationStore,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService,
     private confirmationService: ConfirmationService,
     private managerEvaluationFormService: ManagerEvaluationFormService,
     private router: Router,
-    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -220,7 +220,7 @@ export class SelfEvaluationFormComponent implements OnInit {
               cycleId: this.cycleId,
               isSubmit: true,
               questionRating: this.evaluationDataList[0].questions.map((question: any) => ({
-                question: question.questionId,
+                questionId: question.questionId,
                 comment: question.comment,
                 rating: question.rating
               }))

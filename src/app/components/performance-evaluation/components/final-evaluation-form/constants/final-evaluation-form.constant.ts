@@ -40,3 +40,9 @@ export const GET_FINAL_OVERALL = gql`
         }
     }
 `
+
+export const CREATE_FINAL_EVALUATION = gql`
+    mutation CreateFinalPerformanceEvaluation($input: PerformanceEvaluationInput!) {
+       finalPerformanceEvaluation(input: $input)
+    }
+`

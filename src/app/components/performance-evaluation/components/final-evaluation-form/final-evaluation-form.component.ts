@@ -60,7 +60,7 @@ export class FinalEvaluationFormComponent implements OnInit {
       this.finalEvaluationFormStore.getEmployeeFeedback(this.params);
     });
 
-    this.finalEvaluationFormStore.FinalPerformanceOverall$.subscribe(res => {
+    this.finalEvaluationFormStore.finalPerformanceOverall$.subscribe(res => {
       if (!res) return;
       this.performanceyOverall = res;
       this.cycleName = "Final Performance " + res.evaluationCycleName;
@@ -74,7 +74,7 @@ export class FinalEvaluationFormComponent implements OnInit {
       this.isSubmit = res?.isSubmit ?? false;
     })
 
-    this.finalEvaluationFormStore.FinalPerformanceCategoryRating$.subscribe(res => {
+    this.finalEvaluationFormStore.finalPerformanceCategoryRating$.subscribe(res => {
       if (!res) return;
       this.categoryRating = res;
       this.selectCategory(this.categoryRating[0]);
@@ -118,7 +118,7 @@ export class FinalEvaluationFormComponent implements OnInit {
     if (this.selectedCategory && this.selectedCategory.categoryId === category.categoryId) return;
     this.selectedCategory = category;
 
-    this.finalEvaluationFormStore.FinalPerformanceQuestionRating$.subscribe(res => {
+    this.finalEvaluationFormStore.finalPerformanceQuestionRating$.subscribe(res => {
       if (!res) return;
       this.questionRating = res.filter(ques => ques.categoryId === this.selectedCategory.categoryId);
       this.initForm();
@@ -126,7 +126,7 @@ export class FinalEvaluationFormComponent implements OnInit {
   }
 
   onBack() {
-    this.finalEvaluationFormStore.FinalPerformanceCategoryRating$.subscribe(res => {
+    this.finalEvaluationFormStore.finalPerformanceCategoryRating$.subscribe(res => {
       const category = res.find(item => item.categoryId === this.evaluationForm.value.questions[0].categoryId - 1)
       if (!category) return
       this.selectCategory(category);
@@ -134,7 +134,7 @@ export class FinalEvaluationFormComponent implements OnInit {
   }
 
   onNext() {
-    this.finalEvaluationFormStore.FinalPerformanceCategoryRating$.subscribe(res => {
+    this.finalEvaluationFormStore.finalPerformanceCategoryRating$.subscribe(res => {
       const category = res.find(item => item.categoryId === this.evaluationForm.value.questions[0].categoryId + 1)
       if (!category) return
       this.selectCategory(category);

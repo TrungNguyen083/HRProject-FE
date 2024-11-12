@@ -43,7 +43,7 @@
                                 <div class="flex justify-between items-center w-full">
                                     <span class="font-bold">{{ question.questionName }}</span>
                                     <div class="flex items-center gap-4" [formGroup]="getQuestionFormGroup(i)">
-                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="4"
+                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="5"
                                             [min]="1"></p-slider>
                                         <span class="text-primary">{{ getQuestionFormGroup(i).get('rating')?.value
                                             }}</span>

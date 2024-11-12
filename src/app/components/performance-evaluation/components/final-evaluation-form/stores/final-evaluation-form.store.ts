@@ -25,9 +25,9 @@ export class FinalEvaluationFormStore extends ComponentStore<FinalEvaluationForm
         })
     }
 
-    readonly FinalPerformanceOverall$ = this.select(state => state.finalPerformanceOverall);
-    readonly FinalPerformanceCategoryRating$ = this.select(state => state.finalPerformanceCategoryRating);
-    readonly FinalPerformanceQuestionRating$ = this.select(state => state.finalPerformanceQuestionRating);
+    readonly finalPerformanceOverall$ = this.select(state => state.finalPerformanceOverall);
+    readonly finalPerformanceCategoryRating$ = this.select(state => state.finalPerformanceCategoryRating);
+    readonly finalPerformanceQuestionRating$ = this.select(state => state.finalPerformanceQuestionRating);
     readonly employeeFeedback$ = this.select(state => state.employeeFeedback);
 
     //UPDATER
