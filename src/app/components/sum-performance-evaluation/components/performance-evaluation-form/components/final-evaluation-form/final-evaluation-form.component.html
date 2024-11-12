@@ -1,3 +1,5 @@
+<p-confirmDialog />
+
 <form [formGroup]="evaluationForm">
     <div>
         <div class="flex justify-between space-x-4 mb-8">
@@ -41,7 +43,7 @@
                                 <div class="flex justify-between items-center w-full">
                                     <span class="font-bold">{{ question.questionName }}</span>
                                     <div class="flex items-center gap-4" [formGroup]="getQuestionFormGroup(i)">
-                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="4"
+                                        <p-slider class="custom-slider" formControlName="rating" [step]="1" [max]="5"
                                             [min]="1"></p-slider>
                                         <span class="text-primary">{{ getQuestionFormGroup(i).get('rating')?.value
                                             }}</span>
@@ -119,25 +121,31 @@
             </div>
         </div>
 
-        <div class="mt-16 flex justify-end">
+        <div class="mt-16 flex justify-between">
+            <div>
+                <p-button (onClick)="onCancel()">Cancel</p-button>
+            </div>
             <div class="flex gap-2">
                 <ng-container *ngIf="selectedCategory === categoryRating[0]">
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" [disabled]="true"
-                        (onClick)="onBack()">Back</p-button>
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
-                        (onClick)="onNext()">Next</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Next')">Next</p-button>
                 </ng-container>
-                <ng-container *ngIf="selectedCategory !== categoryRating[categoryRating.length - 1] && selectedCategory !== categoryRating[0]">
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
-                        (onClick)="onBack()">Back</p-button>
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
-                        (onClick)="onNext()">Next</p-button>
+                <ng-container
+                    *ngIf="selectedCategory !== categoryRating[categoryRating.length - 1] && selectedCategory !== categoryRating[0]">
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        (onClick)="onSubmit('Back')">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Next')">Next</p-button>
                 </ng-container>
                 <ng-container *ngIf="selectedCategory === categoryRating[categoryRating.length - 1]">
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center"
-                        (onClick)="onBack()">Back</p-button>
-                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" [disabled]="true"
-                        (onClick)="onNext()">Next</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        (onClick)="onSubmit('Back')">Back</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Draft')" [disabled]="isSubmit">Save
+                        Draft</p-button>
+                    <p-button [loading]="isLoading" styleClass="w-full flex justify-center" type="submit"
+                        [disabled]="evaluationForm.invalid" (onClick)="onSubmit('Submit')"
+                        [disabled]="isSubmit">Save</p-button>
                 </ng-container>
             </div>
         </div>

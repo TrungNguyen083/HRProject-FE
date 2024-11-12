@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Apollo } from "apollo-angular";
-import { IEvaluationFormParams } from "../../self-evaluation-form/models/self-evaluation-form.model";
+import { Apollo, MutationResult } from "apollo-angular";
+import { IEvaluationFormParams, IPerformanceEvaluationInput } from "../../self-evaluation-form/models/self-evaluation-form.model";
 import { map, Observable } from "rxjs";
 import { IFinalCategoryRatingApiResponse, IFinalPerformanceOverallApiResponse, IFinalQuestionRatingApiResponse } from "../models/final-evaluation-form.model";
 import { GET_EMPLOYEE_FEEDBACK } from "src/app/components/competency-evaluation/components/manager-evaluation-form/constants/manager-evaluation-form.constant";
 import { IEmployeeFeedbackApiResponse } from "src/app/components/competency-evaluation/components/manager-evaluation-form/models/manager-evaluation-form.model";
-import { GET_FINAL_CATEGORY_RATING, GET_FINAL_OVERALL, GET_FINAL_QUESTION_RATING } from "../constants/final-evaluation-form.constant";
+import { CREATE_FINAL_EVALUATION, GET_FINAL_CATEGORY_RATING, GET_FINAL_OVERALL, GET_FINAL_QUESTION_RATING } from "../constants/final-evaluation-form.constant";
 
 @Injectable({
     providedIn: 'root',
@@ -55,5 +55,14 @@ export class FinalEvaluationFormService {
                 variables: { ...params },
             })
             .valueChanges.pipe(map(res => res.data));
+    }
+
+    createFinalEvaluation(
+        input: IPerformanceEvaluationInput,
+    ): Observable<MutationResult<boolean>> {
+        return this.apollo.mutate<boolean>({
+            mutation: CREATE_FINAL_EVALUATION,
+            variables: { input: input },
+        })
     }
 }
