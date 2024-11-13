@@ -1,1 +1,42 @@
-<p>competency-baseline works!</p>
+<div class="content-row">
+    <div class="md:col-span-12 lg:col-span-3 card-container">
+        <div class="flex flex-col gap-4">
+            <div class="flex gap-2 items-center">
+                <i class="pi pi-user text-primary"></i>
+                <span class="text-primary font-bold text-xl">Position</span>
+            </div>
+
+            <div class="flex justify-between items-center ">
+                <hrms-screen-filter class="search-tag" (getSearchValue)="searchValue($event)"></hrms-screen-filter>
+            </div>
+
+            <div class="scrollable-container flex flex-col gap-3">
+                <div *ngFor="let positionLevel of positionLevels" (click)="onSelectPositionLevel(positionLevel.positionId)"
+                [ngClass]="{'selected-position': selectedPositionLevelId === positionLevel.positionId}">
+                    <div class="score-item flex justify-between cursor-pointer items-center p-3 border rounded-md mr-3">
+                        <div class="flex flex-col gap-2">
+                            <span class="font-bold">{{ positionLevel.positionLevelName }}</span>
+                            <div class="bg-primaryLight"
+                                style="border-radius: 20px; padding: 5px 10px; max-width: fit-content;">
+                                <p class="flex justify-center text-primary text-sm">{{ positionLevel.skillNo }}
+                                    assessable skills</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:col-span-12 lg:col-span-9 card-container">
+        <div>
+            <div>
+                <p class="text-primary font-bold text-xl">Competency Baseline</p>
+                <p class="text-sm">by Position</p>
+            </div>
+        </div>
+        <div id="chart">
+            <hrms-chart [apexOptions]="chartOptions" [type]="'heatmap'"></hrms-chart>
+        </div>
+    </div>
+</div>
