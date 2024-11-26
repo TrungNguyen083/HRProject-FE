@@ -70,6 +70,10 @@ const routes: Routes = [
       {
         path: 'sum-performance-evaluation',
         loadChildren: () => import('./components/sum-performance-evaluation/sum-performance-evaluation.module').then(m => m.SumPerformanceEvaluationModule)
+      },
+      {
+        path: 'hr-evaluation-overview',
+        loadChildren: () => import('./components/hr-evaluation-overview/hr-evaluation-overview.module').then(m => m.HrEvaluationOverviewModule)
       }
     ],
   },

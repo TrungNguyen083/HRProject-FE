@@ -1,0 +1,34 @@
+:host ::ng-deep {
+    display: contents;
+
+    .action-col {
+        @apply flex justify-center;
+    }
+
+    td {
+        @apply p-1 align-middle;
+
+        .name {
+            color: #495057;
+
+            &:hover {
+                @apply text-primary;
+            }
+        }
+    }
+
+    .avatar-img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .employment-tag {
+        border-radius: 50px;
+    }
+
+    .user-item-row {
+        @apply text-sm;
+    }
+}

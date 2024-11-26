@@ -27,6 +27,7 @@ export class FinalEvaluationFormComponent implements OnInit {
   rating!: number;
   status!: string;
   isSubmit!: boolean;
+  potential!: number;
   evaluationForm!: FormGroup;
   questionRating!: IQuestionRating[];
   categoryRating!: ICategoryRating[];
@@ -80,6 +81,7 @@ export class FinalEvaluationFormComponent implements OnInit {
       this.position = res?.position ?? '';
       this.level = res?.level ?? '';
       this.rating = res?.rating ?? '';
+      this.potential = res?.potential ?? 1;
       this.status = res?.status ?? 0;
       this.isSubmit = res?.isSubmit ?? false;
     })
@@ -103,9 +105,10 @@ export class FinalEvaluationFormComponent implements OnInit {
           questionId: [ques.questionId],
           categoryId: [ques.categoryId],
           rating: [{ value: ques.rating || 1, disabled: this.isSubmit }, [Validators.required]],
-          comment: [{ value: ques.comment || '', disabled: this.isSubmit }, [Validators.required]]
+          comment: [{ value: ques.comment || '', disabled: this.isSubmit }, [Validators.required]],
         })
-      ))
+      )),
+      potential: [{ value: this.potential || 1, disabled: this.isSubmit }, [Validators.required]],
     });
 
     if (this.isSubmit) {
@@ -113,7 +116,12 @@ export class FinalEvaluationFormComponent implements OnInit {
         control.get('rating')?.disable();
         control.get('comment')?.disable();
       });
+      this.evaluationForm.get('potential')?.disable();
     }
+
+    this.evaluationForm.get('potential')?.valueChanges.subscribe(value => {
+      this.potential = value;
+    });
   }
 
   get questions() {
@@ -193,13 +201,14 @@ export class FinalEvaluationFormComponent implements OnInit {
               employeeId: this.employeeId,
               cycleId: this.cycleId,
               isSubmit: false,
+              potential: this.potential,
               questionRating: this.evaluationDataList[0].questions.map((question: any) => ({
-                question: question.questionId,
+                questionId: question.questionId,
                 comment: question.comment,
                 rating: question.rating
               }))
             }
-            this.createSelfEvaluation(input);
+            this.createFinalEvaluation(input);
           },
           reject: () => {
             this.isLoading = false;
@@ -219,13 +228,14 @@ export class FinalEvaluationFormComponent implements OnInit {
               employeeId: this.employeeId,
               cycleId: this.cycleId,
               isSubmit: true,
+              potential: this.potential,
               questionRating: this.evaluationDataList[0].questions.map((question: any) => ({
-                question: question.questionId,
+                questionId: question.questionId,
                 comment: question.comment,
                 rating: question.rating
               }))
             }
-            this.createSelfEvaluation(input);
+            this.createFinalEvaluation(input);
           },
           reject: () => {
             this.isLoading = false;
@@ -236,7 +246,7 @@ export class FinalEvaluationFormComponent implements OnInit {
     }
   }
 
-  createSelfEvaluation(input: IPerformanceEvaluationInput) {
+  createFinalEvaluation(input: IPerformanceEvaluationInput) {
     this.finalEvaluationFormService.createFinalEvaluation(input)
       .pipe()
       .subscribe({

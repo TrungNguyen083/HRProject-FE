@@ -194,7 +194,7 @@ export class SelfEvaluationFormComponent implements OnInit {
               cycleId: this.cycleId,
               isSubmit: false,
               questionRating: this.evaluationDataList[0].questions.map((question: any) => ({
-                question: question.questionId,
+                questionId: question.questionId,
                 comment: question.comment,
                 rating: question.rating
               }))

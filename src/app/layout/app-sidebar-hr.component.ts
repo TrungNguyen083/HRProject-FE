@@ -16,6 +16,11 @@ const dummies: MenuItem[] = [
     path: 'employee-management',
   },
   {
+    name: 'Evaluation Overview',
+    icon: 'pi pi-chart-pie',
+    path: 'hr-evaluation-overview',
+  },
+  {
     name: 'Competency Framework',
     icon: 'pi pi-chart-pie',
     path: 'competency-framework',

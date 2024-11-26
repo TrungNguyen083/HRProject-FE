@@ -301,6 +301,35 @@ export const radarChartOptions: ChartOptions = {
   },
 };
 
+export const multiSeriesPieChartOptions: ChartOptions = {
+  plugins: {
+    legend: {
+      position: 'bottom', // Position of the legend
+      labels: {
+        usePointStyle: true, // Use point-style markers
+      },
+    },
+    tooltip: {
+      callbacks: {
+        label: (tooltipItem) => {
+          const dataset = tooltipItem.dataset;
+          const label = dataset.label;
+          const value = dataset.data[tooltipItem.dataIndex] as number;
+          return `${label}: ${value}%`; // Custom tooltip format
+        },
+      },
+    },
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 10,
+      bottom: 10,
+    },
+  },
+};
+
 export const donutChartOptions: DonutChartOptions = {
   responsive: true,
   cutout: '60%',
@@ -321,6 +350,7 @@ export const pieChartOptions: ChartOptions = {
     },
   },
 };
+
 
 export const barChartWithLineOptions: ChartOptions = {
   responsive: true,
@@ -447,3 +477,34 @@ export const barChartNoGridOptions: ChartOptions = {
     },
   },
 };
+
+export const barChartOption: ChartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  aspectRatio: 0.6,
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        // color: textColorSecondary,
+      },
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      ticks: {
+        // color: textColorSecondary,
+      },
+      grid: {
+        display: false,
+      },
+    },
+  },
+}

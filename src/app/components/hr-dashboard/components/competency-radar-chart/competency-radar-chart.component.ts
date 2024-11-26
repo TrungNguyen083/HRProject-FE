@@ -20,7 +20,6 @@ export class CompetencyRadarChartComponent implements OnInit {
   options: ChartOptions = radarChartOptions;
   filterForm!: FormGroup;
   competencyRadarChart$ = this.competencyScoreStore.competencyRadarChart$;
-  lebels: string[] = [];
   scoreParams = { evaluateCycleIds: [3, 4], departmentId: 1 };
   cycleOptions!: IDropdownItem[];
   departmentOptions!: IDropdownItem[];

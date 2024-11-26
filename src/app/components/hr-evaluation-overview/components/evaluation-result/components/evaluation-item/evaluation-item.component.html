@@ -1,0 +1,54 @@
+<tr class="mt-3 p-selectable-row">
+    <td class="text-center">
+        <p-checkbox
+          [(ngModel)]="checked"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onCheckChange($event)"
+          [disabled]="evaluationResult.finalStatus === 'In Progress'"
+        ></p-checkbox>
+      </td>
+    <td>
+        <div class="flex items-center pl-2 gap-3">
+            <img *ngIf="evaluationResult.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="evaluationResult.profileImage"
+                [alt]="evaluationResult.firstName" />
+
+            <img *ngIf="!evaluationResult.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="defaultImg"
+                [alt]="evaluationResult.firstName" />
+            <a class="text-black font-bold ml-2 name">{{ evaluationResult.firstName }} {{ evaluationResult.lastName
+                }}</a>
+        </div>
+    </td>
+    <td>{{ evaluationResult.level }} {{ evaluationResult.position }}</td>
+    <td>
+        <span
+            class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2">{{
+            evaluationResult.competencyRating | number:'1.1-1' }}</span>
+    </td>
+    <td>
+        <span
+            class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2">{{
+            evaluationResult.performanceRating | number:'1.1-1' }}</span>
+    </td>
+    <td>
+        <ng-container [ngSwitch]="evaluationResult.potential">
+            <span *ngSwitchCase="'High'"
+                class="employment-tag inline-flex items-center rounded-md bg-primaryLight px-3 py-1 text-sm text-primary ring-1 ring-inset ring-primaryLight2">{{
+                evaluationResult.potential }}</span>
+            <span *ngSwitchCase="'Moderate'"
+                class="employment-tag inline-flex items-center rounded-md bg-green-50 px-3 py-1 text-sm text-green-700 ring-1 ring-inset ring-green-600/20">{{
+                evaluationResult.potential }}</span>
+            <span *ngSwitchCase="'Low'"
+                class="employment-tag inline-flex items-center rounded-md bg-yellow-50 px-3 py-1 text-sm text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{{
+                evaluationResult.potential }}</span>
+                <span *ngSwitchCase="'Not evaluate yet'"
+                class="employment-tag inline-flex items-center rounded-md bg-aqua-50 px-3 py-1 text-sm text-aqua-700 ring-1 ring-inset ring-aqua-700/10">{{
+                evaluationResult.potential }}</span>
+        </ng-container>
+    </td>
+    <td class="action-col">
+        <p-button type="button" (onClick)="viewDetail(evaluationResult.employeeId)">View Details</p-button>
+    </td>
+</tr>

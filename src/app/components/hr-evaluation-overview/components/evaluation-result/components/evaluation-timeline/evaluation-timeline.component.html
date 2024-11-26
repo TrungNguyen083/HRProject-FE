@@ -1,0 +1,21 @@
+<div class="flex justify-center item-center">
+    <div class="mt-4 px-2 w-9/12">
+        <p-timeline [value]="events" layout="horizontal" align="center">
+            <ng-template pTemplate="marker" let-event>
+                <div class="custom-marker shadow-2" [class.active]="event.isDone">
+                    <i [ngClass]="event.icon" class="font-medium marker-icon"></i>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                <div class="timeline-content flex gap-4 w-fit" [class.active]="event.isDone">
+                    <p class="text-center w-fit">{{event.startDate | date: 'dd MMMM'}}</p>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="opposite" let-event>
+                <div class="timeline-content flex gap-4 w-fit" [class.active]="event.isDone">
+                    <p class="text-center w-fit">{{event.timeLineName}}</p>
+                </div>
+            </ng-template>
+        </p-timeline>
+    </div>
+</div>

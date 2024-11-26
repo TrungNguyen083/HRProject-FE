@@ -61,6 +61,24 @@ export const radarChartColors = [
   },
 ];
 
+export const multiPieChartColor = [
+  {
+    backgroundColor: [colors.primaryLight2, colors.primaryLight],
+  },
+  {
+    backgroundColor: [colors.lightGreen, 'rgba(130, 196, 90, 0.2)'],
+  },
+]
+
+export const barChartCompareColor = [
+  {
+    backgroundColor: [colors.primaryLight2],
+  },
+  {
+    backgroundColor: [colors.lightGreen],
+  },
+]
+
 
 export const colorObj = {
   primary: colors.primary,

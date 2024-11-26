@@ -1,0 +1,40 @@
+/* Progress Bar Custom Styles */
+progress {
+    height: 0.75rem;
+    width: 20rem;
+    border-radius: 50px;
+    overflow: hidden;
+    
+
+    &.bg-red::-webkit-progress-bar {
+        background-color: theme('colors.red.100');
+    }
+
+    &.bg-yellow::-webkit-progress-bar {
+        background-color: theme('colors.yellow.100');
+    }
+
+    &.bg-green::-webkit-progress-bar {
+        background-color: theme('colors.green.100');
+    }
+
+    &.bg-primary::-webkit-progress-bar {
+        background-color: theme('colors.primaryLight'); 
+    }
+
+    &.bg-red::-webkit-progress-value {
+        background-color: theme('colors.red.600');
+    }
+
+    &.bg-yellow::-webkit-progress-value {
+        background-color: theme('colors.yellow.600');
+    }
+
+    &.bg-green::-webkit-progress-value {
+        background-color: theme('colors.green.600');
+    }
+
+    &.bg-primary::-webkit-progress-value {
+        background-color: theme('colors.primary');
+    }
+}
