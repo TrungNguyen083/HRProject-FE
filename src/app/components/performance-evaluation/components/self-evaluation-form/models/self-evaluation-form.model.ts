@@ -23,6 +23,7 @@ export interface IPerformanceOverall {
     position: string
     level: string
     rating: number
+    potential?: number
     status: string
     isSubmit: boolean
 }
@@ -48,6 +49,7 @@ export interface IPerformanceEvaluationInput {
     employeeId: number
     cycleId: number
     isSubmit: boolean
+    potential?: number
     questionRating: IQuestionSubmit[]
 }
 

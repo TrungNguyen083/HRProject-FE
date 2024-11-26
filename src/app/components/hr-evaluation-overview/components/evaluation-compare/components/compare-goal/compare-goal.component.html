@@ -1,0 +1,48 @@
+<div>
+    <div class="pl-8">
+        <p class="text-lg font-bold">Goals Achievement</p>
+    </div>
+    <div class="flex justify-around items-center">
+        <div>
+            <hrms-chart type="pie" [data]="data" [options]="options"></hrms-chart>
+        </div>
+        <div>
+            <p-dataView [value]="compareGoals" layout="list" class="flex justify-center items-center">
+                <ng-template let-compareGoal pTemplate="listItem" class="dataView-container">
+                    <div class="col-12" style="border-bottom: none; padding-bottom: 18px !important;">
+                        <div class="flex items-center justify-start gap-4">
+                            <div>
+                                <span class="font-bold text-lg">{{compareGoal.firstName}} {{compareGoal.lastName}}</span>
+                                <div *ngFor="let goal of compareGoal.goals">
+                                    <div>
+                                        <p>{{ goal.goalName }}</p>
+                                        <div class="flex gap-4 items-center">
+                                            <div class="relative w-full">
+                                                <progress id="goalProgress" [value]="goal.goalProgress" max="100"
+                                                    class="rounded-md h-4 w-full" [ngClass]="{
+                                              'bg-red': goal.goalProgress <= 20,
+                                              'bg-yellow': goal.goalProgress > 20 && goal.goalProgress <= 40,
+                                              'bg-green': goal.goalProgress > 40 && goal.goalProgress < 100,
+                                              'bg-primary': goal.goalProgress == 100,
+                                            }">
+                                                </progress>
+                                            </div>
+                                            <div>
+                                                <span class="font-bold" [ngClass]="{
+                                                  'text-red-700': goal.goalProgress <= 20,
+                                                  'text-yellow-700': goal.goalProgress > 20 && goal.goalProgress <= 40,
+                                                  'text-green-700': goal.goalProgress > 40 && goal.goalProgress < 100,
+                                                  'text-primary': goal.goalProgress == 100,
+                                                }">{{ goal.goalProgress }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+    </div>
+</div>

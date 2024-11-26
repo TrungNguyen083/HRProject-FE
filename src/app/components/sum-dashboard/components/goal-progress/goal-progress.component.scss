@@ -4,7 +4,7 @@ progress {
     width: 20rem;
     border-radius: 50px;
     overflow: hidden;
-    
+
 
     &.bg-red::-webkit-progress-bar {
         background-color: theme('colors.red.100');
@@ -19,7 +19,7 @@ progress {
     }
 
     &.bg-primary::-webkit-progress-bar {
-        background-color: theme('colors.primaryLight'); 
+        background-color: theme('colors.primaryLight');
     }
 
     &.bg-red::-webkit-progress-value {

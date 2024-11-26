@@ -4,9 +4,9 @@ import { TableHeader } from "src/app/models/global.model";
 export const evaluationProgressTableCols: TableHeader[] = [
     { col: 'Employee', field: 'employee' },
     { col: 'Position', field: 'position' },
-    { col: 'Employee Status', field: 'email' },
-    { col: 'Manager Status', field: 'department' },
-    { col: 'Final Status', field: 'currentContract' },
+    { col: 'Employee Status', field: 'employeeStatus' },
+    { col: 'Manager Status', field: 'managerStatus' },
+    { col: 'Final Status', field: 'finalStatus' },
     { col: '', field: '' },
 ];
 

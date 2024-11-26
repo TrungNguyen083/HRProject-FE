@@ -35,6 +35,7 @@ export const GET_FINAL_OVERALL = gql`
             position
             level
             rating
+            potential
             status
             isSubmit
         }

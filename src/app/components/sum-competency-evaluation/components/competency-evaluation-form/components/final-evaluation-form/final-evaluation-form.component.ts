@@ -199,7 +199,7 @@ export class FinalEvaluationFormComponent implements OnInit {
                 rating: competency.rating
               }))
             }
-            this.createSelfEvaluation(input);
+            this.createFinalEvaluation(input);
           },
           reject: () => {
             this.isLoading = false;
@@ -225,7 +225,7 @@ export class FinalEvaluationFormComponent implements OnInit {
                 rating: competency.rating
               }))
             }
-            this.createSelfEvaluation(input);
+            this.createFinalEvaluation(input);
           },
           reject: () => {
             this.isLoading = false;
@@ -236,7 +236,7 @@ export class FinalEvaluationFormComponent implements OnInit {
     }
   }
 
-  createSelfEvaluation(input: ICompetencyEvaluationInput) {
+  createFinalEvaluation(input: ICompetencyEvaluationInput) {
     this.finalEvaluationFormService.createFinalEvaluation(input)
       .pipe()
       .subscribe({

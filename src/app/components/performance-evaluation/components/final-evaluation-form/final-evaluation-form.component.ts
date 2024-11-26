@@ -21,6 +21,7 @@ export class FinalEvaluationFormComponent implements OnInit {
   position!: string;
   level!: string;
   rating!: number;
+  potential!: number;
   status!: string;
   isSubmit!: boolean;
   evaluationForm!: FormGroup;
@@ -70,6 +71,7 @@ export class FinalEvaluationFormComponent implements OnInit {
       this.position = res?.position ?? '';
       this.level = res?.level ?? '';
       this.rating = res?.rating ?? '';
+      this.potential = res?.potential ?? 0;
       this.status = res?.status ?? 0;
       this.isSubmit = res?.isSubmit ?? false;
     })
