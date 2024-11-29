@@ -19,7 +19,6 @@ import { TableModule } from 'primeng/table';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 import { HrmsAvatarComponent } from '../share/hrms-avatar/hrms-avatar.component';
 import { ShareModule } from '../share/share.module';
 import { ContractBadgeComponent } from './components/contract-badge/contract-badge.component';
@@ -35,7 +34,7 @@ import { EmployeeManagementService } from './services/employee-management.servic
 import { EmployeeEffects } from './store/employee-management.effects';
 import { employeeesReducer } from './store/employee-management.reducer';
 import { EmployeeStore } from './store/employee-management.store.service';
-import { AppSidebarComponent } from 'src/app/layout/app-sidebar.component';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 @NgModule({
   declarations: [
     EmployeeManagementComponent,
@@ -46,18 +45,17 @@ import { AppSidebarComponent } from 'src/app/layout/app-sidebar.component';
     EmployeeCardComponent,
     EmployeeCarouselComponent,
     ContractBadgeComponent,
-    AppSidebarComponent,
   ],
   imports: [
     CommonModule,
     EmployeeManagementRoutingModule,
     RouterModule,
-    AppTopbarModule,
     ShareModule,
     AvatarModule,
     TableModule,
     ButtonModule,
     MenuModule,
+    AppTopbarModule,
     ReactiveFormsModule,
     MultiSelectModule,
     InputTextModule,

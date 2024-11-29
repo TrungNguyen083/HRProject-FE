@@ -1,21 +1,17 @@
 <div class="card-container">
-    <div>
-      <hrms-tab-menu 
-        [labelItems]="labelItems" 
-        [activeItem]="activeItem"
-        (handleActiveItemChange)="onActiveItemChange($event)"
-      >
-      </hrms-tab-menu>
-    </div>
-  
-    <div class="mt-4">
-      <ng-container *ngIf="activeItem?.label === 'competency-review-progress'">
-        <competency-review-progress></competency-review-progress>
-      </ng-container>
-  
-      <ng-container *ngIf="activeItem?.label === 'performance-review-progress'">
-        <performance-review-progress></performance-review-progress>
-      </ng-container>
-    </div>
+  <div>
+    <hrms-tab-menu [labelItems]="labelItems" [activeItem]="activeItem"
+      (handleActiveItemChange)="onActiveItemChange($event)">
+    </hrms-tab-menu>
   </div>
-  
+
+  <div class="mt-4">
+    <ng-container *ngIf="activeItem?.label === 'competency-review-progress'">
+      <competency-review-progress></competency-review-progress>
+    </ng-container>
+
+    <ng-container *ngIf="activeItem?.label === 'performance-review-progress'">
+      <performance-review-progress></performance-review-progress>
+    </ng-container>
+  </div>
+</div>

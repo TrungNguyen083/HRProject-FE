@@ -8,6 +8,7 @@ export interface IPromotion {
     currentPositionLevel: string
     promotePositionLevel: string
     status: string
+    comment: string
 }
 
 export interface IPromotionParams {

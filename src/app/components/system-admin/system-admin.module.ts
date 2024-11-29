@@ -10,7 +10,6 @@ import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 import { ShareModule } from '../share/share.module';
 import { RoleBadgeComponent } from './components/role-badge/role-badge.component';
 import { UserItemComponent } from './components/user-item/user-item.component';
@@ -21,8 +20,8 @@ import { SystemAdminRoutingModule } from './system-admin-routing.module';
 import { SystemAdminComponent } from './system-admin.component';
 import { UserActivateFormComponent } from './components/user-activate-form/user-activate-form.component';
 import { UpdaterUserFormComponent } from './components/updater-user-form/updater-user-form.component';
-import { AppSidebarAdminComponent } from 'src/app/layout/app-sidebar-admin.component';
 import { UserAssignFormComponent } from './components/user-assign-form/user-assign-form.component';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { UserAssignFormComponent } from './components/user-assign-form/user-assi
     UserActivateFormComponent,
     UpdaterUserFormComponent,
     UserAssignFormComponent,
-    AppSidebarAdminComponent,
   ],
   imports: [
     CommonModule,

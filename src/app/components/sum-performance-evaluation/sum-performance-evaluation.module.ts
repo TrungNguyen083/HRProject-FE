@@ -12,9 +12,7 @@ import { EvaluationListComponent } from './components/performance-progress/compo
 import { EvaluationTimelineComponent } from './components/performance-progress/components/evaluation-timeline/evaluation-timeline.component';
 import { ButtonModule } from 'primeng/button';
 import { TimelineModule } from 'primeng/timeline';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 import { ShareModule } from '../share/share.module';
-import { SumDashboardModule } from '../sum-dashboard/sum-dashboard.module';
 import { PerformanceEvaluationFormComponent } from './components/performance-evaluation-form/performance-evaluation-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
@@ -22,6 +20,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SliderModule } from 'primeng/slider';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 
 @NgModule({
@@ -39,11 +38,10 @@ import { SliderModule } from 'primeng/slider';
   imports: [
     CommonModule,
     SumPerformanceEvaluationRoutingModule,
-    AppTopbarModule,
-    SumDashboardModule,
     ShareModule,
     ButtonModule,
     TimelineModule,
+    AppTopbarModule,
     AccordionModule,
     SliderModule,
     FormsModule,

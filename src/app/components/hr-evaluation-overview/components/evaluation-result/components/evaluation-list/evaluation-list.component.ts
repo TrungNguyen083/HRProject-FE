@@ -11,6 +11,9 @@ import { configPagination } from 'src/app/utils/configPagination';
 import { CheckboxChangeEvent } from 'primeng/checkbox';
 import { PaginatedData } from 'src/app/models/global.model';
 import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { EvaluationResultService } from '../../services/evaluation-result.service';
+import { NotificationService } from 'src/app/shared/message/notification.service';
 
 @Component({
   selector: 'app-evaluation-list',
@@ -18,6 +21,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./evaluation-list.component.scss']
 })
 export class EvaluationListComponent implements OnInit {
+  isLoading = false;
+  cycleId!: number
   title!: string
   status!: string
   startDate!: string
@@ -39,14 +44,18 @@ export class EvaluationListComponent implements OnInit {
   constructor(
     private hrEvaluationOverviewStore: HrEvaluationOverviewStore,
     private evaluationResultStore: EvaluationResultStore,
+    private evaluationResultService: EvaluationResultService,
+    private confirmationService: ConfirmationService,
+    private notificationService: NotificationService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.hrEvaluationOverviewStore.currentCycle$.subscribe(cycleId => {
       if (!cycleId) return;
+      this.cycleId = cycleId;
       this.params = { ...this.params, cycleId };
-      
+
       this.evaluationResultStore.getEvaluationOverviewList(this.params);
       this.evaluationResultStore.getEvaluationTitle(cycleId);
     });
@@ -127,6 +136,34 @@ export class EvaluationListComponent implements OnInit {
   }
 
   onPromoteEvas() {
-    
+    this.isLoading = true;
+    this.confirmationService.confirm({
+      message: 'Are you want to request these promotions?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const employeeIds = this.selectedEvaIds;
+        const cycleId = this.cycleId;
+        this.evaluationResultService.createRequestPromotion(employeeIds, cycleId)
+          .pipe()
+          .subscribe({
+            next: () => {
+              this.isLoading = false;
+              this.notificationService.successNotification(
+                `Request promotions successfully`,
+              );
+            },
+            error: (err) => {
+              this.isLoading = false;
+              this.notificationService.errorNotification(
+                `Failed to request promotions`
+              );
+            }
+          });
+      },
+      reject: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }

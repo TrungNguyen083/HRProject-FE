@@ -1,0 +1,19 @@
+<div>
+    <form [formGroup]="promotionForm" action="" (ngSubmit)="onPromotion()">
+        <div class="mt-4">
+            <label class="block font-bold" for="isApprove">Option</label>
+            <p-dropdown styleClass="w-full mt-1" [options]="isApproves" id="isApprove" display="chip"
+                formControlName="isApprove" placeholder="Please choose your choice">
+            </p-dropdown>
+        </div>
+        <div class="mt-4">
+            <label class="block font-bold" for="comment">Comment</label>
+            <textarea class="w-full" rows="3" cols="60" pInputTextarea formControlName="comment"
+                placeholder="Enter your comment"></textarea>
+        </div>
+        <div class="mt-16">
+            <p-button styleClass="w-full flex justify-center" type="submit" [loading]="isLoading"
+                [disabled]="promotionForm.invalid">Submit</p-button>
+        </div>
+    </form>
+</div>

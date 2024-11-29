@@ -10,7 +10,6 @@ import { CompetencyFrameworkComponent } from './competency-framework.component';
 import { TreeTableModule } from 'primeng/treetable';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HrDashboardModule } from '../hr-dashboard/hr-dashboard.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
@@ -31,10 +30,9 @@ import { ConfirmationService } from 'primeng/api';
     CommonModule,
     CompetencyFrameworkRoutingModule,
     ShareModule,
-    AppTopbarModule,
-    HrDashboardModule,
     RouterModule,
     TreeTableModule,
+    AppTopbarModule,
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,

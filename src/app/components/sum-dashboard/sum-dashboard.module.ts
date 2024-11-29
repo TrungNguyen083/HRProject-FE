@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SumDashboardComponent } from './sum-dashboard.component';
 import { SumDashboardRoutingModule } from './sum-dashboard-routing.module';
-import { AppSidebarSumComponent } from 'src/app/layout/app-sidebar-sum.component';
 import { SumOverviewComponent } from './components/sum-overview/sum-overview.component';
 import { SumOverviewCompetencyComponent } from './components/sum-overview/components/sum-overview-competency/sum-overview-competency.component';
 import { SumOverviewPerformanceComponent } from './components/sum-overview/components/sum-overview-performance/sum-overview-performance.component';
 import { SumOverviewHeadcountsComponent } from './components/sum-overview/components/sum-overview-headcounts/sum-overview-headcounts.component';
 import { SumOverviewStartsComponent } from './components/sum-overview/components/sum-overview-starts/sum-overview-starts.component';
 import { ShareModule } from '../share/share.module';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 import { ReviewProgressComponent } from './components/review-progress/review-progress.component';
 import { CompetencyReviewProgressComponent } from './components/review-progress/components/competency-review-progress/competency-review-progress.component';
 import { PerformanceReviewProgressComponent } from './components/review-progress/components/performance-review-progress/performance-review-progress.component';
@@ -34,12 +32,12 @@ import { GoalProgressComponent } from './components/goal-progress/goal-progress.
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadarChartCompetencyGapComponent } from './components/radar-chart-competency-gap/radar-chart-competency-gap.component';
 import { HeatMapSkillLevelComponent } from './components/heat-map-skill-level/heat-map-skill-level.component';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 
 @NgModule({
   declarations: [
     SumDashboardComponent,
-    AppSidebarSumComponent,
     SumOverviewComponent,
     SumOverviewCompetencyComponent,
     SumOverviewPerformanceComponent,
@@ -60,12 +58,12 @@ import { HeatMapSkillLevelComponent } from './components/heat-map-skill-level/he
     GoalProgressComponent,
   ],
   imports: [
-    AppTopbarModule,
     CommonModule,
     DataViewModule,
     SumDashboardRoutingModule,
     ShareModule,
     SkeletonModule,
+    AppTopbarModule,
     DropdownModule,
     FormsModule,
     DialogModule,
@@ -77,6 +75,5 @@ import { HeatMapSkillLevelComponent } from './components/heat-map-skill-level/he
     MultiSelectModule,
     ProgressBarModule,
   ],
-  exports: [AppSidebarSumComponent]
 })
 export class SumDashboardModule { }

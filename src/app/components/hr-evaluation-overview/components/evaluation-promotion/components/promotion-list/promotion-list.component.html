@@ -1,20 +1,15 @@
 <p class="font-bold text-2xl my-2">Promotion</p>
 
-<div class="card-container mt-4">
+<div class="mt-4">
     <evaluation-timeline></evaluation-timeline>
     <div class="flex justify-between items-center mt-2">
         <hrms-screen-filter (getSearchValue)="searchValue($event)"></hrms-screen-filter>
-        <div class="flex gap-3 items-center">
-            <span>Requested on:</span>
-            <span
-                class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2">{{ cycleTitle }}</span>
-        </div>
     </div>
     <div class="mt-3">
         <hrms-table (pagingInfo)="onPageChange($event)" [isPaginationShown]="true" [table]="tableData"
             [contentRef]="contentRef">
             <ng-template #contentRef let-rowData>
-                <evaluation-item [evaluationResult]="rowData"></evaluation-item>
+                <promotion-item [promotion]="rowData"></promotion-item>
             </ng-template>
         </hrms-table>
     </div>

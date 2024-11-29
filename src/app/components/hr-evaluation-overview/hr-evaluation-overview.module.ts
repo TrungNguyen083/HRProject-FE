@@ -9,7 +9,6 @@ import { EvaluationListComponent } from './components/evaluation-result/componen
 import { EvaluationItemComponent } from './components/evaluation-result/components/evaluation-item/evaluation-item.component';
 import { CompetencyFormComponent } from './components/evaluation-form/components/competency-form/competency-form.component';
 import { PerformanceFormComponent } from './components/evaluation-form/components/performance-form/performance-form.component';
-import { HrDashboardModule } from '../hr-dashboard/hr-dashboard.module';
 import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 import { EvaluationTimelineComponent } from './components/evaluation-result/components/evaluation-timeline/evaluation-timeline.component';
 import { AccordionModule } from 'primeng/accordion';
@@ -28,6 +27,11 @@ import { ComparePerformanceComponent } from './components/evaluation-compare/com
 import { CompareOverallComponent } from './components/evaluation-compare/components/compare-overall/compare-overall.component';
 import { CompareCompetencyRadarchartComponent } from './components/evaluation-compare/components/compare-competency-radarchart/compare-competency-radarchart.component';
 import { DataViewModule } from 'primeng/dataview';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { PromotionFormComponent } from './components/evaluation-promotion/components/promotion-form/promotion-form.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 @NgModule({
@@ -47,22 +51,26 @@ import { DataViewModule } from 'primeng/dataview';
     CompareOverallComponent,
     CompareCompetencyRadarchartComponent,
     CompareGoalComponent,
-    ComparePerformanceComponent
+    ComparePerformanceComponent,
+    PromotionFormComponent
   ],
   imports: [
     CommonModule,
     HrEvaluationOverviewRoutingModule,
-    HrDashboardModule,
-    AppTopbarModule,
     ShareModule,
     ButtonModule,
     TimelineModule,
+    AppTopbarModule,
     AccordionModule,
     SliderModule,
     FormsModule,
     ReactiveFormsModule,
     CheckboxModule,
-    DataViewModule
-  ]
+    DataViewModule,
+    ConfirmDialogModule,
+    DropdownModule,
+    InputTextareaModule
+  ],
+  providers: [ConfirmationService]
 })
 export class HrEvaluationOverviewModule { }
