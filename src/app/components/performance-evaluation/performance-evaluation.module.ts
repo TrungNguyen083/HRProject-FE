@@ -6,9 +6,8 @@ import { PerformanceEvaluationComponent } from './performance-evaluation.compone
 import { RouterModule } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
-import { EmployeeDashboardModule } from '../employee-dashboard/employee-dashboard.module';
 import { ShareModule } from '../share/share.module';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { ShareModule } from '../share/share.module';
     PerformanceEvaluationRoutingModule,
     ShareModule,
     AppTopbarModule,
-    EmployeeDashboardModule,
     RouterModule,
     ConfirmDialogModule,
   ],

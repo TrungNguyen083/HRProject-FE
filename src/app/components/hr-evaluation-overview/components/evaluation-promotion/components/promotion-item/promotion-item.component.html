@@ -1,1 +1,41 @@
-<p>promotion-item works!</p>
+<tr class="mt-3 p-selectable-row">
+    <td>
+        <div class="flex items-center pl-2 gap-3">
+            <img *ngIf="promotion.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="promotion.profileImage"
+                [alt]="promotion.firstName" />
+
+            <img *ngIf="!promotion.profileImage" class="avatar-img"
+                style="background: #cde9eaff; border-radius: 60px" [src]="defaultImg"
+                [alt]="promotion.firstName" />
+            <a class="text-black font-bold ml-2 name">{{ promotion.firstName }} {{ promotion.lastName
+                }}</a>
+        </div>
+    </td>
+    <td>
+        <span
+            class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2">{{
+            promotion.currentPositionLevel }}</span>
+    </td>
+    <td>
+        <span
+            class="employment-tag inline-flex items-center rounded-full bg-primaryLight px-3 py-1 font-medium text-primary ring-1 ring-inset ring-primaryLight2">{{
+            promotion.promotePositionLevel }}</span>
+    </td>
+    <td>
+        <ng-container [ngSwitch]="promotion.status">
+            <span *ngSwitchCase="'Approved'"
+                class="employment-tag inline-flex items-center rounded-md bg-primaryLight px-3 py-1 text-sm text-primary ring-1 ring-inset ring-primaryLight2">{{
+                promotion.status }}</span>
+            <span *ngSwitchCase="'Pending'"
+                class="employment-tag inline-flex items-center rounded-md bg-yellow-50 px-3 py-1 text-sm text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{{
+                promotion.status }}</span>
+                <span *ngSwitchCase="'Rejected'"
+                class="employment-tag inline-flex items-center rounded-md bg-red-50 px-3 py-1 text-sm text-red-800 ring-1 ring-inset ring-red-600/20">{{
+                promotion.status }}</span>
+        </ng-container>
+    </td>
+    <td class="action-col">
+        <p-button type="button" (onClick)="openModel(promotion.employeeId)">Update</p-button>
+    </td>
+</tr>

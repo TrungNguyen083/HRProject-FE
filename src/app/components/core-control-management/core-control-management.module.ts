@@ -5,7 +5,6 @@ import { CoreControlManagementRoutingModule } from './core-control-management-ro
 import { CoreControlManagementComponent } from './core-control-management.component';
 import { ShareModule } from '../share/share.module';
 import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
-import { HrDashboardModule } from '../hr-dashboard/hr-dashboard.module';
 
 
 @NgModule({
@@ -15,9 +14,8 @@ import { HrDashboardModule } from '../hr-dashboard/hr-dashboard.module';
   imports: [
     CommonModule,
     CoreControlManagementRoutingModule,
-    ShareModule,
     AppTopbarModule,
-    HrDashboardModule
+    ShareModule,
   ]
 })
 export class CoreControlManagementModule { }

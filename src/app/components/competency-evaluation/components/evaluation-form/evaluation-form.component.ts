@@ -158,7 +158,7 @@ export class EvaluationFormComponent implements OnInit {
         })
         break;
       case 'Draft':
-        // this.isLoading = true;
+        this.isLoading = true;
         this.confirmationService.confirm({
           message: 'Are save these competencies?',
           header: 'Confirmation',
@@ -184,7 +184,7 @@ export class EvaluationFormComponent implements OnInit {
         });
         break;
       case 'Submit':
-        // this.isLoading = true;
+        this.isLoading = true;
         this.confirmationService.confirm({
           message: 'Are save these competencies?',
           header: 'Confirmation',

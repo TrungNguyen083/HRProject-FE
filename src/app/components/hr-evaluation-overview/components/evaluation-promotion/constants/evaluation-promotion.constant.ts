@@ -36,7 +36,14 @@ export const GET_PROMOTION_PAGING = gql`
                 currentPositionLevel
                 promotePositionLevel
                 status
+                comment
             }
         }
+    }
+`
+
+export const UPDATE_PROMOTION_REQUEST = gql`
+    mutation UpdatePromotionRequest($employeeId: Int!, $cycleId: Int!, $isApprove: Boolean!, $comment: String!) {
+        updatePromotionRequest(employeeId: $employeeId, cycleId: $cycleId, isApprove: $isApprove, comment: $comment)
     }
 `

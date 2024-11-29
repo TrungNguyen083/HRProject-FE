@@ -5,8 +5,6 @@ import { SumCompetencyEvaluationRoutingModule } from './sum-competency-evaluatio
 import { SumCompetencyEvaluationComponent } from './sum-competency-evaluation.component';
 import { EvaluationListComponent } from './components/competency-progress/components/evaluation-list/evaluation-list.component';
 import { EvaluationItemComponent } from './components/competency-progress/components/evaluation-item/evaluation-item.component';
-import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
-import { SumDashboardModule } from '../sum-dashboard/sum-dashboard.module';
 import { EvaluationTimelineComponent } from './components/competency-progress/components/evaluation-timeline/evaluation-timeline.component';
 import { ShareModule } from '../share/share.module';
 import { ButtonModule } from 'primeng/button';
@@ -22,6 +20,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SliderModule } from 'primeng/slider';
 import { CompetencyProgressComponent } from './components/competency-progress/competency-progress.component';
+import { AppTopbarModule } from 'src/app/layout/app-topbar.module';
 
 
 @NgModule({
@@ -39,13 +38,12 @@ import { CompetencyProgressComponent } from './components/competency-progress/co
   imports: [
     CommonModule,
     SumCompetencyEvaluationRoutingModule,
-    AppTopbarModule,
-    SumDashboardModule,
     ShareModule,
     ButtonModule,
     TimelineModule,
     AccordionModule,
     SliderModule,
+    AppTopbarModule,
     FormsModule,
     ReactiveFormsModule,
     InputTextareaModule,

@@ -30,7 +30,6 @@ export class EmployeeEvaluationFormComponent implements OnInit {
   selectedCategory!: ICategoryRating;
   params!: IEvaluationFormParams
   performanceyOverall!: IPerformanceOverall
-  evaluationDataList: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -63,7 +62,7 @@ export class EmployeeEvaluationFormComponent implements OnInit {
     this.employeeEvaluationFormStore.performanceOverall$.subscribe(res => {
       if (!res) return;
       this.performanceyOverall = res;
-      this.cycleName = "Manager Performance " + res.evaluationCycleName;
+      this.cycleName = "Employee Performance " + res.evaluationCycleName;
       this.profileImage = res.profileImage;
       this.firstName = res?.firstName ?? '';
       this.lastName = res?.lastName ?? '';
@@ -92,13 +91,6 @@ export class EmployeeEvaluationFormComponent implements OnInit {
         })
       ))
     });
-
-    if (this.isSubmit) {
-      this.questions.controls.forEach(control => {
-        control.get('rating')?.disable();
-        control.get('comment')?.disable();
-      });
-    }
   }
 
   get questions() {

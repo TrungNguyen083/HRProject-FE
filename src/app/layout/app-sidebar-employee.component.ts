@@ -11,6 +11,11 @@ const dummies: MenuItem[] = [
     path: 'my-dashboard',
   },
   {
+    name: 'Employee Management',
+    icon: 'pi pi-users',
+    path: 'employee-management',
+  },
+  {
     name: 'Competency Evaluation',
     icon: 'pi pi-chart-pie',
     path: 'competency-evaluation',

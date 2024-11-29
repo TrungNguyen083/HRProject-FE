@@ -25,11 +25,11 @@ const dummies: MenuItem[] = [
     icon: 'pi pi-chart-pie',
     path: 'competency-framework',
   },
-  {
-    name: 'Performance Framework',
-    icon: 'fa-solid fa-gauge-high',
-    path: 'performance-framework',
-  },
+  // {
+  //   name: 'Performance Framework',
+  //   icon: 'fa-solid fa-gauge-high',
+  //   path: 'performance-framework',
+  // },
   {
     name: 'Core Control Management',
     icon: 'fa-solid fa-clock-rotate-left',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LayoutService } from './services/app.layout.service';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,10 +9,13 @@ import { Router } from '@angular/router';
 })
 export class AppLayoutComponent {
   isNavbarOn!: boolean;
-  constructor(private layoutService: LayoutService, private router: Router) {
-    // this.router.navigate(['employee-management'])
+  role!: string;
+  constructor(private layoutService: LayoutService, private authService: AuthService) {
     this.layoutService.currentNavbarState.subscribe(
       state => (this.isNavbarOn = state),
     );
+
+    this.role = this.authService.getRole() ?? "";
   }
+
 }

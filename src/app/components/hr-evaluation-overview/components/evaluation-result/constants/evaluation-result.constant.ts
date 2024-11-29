@@ -54,3 +54,9 @@ query GetEvaluationTitle($cycleId: Int!) {
   }
 }
 `;
+
+export const CREATE_REQUEST_PROMOTION = gql`
+    mutation createRequestPromotion($employeeIds: [Int!], $cycleId: Int) {
+        requestPromotion(employeeIds: $employeeIds, cycleId: $cycleId)
+    }
+`

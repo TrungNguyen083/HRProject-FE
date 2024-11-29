@@ -21,6 +21,7 @@ export class HrEvaluationOverviewComponent implements OnInit {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
       this.showTabMenu = !currentRoute.includes('evaluation-compare');
+      this.showTabMenu = !currentRoute.includes('evaluation-form');
     });
 
     this.hrEvaluationOverview.getEvaluateCycles();
